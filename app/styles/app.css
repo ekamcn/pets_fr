@@ -217,7 +217,7 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 .footer {
-  background: var(--color-dark);
+  background: var(--color-2);
   margin-top: auto;
 }
 

@@ -146,9 +146,23 @@ export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
 
+
+  // import environment variables for scripts and styles
+  const googleVerificationId = import.meta.env.VITE_HEAD_SCRIPT?.replace(/"/g, '') || '';
+  const bodyScriptURL = import.meta.env.VITE_BODY_SCRIPT?.replace(/"/g, '') || '';
+  const bodyFunction = import.meta.env.VITE_BODY_FUNCTION?.replace(/"/g, '') || '';
+  const typography = import.meta.env.VITE_TYPOGRAPHY?.replace(/"/g, '') || 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const color1 = import.meta.env.VITE_COLOR1?.replace(/"/g, '');
+  const color2 = import.meta.env.VITE_COLOR2?.replace(/"/g, '');
+
+
   return (
     <html lang="en">
+    
       <head>
+           {/* <!-- This meta id is passed by .env variable ! --> */}
+        <meta name='google-site-verification' content={googleVerificationId} />
+         
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={tailwindCss}></link>
@@ -157,6 +171,15 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <Meta />
         <Links />
       </head>
+       <style dangerouslySetInnerHTML={{
+          __html: `
+            :root ,:host {
+              --font-family: ${typography};
+              --color-1: ${color1 };
+              --color-2: ${color2 };
+            }
+          `
+        }} />
       <body>
         {data ? (
           <Analytics.Provider
@@ -171,6 +194,11 @@ export function Layout({children}: {children?: React.ReactNode}) {
         )}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        {/* <!-- This script is passed by .env variables ! --> */}
+        <script src={bodyScriptURL} type='text/javascript' async></script>
+
+        <script dangerouslySetInnerHTML={{ __html: `(${bodyFunction})();` }}></script>
+   
       </body>
     </html>
   );

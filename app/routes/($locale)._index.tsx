@@ -7,6 +7,7 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
+import {ImageBanner} from '~/components/ImageBanner';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -60,6 +61,14 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
+      <ImageBanner 
+        title="Deco Bay"
+        imageUrl = {`${import.meta.env.VITE_BANNER}`}
+        subtitle="Welcome to Deco Bay, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
+        description="Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone."
+        buttonText="Shop Now"
+        buttonUrl=""
+      />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>

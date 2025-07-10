@@ -18,6 +18,11 @@ export default defineConfig({
     // withtout inlining assets as base64:
     assetsInlineLimit: 0,
   },
+  server: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  },
   ssr: {
     optimizeDeps: {
       /**
