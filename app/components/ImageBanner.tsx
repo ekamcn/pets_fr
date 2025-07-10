@@ -1,5 +1,4 @@
 import { Image } from '@shopify/hydrogen';
-import React from 'react';
 
 interface ImageBannerProps {
     title?: string;
