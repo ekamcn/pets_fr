@@ -34,73 +34,63 @@ export function ProductItem({
 
   return (
     <Link
-      className="block bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
+      className="border border-gray-300 bg-white p-2.5 text-center shadow-md relative flex flex-col justify-between transition-transform duration-200 ease-in-out hover:transform hover:-translate-y-1 rounded-sm"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
     >
-      {/* Sale Badge - only show if there's a discount */}
-      <div className="relative">
-        {hasDiscount && (
-          <div className="absolute top-2 left-2 z-10">
-            <span className="bg-[var(--color-1)] text-white px-3 py-1 rounded text-sm font-medium">
-              Flash Deal
-            </span>
+      {/* Flash Deal Badge - positioned absolute like the CSS */}
+      {hasDiscount && (
+        <div className="absolute top-1 left-1 bg-[#9E8471] text-white px-1.5 py-1 text-xs rounded-sm flex items-center z-10">
+          Flash Deal
+        </div>
+      )}
+      
+      {/* Product Image */}
+      <div className="mb-2.5">
+        {image && (
+          <Image
+            alt={image.altText || product.title}
+            aspectRatio="1/1"
+            data={image}
+            loading={loading}
+            sizes="(min-width: 45em) 400px, 100vw"
+            className="max-w-full h-auto object-cover w-full"
+          />
+        )}
+      </div>
+      
+      {/* Product Title */}
+      <h4 className="text-sm font-bold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] leading-tight">
+        {product.title}
+      </h4>
+      
+      {/* Price Info Section - with margin like CSS */}
+      <div className="my-2.5 flex flex-col gap-1">
+        {/* Compare At Price (strikethrough if discounted) - show first */}
+        {hasDiscount && compareAtPrice && (
+          <div className="text-sm text-[gray-500] line-through">
+            <Money data={compareAtPrice} />
           </div>
         )}
         
-        {/* Product Image */}
-        <div className="relative overflow-hidden">
-          {image && (
-            <Image
-              alt={image.altText || product.title}
-              aspectRatio="1/1"
-              data={image}
-              loading={loading}
-              sizes="(min-width: 45em) 400px, 100vw"
-              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+        {/* Current Price */}
+        <div className="text-lg font-bold text-[#9E8471]">
+          <Money data={minPrice} />
+          {minPrice.amount !== maxPrice.amount && compareAtPrice &&(
+            <>
+              <span className="text-sm font-normal text-[#9E8471]"> - </span>
+              <Money data={maxPrice} />
+            </>
           )}
         </div>
-      </div>
-      
-      {/* Product Info */}
-      <div className="p-4">
-        {/* Product Title */}
-        <h4 className="text-lg font-semibold text-gray-800 mb-3 line-clamp-2 min-h-[3.5rem]">
-          {product.title}
-        </h4>
         
-        {/* Price Display */}
-        <div className="flex flex-wrap gap-2">
-          {/* Current Price */}
-         {compareAtPrice && (parseInt(compareAtPrice.amount)>parseInt(minPrice.amount)) &&(
-          <div className="text-xl text-gray-500 line-through hover:none">
-                <Money data={compareAtPrice} />
-              </div>)}
-               <div className="text-xl font-bold text-gray-900">
-            <Money data={minPrice} />
-            {minPrice.amount !== maxPrice.amount && compareAtPrice && (
-              <>
-                <span className="text-sm font-normal text-gray-600"> - </span>
-                <Money data={maxPrice} />
-              </>
-            )}
+        {/* Savings Badge 
+        {hasDiscount && compareAtPrice && (
+          <div className="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded self-center">
+            Save {Math.round((1 - parseFloat(minPrice.amount) / parseFloat(compareAtPrice.amount)) * 100)}%
           </div>
-          
-          {/* Compare At Price (strikethrough if discounted) 
-          {hasDiscount && compareAtPrice && (
-            <div className="flex items-center gap-2">
-              <div className="text-sm text-gray-500 line-through">
-                <span>Was: </span>
-                <Money data={compareAtPrice} />
-              </div>
-              <div className="text-sm font-medium text-red-600 bg-red-50 px-2 py-1 rounded">
-                Save {Math.round((1 - parseFloat(minPrice.amount) / parseFloat(compareAtPrice.amount)) * 100)}%
-              </div>
-            </div>
-          )}*/}
-        </div>
+        )}*/}
       </div>
     </Link>
   );

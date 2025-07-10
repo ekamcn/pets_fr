@@ -256,11 +256,11 @@ export function AllProductsWidget({
   return (
     <div className={`${className} my-4`}>
       {showTitle && (
-        <h2 className="mb-4 text-3xl md:text-2xl text-gray-800 text-center">
+        <h2 className="mb-6 text-3xl md:text-2xl text-gray-800 text-center">
           {title}
         </h2>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 p-4">
         {products.nodes.slice(0, limit).map((product, index) => (
           <ProductItem
             key={product.id}

@@ -64,10 +64,7 @@ export default function Homepage() {
   return (
     <div className="home page-width">
  
-                    <AllCollectionsWidgetSimple />
-
-       <AllProductsWidget limit={6} />
-     <ImageBanner 
+         <ImageBanner 
         title="Deco Bay"
         imageUrl = {`${import.meta.env.VITE_BANNER}`}
         subtitle="Welcome to Deco Bay, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
@@ -75,6 +72,11 @@ export default function Homepage() {
         buttonText="Shop Now"
         buttonUrl=""
       />
+             <AllProductsWidget limit={8} />
+             
+            <AllCollectionsWidgetSimple />
+
+    
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
