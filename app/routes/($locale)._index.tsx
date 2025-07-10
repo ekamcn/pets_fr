@@ -8,6 +8,8 @@ import type {
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
 import {ImageBanner} from '~/components/ImageBanner';
+import { AllProductsWidget } from '~/components/AllProductsWidget';
+import { AllCollectionsWidgetSimple } from '~/components/AllCollections';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -60,8 +62,12 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
-    <div className="home">
-      <ImageBanner 
+    <div className="home page-width">
+ 
+                    <AllCollectionsWidgetSimple />
+
+       <AllProductsWidget limit={6} />
+     <ImageBanner 
         title="Deco Bay"
         imageUrl = {`${import.meta.env.VITE_BANNER}`}
         subtitle="Welcome to Deco Bay, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
@@ -69,8 +75,8 @@ export default function Homepage() {
         buttonText="Shop Now"
         buttonUrl=""
       />
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      {/* <FeaturedCollection collection={data.featuredCollection} />
+      <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );
 }

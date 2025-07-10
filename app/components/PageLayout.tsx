@@ -47,10 +47,7 @@ export function PageLayout({
         />
       )}
       <main>
-        <AllProductsWidget />
         {children}
-
-
       </main>
       <Footer
         footer={footer}

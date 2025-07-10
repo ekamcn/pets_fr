@@ -1,37 +1,39 @@
-import {AllProductsWidgetSimple, AllProductsWidget} from '~/components/AllProductsWidget';
+import {AllProductsWidget} from '~/components/AllProductsWidget';
+import {AllCollectionsWidget} from '~/components/AllCollections';
 
 export default function ProductsDemo() {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Products Demo Page</h1>
-      <p>This page demonstrates how to use the AllProductsWidget component anywhere in your application.</p>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-center mb-8">
+        Products & Collections Demo
+      </h1>
       
-      <section>
-        <h2>Simple Usage (No Props)</h2>
-        <p>Just import and use - no props required:</p>
-        <AllProductsWidgetSimple />
-      </section>
-      
-      <section style={{ marginTop: '3rem' }}>
-        <h2>Custom Usage (With Props)</h2>
-        <p>You can customize the widget with various props:</p>
+      {/* Products Section */}
+      <section className="mb-12">
         <AllProductsWidget 
           title="Featured Products" 
-          limit={2} 
+          limit={8} 
           showTitle={true}
-          className="custom-products-widget"
+          className="products-widget"
         />
       </section>
       
-      <section style={{ marginTop: '3rem' }}>
-        <h2>Another Example</h2>
-        <p>Here&apos;s another widget with different settings:</p>
-        <AllProductsWidget 
-          title="Limited Collection" 
-          limit={3} 
+      {/* Collections Section */}
+      <section className="mb-12">
+        <AllCollectionsWidget 
+          title="Shop by Collection" 
+          limit={6} 
           showTitle={true}
-          className="limited-products-widget"
+          className="collections-widget"
         />
+      </section>
+      
+      {/* Simple Widget without props */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6 text-center">
+          More Products
+        </h2>
+        <AllProductsWidget limit={4} />
       </section>
     </div>
   );

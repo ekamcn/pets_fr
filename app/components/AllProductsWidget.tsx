@@ -17,6 +17,10 @@ interface ProductNode {
           amount: string;
           currencyCode: string;
         };
+        compareAtPrice?: {
+          amount: string;
+          currencyCode: string;
+        };
       };
     }>;
   };
@@ -47,24 +51,27 @@ interface ProductsData {
 
 // GraphQL query for fetching products
 const ALL_PRODUCTS_QUERY = `
-  query GetAllProducts($first: Int!) {
-    products(first: $first) {
-      edges {
-        node {
+ query GetAllProducts($first: Int!) {
+  products(first: $first) {
+    edges {
+      node {
+        id
+        title
+        description
+        featuredImage {
           id
-          title
-          description
-          featuredImage {
-            id
-            url
-          }
-          variants(first: 3) {
-            edges {
-              node {
-                price {
-                  amount
-                  currencyCode
-                }
+          url
+        }
+        variants(first: 3) {
+          edges {
+            node {
+              price {
+                amount
+                currencyCode
+              }
+              compareAtPrice {
+                amount
+                currencyCode
               }
             }
           }
@@ -72,14 +79,22 @@ const ALL_PRODUCTS_QUERY = `
       }
     }
   }
+}
 `;
 
 // Function to convert GraphQL response to ProductItemFragment format
 function convertToProductItemFragment(node: ProductNode): ProductItemFragment {
-  const firstVariant = node.variants.edges[0]?.node;
+  const variants = node.variants.edges.map(edge => edge.node);
+  const firstVariant = variants[0];
   const price = firstVariant?.price || { amount: '0', currencyCode: 'USD' };
   
-  return {
+  // Find min and max prices from all variants
+  const prices = variants.map(v => parseFloat(v.price.amount));
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  
+  // Store compare-at-price info in a custom property for access in ProductItem
+  const productFragment = {
     id: node.id,
     handle: node.title.toLowerCase().replace(/\s+/g, '-'),
     title: node.title,
@@ -92,15 +107,20 @@ function convertToProductItemFragment(node: ProductNode): ProductItemFragment {
     } : undefined,
     priceRange: {
       minVariantPrice: {
-        amount: price.amount,
+        amount: minPrice.toString(),
         currencyCode: price.currencyCode as any,
       },
       maxVariantPrice: {
-        amount: price.amount,
+        amount: maxPrice.toString(),
         currencyCode: price.currencyCode as any,
       },
     },
   };
+  
+  // Add compare-at-price data as a custom property
+  (productFragment as any).__compareAtPrice = firstVariant?.compareAtPrice;
+  
+  return productFragment;
 }
 
 interface AllProductsWidgetProps {
@@ -167,7 +187,6 @@ export function AllProductsWidget({
         }
 
         const result = await response.json() as GraphQLResponse;
-        
         if (result.errors && result.errors.length > 0) {
           throw new Error(result.errors[0].message);
         }
@@ -203,51 +222,21 @@ export function AllProductsWidget({
 
   if (loading) {
     return (
-      <div className={`${className} loading`}>
-        <div className="loading-spinner">Loading products...</div>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              .loading-spinner {
-                text-align: center;
-                padding: 2rem;
-                color: #666;
-                font-size: 1.1rem;
-              }
-              .loading-spinner::after {
-                content: '';
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                border: 3px solid #f3f3f3;
-                border-top: 3px solid #333;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-                margin-left: 10px;
-                vertical-align: middle;
-              }
-              @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-              }
-            `,
-          }}
-        />
+      <div className={`${className}`}>
+        <div className="text-center p-8 text-gray-600 text-lg">
+          <div className="flex items-center justify-center gap-3">
+            <span>Loading products...</span>
+            <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-800 rounded-full animate-spin"></div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className={`${className} error`}>
-        <p style={{ 
-          color: 'red', 
-          padding: '1rem', 
-          textAlign: 'center',
-          background: '#fee',
-          borderRadius: '4px',
-          border: '1px solid #fcc'
-        }}>
+      <div className={`${className}`}>
+        <p className="text-red-600 p-4 text-center bg-red-50 rounded border border-red-200">
           Error: {error}
         </p>
       </div>
@@ -256,14 +245,8 @@ export function AllProductsWidget({
 
   if (!products || products.nodes.length === 0) {
     return (
-      <div className={`${className} no-products`}>
-        <p style={{ 
-          textAlign: 'center', 
-          padding: '2rem', 
-          color: '#666',
-          background: '#f9f9f9',
-          borderRadius: '4px'
-        }}>
+      <div className={`${className}`}>
+        <p className="text-center p-8 text-gray-600 bg-gray-50 rounded">
           No products found.
         </p>
       </div>
@@ -271,9 +254,13 @@ export function AllProductsWidget({
   }
 
   return (
-    <div className={className}>
-      {showTitle && <h2>{title}</h2>}
-      <div className="products-grid">
+    <div className={`${className} my-4`}>
+      {showTitle && (
+        <h2 className="mb-4 text-3xl md:text-2xl text-gray-800 text-center">
+          {title}
+        </h2>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
         {products.nodes.slice(0, limit).map((product, index) => (
           <ProductItem
             key={product.id}
@@ -282,37 +269,6 @@ export function AllProductsWidget({
           />
         ))}
       </div>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            .${className} {
-              margin: 1rem 0;
-            }
-            .products-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-              gap: 1.5rem;
-              margin-top: 1rem;
-              padding: 0;
-            }
-            .${className} h2 {
-              margin-bottom: 1rem;
-              font-size: 1.75rem;
-              color: #333;
-              text-align: center;
-            }
-            @media (max-width: 768px) {
-              .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 1rem;
-              }
-              .${className} h2 {
-                font-size: 1.5rem;
-              }
-            }
-          `,
-        }}
-      />
     </div>
   );
 }
