@@ -14,6 +14,7 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import { AllProductsWidget } from './AllProductsWidget';
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -45,7 +46,12 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <main>{children}</main>
+      <main>
+        <AllProductsWidget />
+        {children}
+
+
+      </main>
       <Footer
         footer={footer}
         header={header}
