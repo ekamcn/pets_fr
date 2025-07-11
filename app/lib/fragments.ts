@@ -189,7 +189,7 @@ const MENU_FRAGMENT = `#graphql
 ` as const;
 
 const COLLECTIONS_FRAGMENT = `#graphql
-  fragment CollectionItem on Collection {
+  fragment CollectionCard on Collection {
     id
     title
     handle

@@ -44,7 +44,7 @@ export const ALL_PRODUCTS_FRAGMENT = `#graphql
     amount
     currencyCode
   }
-  fragment ProductItem on Product {
+  fragment AllProductsItem on Product {
     id
     handle
     title
@@ -90,7 +90,7 @@ export const ALL_PRODUCTS_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
       nodes {
-        ...ProductItem
+        ...AllProductsItem
       }
       pageInfo {
         hasPreviousPage

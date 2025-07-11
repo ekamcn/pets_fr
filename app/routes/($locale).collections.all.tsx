@@ -73,7 +73,7 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     amount
     currencyCode
   }
-  fragment CollectionItem on Product {
+  fragment AllCollectionProduct on Product {
     id
     handle
     title
@@ -107,7 +107,7 @@ const CATALOG_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
       nodes {
-        ...CollectionItem
+        ...AllCollectionProduct
       }
       pageInfo {
         hasPreviousPage
