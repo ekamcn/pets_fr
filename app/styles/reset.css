@@ -46,10 +46,10 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+/* a:hover {
   text-decoration: underline;
   cursor: pointer;
-}
+} */
 
 hr {
   border-bottom: none;

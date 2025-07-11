@@ -10,6 +10,7 @@ import {ProductItem} from '~/components/ProductItem';
 import {ImageBanner} from '~/components/ImageBanner';
 import { AllProductsWidget } from '~/components/AllProductsWidget';
 import { AllCollectionsWidgetSimple } from '~/components/AllCollections';
+import { CollectionByHandle } from '~/components/GetCollectionByHandle';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -72,11 +73,43 @@ export default function Homepage() {
         buttonText="Shop Now"
         buttonUrl=""
       />
-             <AllProductsWidget limit={8} />
+
+        <CollectionByHandle 
+          handle="offre-flash"
+          title="offre flash"
+          limit={6}
+          columnSize="6"
+          badgeText="Flash Sale"
+          showTitle={true}
+          showDescription={false}
+          className="featured-collection"
+        />
+
+        <CollectionByHandle 
+          handle="derniere-chance"
+          title="derniere chance"
+          limit={20}
+          columnSize="4"
+          badgeText="Last Chance"
+          showTitle={true}
+          showDescription={false}
+          className="featured-collection"
+        />
+
              
             <AllCollectionsWidgetSimple />
+             {/* <AllProductsWidget limit={8} /> */}
 
-    
+     <CollectionByHandle 
+          handle="tout-a-moins-de-20"
+          title="tout a moins de 20"
+          limit={20}
+          columnSize="5"
+          showTitle={true}
+          badgeText=""
+          showDescription={false}
+          className="featured-collection"
+        />
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>

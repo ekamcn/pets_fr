@@ -1,7 +1,8 @@
-import {Suspense} from 'react';
+import {Suspense, useState, useEffect} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {
   type CartViewPayload,
+  Image,
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
@@ -15,7 +16,53 @@ interface HeaderProps {
   publicStoreDomain: string;
 }
 
+interface CollectionNode {
+  id: string;
+  handle: string;
+  title: string;
+  description?: string;
+  image?: {
+    id: string;
+    url: string;
+  };
+}
+
+interface GraphQLResponse {
+  data?: GraphQLCollectionsResponse;
+  errors?: Array<{ message: string }>;
+}
+
+interface GraphQLCollectionsResponse {
+  collections: {
+    edges: Array<{
+      cursor: string;
+      node: CollectionNode;
+    }>;
+  };
+}
+
 type Viewport = 'desktop' | 'mobile';
+
+// GraphQL query for fetching collections
+const ALL_COLLECTIONS_QUERY = `
+  query GetAllCollections($first: Int!) {
+    collections(first: $first) {
+      edges {
+        cursor
+        node {
+          id
+          handle
+          title
+          description
+          image {
+            id
+            url
+          }
+        }
+      }
+    }
+  }
+`;
 
 export function Header({
   header,
@@ -27,7 +74,9 @@ export function Header({
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        {import.meta.env.VITE_LOGO !== '' ? <strong className='mx-4 mb-2'>{shop.name}</strong> :(
+          <Image src={import.meta.env.VITE_LOGO} alt="Store Logo" />
+        )}
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -38,6 +87,81 @@ export function Header({
       <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
     </header>
   );
+}
+
+// Transform menu object to the desired structure
+function transformMenuToHTML(menu: any, collections: any) {
+  // Get collections data from the query
+  const collectionsData = collections?.edges?.map((edge: any) => ({
+    id: edge.node.handle,
+    href: `/collections/${edge.node.handle}`,
+    title: edge.node.title
+  })) || [];
+
+  // Map the original menu items to our desired structure
+  const baseItems = menu?.items || [];
+  
+  const transformedMenu = {
+    className: "header__inline-menu",
+    items: [
+      // Always add Home as first item
+      {
+        id: 'home',
+        type: 'simple' as const,
+        href: '/',
+        title: 'Home',
+        isActive: true,
+        className: 'header__menu-item list-menu__item link link--text focus-inset'
+      },
+      // Add collections dropdown
+      {
+        id: 'collections',
+        type: 'dropdown' as const,
+        title: 'Our Collections',
+        className: 'header__menu-item list-menu__item link focus-inset',
+        submenu: collectionsData
+      },
+      // Add static menu items
+      {
+        id: 'about',
+        type: 'simple' as const,
+        href: '/pages/aboute-us',
+        title: 'Aboute Us',
+        className: 'header__menu-item list-menu__item link link--text focus-inset'
+      },
+      {
+        id: 'faq',
+        type: 'simple' as const,
+        href: '/pages/about-us',
+        title: 'FAQ',
+        className: 'header__menu-item list-menu__item link link--text focus-inset'
+      },
+      // Transform original menu items (except catalog which becomes dropdown)
+      ...baseItems
+        .filter((item: any) => item.type !== 'CATALOG' && item.type !== 'FRONTPAGE' && !item.title.toLowerCase().includes('catalogue'))
+        .map((item: any) => {
+          // Convert URL to relative path
+          let href = item.url;
+          if (href && (href.includes('myshopify.com') || href.includes('http'))) {
+            try {
+              href = new URL(item.url).pathname;
+            } catch {
+              href = item.url;
+            }
+          }
+          
+          return {
+            id: item.id,
+            type: 'simple' as const,
+            href: href || '#',
+            title: item.title,
+            className: 'header__menu-item list-menu__item link link--text focus-inset'
+          };
+        })
+    ]
+  };
+
+  return transformedMenu;
 }
 
 export function HeaderMenu({
@@ -53,43 +177,195 @@ export function HeaderMenu({
 }) {
   const className = `header-menu-${viewport}`;
   const {close} = useAside();
+  
+  // State for dynamic collections fetching
+  const [collections, setCollections] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch collections dynamically
+  useEffect(() => {
+    async function fetchCollections() {
+      try {
+        setLoading(true);
+        
+        // Use fetch to call the GraphQL API
+        const response = await fetch('/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: ALL_COLLECTIONS_QUERY,
+            variables: {
+              first: 50,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json() as GraphQLResponse;
+        
+        if (result.errors && result.errors.length > 0) {
+          throw new Error(result.errors[0].message);
+        }
+
+        const graphqlData = result.data;
+        
+        if (graphqlData) {
+          setCollections(graphqlData.collections);
+        }
+      } catch (err) {
+        console.error('Error fetching collections:', err);
+        // Continue with fallback collections on error
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCollections();
+  }, []);
+
+  // Transform the menu for desktop view
+  if (viewport === 'desktop') {
+    const transformedMenu = transformMenuToHTML(menu || FALLBACK_HEADER_MENU, collections);
+    
+    return (
+      <nav className="header__inline-menu max-sm:!hidden">
+        <ul className="list-menu list-menu--inline">
+          {transformedMenu.items.map((item) => {
+            if (item.type === 'simple') {
+              return (
+                <li key={item.id}>
+                  <NavLink
+                    to={item.href}
+                    className={item.className}
+                    end={item.href === '/'}
+                    onClick={close}
+                    prefetch="intent"
+                  >
+                    <span className={`${item.isActive ? 'header__active-menu-item ' : ''}`}>
+                      {item.title}
+                    </span>
+                  </NavLink>
+                </li>
+              );
+            } else if (item.type === 'dropdown') {
+              return (
+                <li key={item.id}>
+                  <div className="header-menu-dropdown">
+                    <details id={`Details-HeaderMenu-${item.id}`} className="header-details-parent">
+                      <summary 
+                        className={item.className}
+                        role="button" 
+                        aria-expanded="false" 
+                        aria-controls={`HeaderMenu-MenuList-${item.id}`}
+                      >
+                        <span className="">
+                          {item.title}
+                          
+                          {/* {loading && <span className="ml-1 text-xs">(Loading...)</span>} */}
+                        </span>
+                        <svg 
+                          aria-hidden="true" 
+                          focusable="false" 
+                          role="presentation" 
+                          className="icon icon-caret" 
+                          viewBox="0 0 10 6"
+                        >
+                          <path 
+                            fillRule="evenodd" 
+                            clipRule="evenodd" 
+                            d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" 
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </summary>
+                      <ul 
+                        id={`HeaderMenu-MenuList-${item.id}`} 
+                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup" 
+                        tabIndex={-1}
+                      >
+                        {item.submenu?.map((subItem: {id: string; href: string; title: string}) => (
+                          <li key={subItem.id}>
+                            <NavLink
+                              to={subItem.href}
+                              className="header__menu-item list-menu__item link link--text focus-inset caption-large "
+                              onClick={close}
+                              prefetch="intent"
+                            >
+                              {subItem.title}
+                            </NavLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  </div>
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </nav>
+    );
+  }
+
+  // Mobile menu with same transformed structure as desktop
+  const transformedMenu = transformMenuToHTML(menu || FALLBACK_HEADER_MENU, collections);
+  
   return (
-    <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={close}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-        if (!item.url) return null;
-
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
-          <NavLink
-            className="header-menu-item"
-            end
-            key={item.id}
-            onClick={close}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
+    <nav className={`${className} flex flex-col space-y-2 p-4`} role="navigation">
+      {transformedMenu.items.map((item) => {
+        if (item.type === 'simple') {
+          return (
+            <NavLink
+              key={item.id}
+              to={item.href}
+              className="header-menu-item block py-2 px-3 text-base font-medium rounded-md hover:bg-gray-100 transition-colors"
+              end={item.href === '/'}
+              onClick={close}
+              prefetch="intent"
+              style={activeLinkStyle}
+            >
+              {item.title}
+            </NavLink>
+          );
+        } else if (item.type === 'dropdown') {
+          return (
+            <div key={item.id} className="mobile-dropdown">
+              <details className="group">
+                <summary className="flex justify-between items-center py-2 px-3 text-base font-medium rounded-md hover:bg-gray-100 cursor-pointer list-none">
+                  <span>{item.title}</span>
+                  <svg 
+                    className="w-4 h-4 transition-transform group-open:rotate-180" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="mt-2 ml-4 space-y-1">
+                  {item.submenu?.map((subItem: {id: string; href: string; title: string}) => (
+                    <NavLink
+                      key={subItem.id}
+                      to={subItem.href}
+                      className="block py-2 px-3 text-sm text-gray-600 rounded-md hover:bg-gray-50 transition-colors"
+                      onClick={close}
+                      prefetch="intent"
+                    >
+                      {subItem.title}
+                    </NavLink>
+                  ))}
+                </div>
+              </details>
+            </div>
+          );
+        }
+        return null;
       })}
     </nav>
   );

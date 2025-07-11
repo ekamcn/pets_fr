@@ -10,12 +10,14 @@ import {useVariantUrl} from '~/lib/variants';
 export function ProductItem({
   product,
   loading,
+  badgeText
 }: {
   product:
     | CollectionItemFragment
     | ProductItemFragment
     | RecommendedProductFragment;
   loading?: 'eager' | 'lazy';
+  badgeText?: string; // Optional badge text for flash deals or discounts
 }) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
@@ -34,15 +36,15 @@ export function ProductItem({
 
   return (
     <Link
-      className="border border-gray-300 bg-white p-2.5 text-center shadow-md relative flex flex-col justify-between transition-transform duration-200 ease-in-out hover:transform hover:-translate-y-1 rounded-sm"
+      className="border border-gray-300 bg-white p-2.5 text-center shadow-md relative flex flex-col justify-between transition-transform duration-200 ease-in-out hover:scale-105 rounded-sm"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
     >
       {/* Flash Deal Badge - positioned absolute like the CSS */}
-      {hasDiscount && (
-        <div className="absolute top-1 left-1 bg-[#9E8471] text-white px-1.5 py-1 text-xs rounded-sm flex items-center z-10">
-          Flash Deal
+      {badgeText && (
+        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center z-10">
+         {badgeText}
         </div>
       )}
       
@@ -66,31 +68,37 @@ export function ProductItem({
       </h4>
       
       {/* Price Info Section - with margin like CSS */}
-      <div className="my-2.5 flex flex-col gap-1">
+      <div className={`my-2.5 flex ${compareAtPrice ? 'flex-wrap' : 'flex-col'} gap-1 justify-center items-center`}>
         {/* Compare At Price (strikethrough if discounted) - show first */}
         {hasDiscount && compareAtPrice && (
-          <div className="text-sm text-[gray-500] line-through">
+          <div className="text-md text-[gray-500] line-through">
             <Money data={compareAtPrice} />
           </div>
         )}
         
         {/* Current Price */}
-        <div className="text-lg font-bold text-[#9E8471]">
+        <div className="text-lg font-bold text-[var(--color-1)]">
           <Money data={minPrice} />
           {minPrice.amount !== maxPrice.amount && compareAtPrice &&(
             <>
-              <span className="text-sm font-normal text-[#9E8471]"> - </span>
+              <span className="text-sm font-normal text-[var(--color-1)]"> - </span>
               <Money data={maxPrice} />
             </>
           )}
         </div>
         
-        {/* Savings Badge 
-        {hasDiscount && compareAtPrice && (
-          <div className="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded self-center">
-            Save {Math.round((1 - parseFloat(minPrice.amount) / parseFloat(compareAtPrice.amount)) * 100)}%
+        {/* Savings Badge - only if there's a discount */}
+        {badgeText== "Flash Sale" && (
+          <div className="text-xs font-medium text-[#666666] px-2 py-1 rounded self-center border-t border-gray-300 md:mt-2">
+           <p className='text-[#B7B7B7] !text-xs  !md:pt-2'>Today&apos;s Special Offer:</p>
+           <div className="flex items-center gap-1">
+             <span>{new Date().toLocaleDateString('en-US', { weekday: 'long' })},</span>
+             <span className="text-red-600">{new Date().toLocaleDateString('en-US', { month: 'long' })}</span>
+             <span>{new Date().toLocaleDateString('en-US', { day: 'numeric' })},</span>
+             <span>{new Date().toLocaleDateString('en-US', { year: 'numeric' })}</span>
+           </div>
           </div>
-        )}*/}
+        )}
       </div>
     </Link>
   );
