@@ -1,3 +1,4 @@
+import { Image } from '@shopify/hydrogen';
 import {Link} from 'react-router';
 
 export function Footer() {
@@ -181,32 +182,35 @@ export function Footer() {
 
         {/* Payment Methods and Copyright */}
         <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+          <div className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0">
             {/* Payment Methods */}
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <div className="w-12 h-8 bg-blue-600 rounded flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">VISA</span>
+                <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                  <Image src='./Visa_Logo.png' width={24} height={25} />
                 </div>
-                <div className="w-12 h-8 bg-red-500 rounded flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">MC</span>
+                <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                  <Image src='./apple_Logo.png' width={24} height={25} />
                 </div>
-                <div className="w-12 h-8 bg-black rounded flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">🍎</span>
+                <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                  <Image src='./masterCard_Logo.png' width={24} height={25} />
                 </div>
-                <div className="w-12 h-8 bg-blue-800 rounded flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">AMEX</span>
+                <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                  <Image src='./American-Express-Logo.png' width={24} height={25} />
                 </div>
               </div>
+              <br/>
+            
             </div>
 
+          
+          </div>
             {/* Copyright */}
-            <div className="text-center lg:text-right">
+              <div className="text-center mt-4">
               <p className="text-gray-400 text-sm">
                 © 2025, Deco Bay®
               </p>
             </div>
-          </div>
         </div>
       </div>
     </footer>
