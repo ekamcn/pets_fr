@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {Link} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
-import type {ProductItemFragment} from 'storefrontapi.generated';
-import {useVariantUrl} from '~/lib/variants';
+import { Link } from 'react-router';
+import { Image, Money } from '@shopify/hydrogen';
+import type { ProductItemFragment } from 'storefrontapi.generated';
+import { useVariantUrl } from '~/lib/variants';
 import { ProductItem } from './ProductItem';
 
 interface ProductNode {
@@ -97,7 +97,7 @@ const GET_COLLECTION_BY_HANDLE_QUERY = `
 function convertToProductItemFragment(node: ProductNode): ProductItemFragment {
   const firstVariant = node.variants.edges[0]?.node;
   const price = firstVariant?.price || { amount: '0', currencyCode: 'USD' };
-  
+
   const productFragment = {
     id: node.id,
     handle: node.handle,
@@ -120,10 +120,10 @@ function convertToProductItemFragment(node: ProductNode): ProductItemFragment {
       },
     },
   };
-  
+
   // Add compare-at-price data as a custom property
   (productFragment as any).__compareAtPrice = firstVariant?.compareAtPrice;
-  
+
   return productFragment;
 }
 
@@ -161,7 +161,7 @@ export function CollectionByHandle({
   handle,
   title,
   limit = 12,
-  columnSize="4",
+  columnSize = "4",
   className = 'collection-by-handle',
   badgeText = '',
   showTitle = true,
@@ -175,7 +175,7 @@ export function CollectionByHandle({
     async function fetchCollection() {
       setLoading(true);
       setError(null);
-      
+
       try {
         const response = await fetch('/graphql', {
           method: 'POST',
@@ -200,11 +200,11 @@ export function CollectionByHandle({
         }
 
         const collectionData = result.data?.collectionByHandle;
-        
+
         if (!collectionData) {
           throw new Error(`Collection with handle "${handle}" not found`);
         }
-        
+
         setCollection(collectionData);
       } catch (err) {
         console.error('Error fetching collection:', err);
@@ -258,34 +258,32 @@ export function CollectionByHandle({
   // Map columnSize to actual Tailwind classes
   const getGridCols = (size: string) => {
     const sizeMap: Record<string, string> = {
-      '1': 'md:grid-cols-1',
-      '2': 'md:grid-cols-2',
       '3': 'md:grid-cols-3',
-      '4': 'md:grid-cols-4',
-      '5': 'md:grid-cols-5',
-      '6': 'md:grid-cols-6',
+      '4': 'lg:grid-cols-4',
+      '5': 'xl:grid-cols-5',
+      '6': 'xl:grid-cols-6',
     };
-    return sizeMap[size] || 'md:grid-cols-4';
+    return sizeMap[size] || 'md:grid-cols-3';
   };
 
   return (
-    <div className={`${className} my-4`}>
+    <div className={`${className} my-4 px-10 max-w-7xl mx-auto`}>
       {/* Collection Header */}
       {showTitle && (
         <h2 className="mb-4 text-xl md:!text-3xl text-gray-800 text-center capitalize">
           {displayTitle}
         </h2>
       )}
-      
+
       {/* Collection Description */}
       {showDescription && collection.description && (
-        <p className="mb-6 text-gray-600 text-center max-w-3xl mx-auto ">
+        <p className="mb-6 text-gray-600 text-center max-w-3xl mx-auto">
           {collection.description}
         </p>
       )}
-      
+
       {/* Products Grid */}
-      <div className={`grid grid-cols-1 sm:grid-cols-2 ${getGridCols(columnSize)} gap-6 mt-4`}>
+      <div className={`grid grid-cols-1 sm:grid-cols-3 ${getGridCols(columnSize)} gap-6 mt-4`}>
         {products.map((productNode, index) => {
           const product = convertToProductItemFragment(productNode);
           return (
@@ -298,7 +296,7 @@ export function CollectionByHandle({
           );
         })}
       </div>
-      
+
       {/* Collection Info
       {collection.products.nodes.length > limit && (
         <div className="text-center mt-6">
@@ -330,3 +328,4 @@ export function CollectionByHandleSimple({ handle }: { handle: string }) {
     />
   );
 }
+

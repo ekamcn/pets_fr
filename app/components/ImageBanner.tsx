@@ -35,7 +35,7 @@ export function ImageBanner({
                         }}
                         sizes="(min-width: 45em) 50vw, 100vw"
                         aspectRatio="16/9"
-                        className="w-full h-[60vh] sm:h-[70vh] lg:h-[50vh] object-cover object-center"
+                        className="w-full !rounded-none h-[60vh] sm:h-[70vh] lg:h-[50vh] object-cover object-center"
                     />
                 ) : (
                     /* Fallback gradient background inspired by the screenshot */
@@ -149,7 +149,7 @@ export function ImageBannerVariant({
             </div>
 
             {/* Content */}
-            <div className={`relative z-10 flex flex-col min-h-screen ${layoutStyles[layout]}`}>
+            <div className={`relative flex flex-col min-h-screen ${layoutStyles[layout]}`}>
                 <div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
                     <div className="max-w-7xl mx-auto">
                         <div className={`max-w-4xl ${layout === "right" ? "ml-auto" : ""}`}>

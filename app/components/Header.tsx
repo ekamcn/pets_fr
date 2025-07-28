@@ -1,13 +1,13 @@
-import {Suspense, useState, useEffect} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
+import { Suspense, useState, useEffect } from 'react';
+import { Await, NavLink, useAsyncValue } from 'react-router';
 import {
   type CartViewPayload,
   Image,
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
+import type { HeaderQuery, CartApiQueryFragment } from 'storefrontapi.generated';
+import { useAside } from '~/components/Aside';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -45,23 +45,23 @@ type Viewport = 'desktop' | 'mobile';
 
 // GraphQL query for fetching collections
 const ALL_COLLECTIONS_QUERY = `
-  query GetAllCollections($first: Int!) {
-    collections(first: $first) {
-      edges {
-        cursor
-        node {
-          id
-          handle
-          title
-          description
-          image {
-            id
-            url
-          }
-        }
-      }
-    }
-  }
+ query GetAllCollections($first: Int!) {
+ collections(first: $first) {
+ edges {
+ cursor
+ node {
+ id
+ handle
+ title
+ description
+ image {
+ id
+ url
+ }
+ }
+ }
+ }
+ }
 `;
 
 export function Header({
@@ -70,22 +70,73 @@ export function Header({
   cart,
   publicStoreDomain,
 }: HeaderProps) {
-  const {shop, menu} = header;
+  const { shop, menu } = header;
+  const logo = import.meta.env.VITE_LOGO;
+
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        {import.meta.env.VITE_LOGO !== '' ? <strong className='mx-4 mb-2'>{shop.name}</strong> :(
-          <Image src={import.meta.env.VITE_LOGO} alt="Store Logo" />
-        )}
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-    </header>
+    <>
+      {/* Top Marquee Bar */}
+      <div className="w-full bg-[#a98b74] overflow-hidden whitespace-nowrap text-xs text-black">
+        <div className="animate-marquee flex gap-136 px-6 py-1 font-medium">
+          <span>Fast Shipping: 2–4 Days</span>
+          <span>contact@deco-bay.com</span>
+          <span>US-Based Customer Support 🇺🇸</span> <span>Fast Shipping: 2–4 Days</span>
+          <span>contact@deco-bay.com</span>
+          <span>US-Based Customer Support 🇺🇸</span>
+        </div>
+      </div>
+      {/* Main Header */}
+      <header className="sticky top-0 z-2 w-full bg-white border-b px-4 md:px-8 lg:px-20">
+        <div className="max-w-screen-2xl mx-auto flex items-center justify-between py-4 relative">
+          {/* Left: Mobile Menu Toggle */}
+          <div className="flex items-center md:hidden">
+            <HeaderMenuMobileToggle />
+          </div>
+          {/* Left: Logo (Desktop Only) */}
+          <div className="hidden md:flex items-center">
+            <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+              <Image src="/deco-bay-logo.avif" alt="Store Logo" className="h-10 w-auto" />
+            </NavLink>
+          </div>
+          {/* Center: Logo (Mobile Only, Centered) */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
+            <NavLink prefetch="intent" to="/" end>
+              <Image src="/deco-bay-logo.avif" alt="Store Logo" className="h-10 w-auto" />
+            </NavLink>
+          </div>
+
+          {/* Center: Desktop Menu */}
+          <div className="hidden md:flex items-center flex-1 justify-center">
+            <HeaderMenu
+              menu={menu}
+              viewport="desktop"
+              primaryDomainUrl={header.shop.primaryDomain.url}
+              publicStoreDomain={publicStoreDomain}
+            />
+          </div>
+          {/* Right: CTAs (Login, Cart) */}
+          <div className="flex items-center space-x-6">
+            <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+          </div>
+        </div>
+      </header>
+      {/* Marquee Animation Style */}
+      <style>{`
+  .animate-marquee {
+ display: flex;
+ animation: marquee 50s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+ transform: translateX(100%);
+    }
+    100% {
+ transform: translateX(-100%);
+    }
+  }
+`}</style>
+    </>
   );
 }
 
@@ -100,7 +151,7 @@ function transformMenuToHTML(menu: any, collections: any) {
 
   // Map the original menu items to our desired structure
   const baseItems = menu?.items || [];
-  
+
   const transformedMenu = {
     className: "header__inline-menu",
     items: [
@@ -125,14 +176,14 @@ function transformMenuToHTML(menu: any, collections: any) {
       {
         id: 'about',
         type: 'simple' as const,
-        href: '/pages/aboute-us',
-        title: 'Aboute Us',
+        href: '/about',
+        title: 'About Us',
         className: 'header__menu-item list-menu__item link link--text focus-inset'
       },
       {
         id: 'faq',
         type: 'simple' as const,
-        href: '/pages/about-us',
+        href: '/faq',
         title: 'FAQ',
         className: 'header__menu-item list-menu__item link link--text focus-inset'
       },
@@ -149,12 +200,12 @@ function transformMenuToHTML(menu: any, collections: any) {
               href = item.url;
             }
           }
-          
+
           return {
             id: item.id,
             type: 'simple' as const,
-            href: href || '#',
-            title: item.title,
+            href: '/contact',
+            title: 'Contact',
             className: 'header__menu-item list-menu__item link link--text focus-inset'
           };
         })
@@ -176,8 +227,8 @@ export function HeaderMenu({
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
   const className = `header-menu-${viewport}`;
-  const {close} = useAside();
-  
+  const { close } = useAside();
+
   // State for dynamic collections fetching
   const [collections, setCollections] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -187,7 +238,7 @@ export function HeaderMenu({
     async function fetchCollections() {
       try {
         setLoading(true);
-        
+
         // Use fetch to call the GraphQL API
         const response = await fetch('/graphql', {
           method: 'POST',
@@ -207,13 +258,13 @@ export function HeaderMenu({
         }
 
         const result = await response.json() as GraphQLResponse;
-        
+
         if (result.errors && result.errors.length > 0) {
           throw new Error(result.errors[0].message);
         }
 
         const graphqlData = result.data;
-        
+
         if (graphqlData) {
           setCollections(graphqlData.collections);
         }
@@ -231,10 +282,10 @@ export function HeaderMenu({
   // Transform the menu for desktop view
   if (viewport === 'desktop') {
     const transformedMenu = transformMenuToHTML(menu || FALLBACK_HEADER_MENU, collections);
-    
+
     return (
       <nav className="header__inline-menu max-sm:!hidden">
-        <ul className="list-menu list-menu--inline">
+        <ul className="list-menu list-menu--inline !text-sm">
           {transformedMenu.items.map((item) => {
             if (item.type === 'simple') {
               return (
@@ -257,38 +308,38 @@ export function HeaderMenu({
                 <li key={item.id}>
                   <div className="header-menu-dropdown">
                     <details id={`Details-HeaderMenu-${item.id}`} className="header-details-parent">
-                      <summary 
+                      <summary
                         className={item.className}
-                        role="button" 
-                        aria-expanded="false" 
+                        role="button"
+                        aria-expanded="false"
                         aria-controls={`HeaderMenu-MenuList-${item.id}`}
                       >
                         <span className="">
                           {item.title}
-                          
+
                           {/* {loading && <span className="ml-1 text-xs">(Loading...)</span>} */}
                         </span>
-                        <svg 
-                          aria-hidden="true" 
-                          focusable="false" 
-                          role="presentation" 
-                          className="icon icon-caret" 
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          role="presentation"
+                          className="icon icon-caret"
                           viewBox="0 0 10 6"
                         >
-                          <path 
-                            fillRule="evenodd" 
-                            clipRule="evenodd" 
-                            d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" 
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"
                             fill="currentColor"
                           />
                         </svg>
                       </summary>
-                      <ul 
-                        id={`HeaderMenu-MenuList-${item.id}`} 
-                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup" 
+                      <ul
+                        id={`HeaderMenu-MenuList-${item.id}`}
+                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup"
                         tabIndex={-1}
                       >
-                        {item.submenu?.map((subItem: {id: string; href: string; title: string}) => (
+                        {item.submenu?.map((subItem: { id: string; href: string; title: string }) => (
                           <li key={subItem.id}>
                             <NavLink
                               to={subItem.href}
@@ -315,7 +366,7 @@ export function HeaderMenu({
 
   // Mobile menu with same transformed structure as desktop
   const transformedMenu = transformMenuToHTML(menu || FALLBACK_HEADER_MENU, collections);
-  
+
   return (
     <nav className={`${className} flex flex-col space-y-2 p-4`} role="navigation">
       {transformedMenu.items.map((item) => {
@@ -339,17 +390,17 @@ export function HeaderMenu({
               <details className="group">
                 <summary className="flex justify-between items-center py-2 px-3 text-base font-medium rounded-md hover:bg-gray-100 cursor-pointer list-none">
                   <span>{item.title}</span>
-                  <svg 
-                    className="w-4 h-4 transition-transform group-open:rotate-180" 
-                    fill="none" 
-                    stroke="currentColor" 
+                  <svg
+                    className="w-4 h-4 transition-transform group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
                 <div className="mt-2 ml-4 space-y-1">
-                  {item.submenu?.map((subItem: {id: string; href: string; title: string}) => (
+                  {item.submenu?.map((subItem: { id: string; href: string; title: string }) => (
                     <NavLink
                       key={subItem.id}
                       to={subItem.href}
@@ -376,35 +427,35 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+    <nav className="header-ctas flex items-center !gap-2" role="navigation">
+      {/* <HeaderMenuMobileToggle /> */}
+      {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
         </Suspense>
-      </NavLink>
-      <SearchToggle />
+      </NavLink> */}
+      {/* <SearchToggle /> */}
       <CartToggle cart={cart} />
     </nav>
   );
 }
 
 function HeaderMenuMobileToggle() {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <button
       className="header-menu-mobile-toggle reset"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
+      <h1>☰</h1>
     </button>
   );
 }
 
 function SearchToggle() {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
       Search
@@ -412,13 +463,12 @@ function SearchToggle() {
   );
 }
 
-function CartBadge({count}: {count: number | null}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
+function CartBadge({ count }: { count: number | null }) {
+  const { open } = useAside();
+  const { publish, shop, cart, prevCart } = useAnalytics();
 
   return (
-    <a
-      href="/cart"
+    <button
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -429,13 +479,35 @@ function CartBadge({count}: {count: number | null}) {
           url: window.location.href || '',
         } as CartViewPayload);
       }}
+      className="relative w-6 h-6"
+      aria-label="Open cart"
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
+      {/* Cart Icon */}
+      <svg
+        className="w-full h-full text-black"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5.5 7L7 20h10l1.5-13H5.5zM9 10V6a3 3 0 116 0v4"
+        />
+      </svg>
+
+      {/* Badge */}
+      {count !== null && count > 0 && (
+        <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#9E826D] text-white text-[11px] font-medium rounded-full flex items-center justify-center">
+          {count}
+        </span>
+      )}
+    </button>
   );
 }
 
-function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
+function CartToggle({ cart }: Pick<HeaderProps, 'cart'>) {
   return (
     <Suspense fallback={<CartBadge count={null} />}>
       <Await resolve={cart}>

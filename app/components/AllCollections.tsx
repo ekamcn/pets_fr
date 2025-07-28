@@ -136,11 +136,14 @@ export function AllCollectionsWidget({
           }),
         });
 
+    
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json() as GraphQLResponse;
+console.log(result,"result of the data")
       //  console.log('GraphQL response collection:', result);
         if (result.errors && result.errors.length > 0) {
           throw new Error(result.errors[0].message);

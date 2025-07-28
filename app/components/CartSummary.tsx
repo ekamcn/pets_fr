@@ -15,9 +15,9 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+      {/* <h4>Totals</h4> */}
+      <dl className="cart-subtotal flex items-center justify-between">
+        <dt>Total</dt>
         <dd>
           {cart.cost?.subtotalAmount?.amount ? (
             <Money data={cart.cost?.subtotalAmount} />
@@ -26,8 +26,8 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
           )}
         </dd>
       </dl>
-      <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
+      {/* <CartDiscounts discountCodes={cart.discountCodes} />
+      <CartGiftCard giftCardCodes={cart.appliedGiftCards} /> */}
       <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
     </div>
   );
@@ -38,7 +38,16 @@ function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
   return (
     <div>
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        {/* <p>Continue to Checkout &rarr;</p> */}
+        <button
+            type="submit"
+            onClick={()=>{console.log('checkout')}}
+            className={
+              `product-form__submit  flex items-center justify-center gap-2 w-[100%] py-2 rounded-full  text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white`
+            }
+          >
+            <span className="addbtntext">Continue to Checkout</span>
+          </button>
       </a>
       <br />
     </div>

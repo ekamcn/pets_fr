@@ -49,11 +49,7 @@ export function PageLayout({
       <main>
         {children}
       </main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
+      <Footer />
     </Aside.Provider>
   );
 }

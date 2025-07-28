@@ -11,6 +11,56 @@ import {ImageBanner} from '~/components/ImageBanner';
 import { AllProductsWidget } from '~/components/AllProductsWidget';
 import { AllCollectionsWidgetSimple } from '~/components/AllCollections';
 import { CollectionByHandle } from '~/components/GetCollectionByHandle';
+import FaqSection from '~/components/FaqSection';
+
+
+
+const sections = [
+  {
+    title: 'Questions? We’ve Got Answers',
+    faqs: [
+      {
+        question: 'Before You Reach Out',
+        answer: (
+          <div className='flex flex-col gap-4'>
+            <p><strong>PLEASE NOTE :</strong> We kindly ask you to check our FAQ carefully before contacting us.</p>
+            <p>If you don’t find the answer to your question, feel free to email us at <a href="mailto:contact@deco-bay.com" className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">contact@deco-bay.com</a>"</p>
+          </div>
+        ),
+      },
+      {
+        question: 'What Payment Methods Do You Accept?',
+        answer: (
+          <div className='flex flex-col gap-4'>
+            <p>We accept a variety of payment methods, including Visa and MasterCard.</p>
+            <p>All transactions are securely processed and encrypted to ensure your peace of mind.</p>
+           
+          </div>
+        ),
+      },
+      {
+        question: 'How Can I Track My Order?',
+        answer: (
+          <div className='flex flex-col gap-4'>
+            <p>Once your order has been shipped, you’ll receive a confirmation email with a tracking number.</p>
+            <p>You can use this number to track your package in real time on our website or directly on the carrier’s website.</p>
+          </div>
+        ),
+      },
+      {
+        question: 'What Is Your Return Policy?',
+        answer: (
+          <div className='flex flex-col gap-4'>
+            <p>We offer a flexible return policy. If you’re not satisfied with your purchase, please contact us within 30 days of receiving your order to arrange a return or exchange.</p>
+            <p>For full details, please visit our Returns Policy page.</p>
+           
+          </div>
+        ),
+      }
+    ],
+  },
+];
+
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -63,7 +113,7 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
-    <div className="home page-width">
+    <div className="home">
  
          <ImageBanner 
         title="Deco Bay"
@@ -76,7 +126,7 @@ export default function Homepage() {
 
         <CollectionByHandle 
           handle="offre-flash"
-          title="offre flash"
+          title="offer flash"
           limit={6}
           columnSize="6"
           badgeText="Flash Sale"
@@ -110,6 +160,9 @@ export default function Homepage() {
           showDescription={false}
           className="featured-collection"
         />
+
+<FaqSection sections={sections} showNewsletter rounded/>
+
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>

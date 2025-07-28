@@ -43,7 +43,7 @@ export function ProductItem({
     >
       {/* Flash Deal Badge - positioned absolute like the CSS */}
       {badgeText && (
-        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center z-10">
+        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center">
          {badgeText}
         </div>
       )}

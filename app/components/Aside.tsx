@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 
-type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
+type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'mobile-availability' | 'mobile-price';
 type AsideContextValue = {
   type: AsideType;
   open: (mode: AsideType) => void;
@@ -32,7 +32,7 @@ export function Aside({
   type: AsideType;
   heading: React.ReactNode;
 }) {
-  const {type: activeType, close} = useAside();
+  const { type: activeType, close } = useAside();
   const expanded = type === activeType;
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function Aside({
             close();
           }
         },
-        {signal: abortController.signal},
+        { signal: abortController.signal },
       );
     }
     return () => abortController.abort();
@@ -62,8 +62,10 @@ export function Aside({
       <aside>
         <header>
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
-            &times;
+          <button className="close reset w-5 h-5" onClick={close} aria-label="Close">
+            <svg onClick={close} xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation"  fill="none" viewBox="0 0 18 17">
+              <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+              </path></svg>
           </button>
         </header>
         <main>{children}</main>
@@ -74,7 +76,7 @@ export function Aside({
 
 const AsideContext = createContext<AsideContextValue | null>(null);
 
-Aside.Provider = function AsideProvider({children}: {children: ReactNode}) {
+Aside.Provider = function AsideProvider({ children }: { children: ReactNode }) {
   const [type, setType] = useState<AsideType>('closed');
 
   return (
