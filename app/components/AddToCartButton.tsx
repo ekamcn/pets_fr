@@ -1,5 +1,6 @@
 import {type FetcherWithComponents} from 'react-router';
 import {CartForm, type OptimisticCartLineInput} from '@shopify/hydrogen';
+import { BsCircleFill } from 'react-icons/bs';
 
 export function AddToCartButton({
   analytics,
@@ -23,18 +24,16 @@ export function AddToCartButton({
             type="hidden"
             value={JSON.stringify(analytics)}
           />
-          <div className="flex items-center justify-end rounded-full py-1 px-3 gap-2">
- 
-            <span className="font-normal text-sm"> ✅ In Stock</span>
-            <span className="font-normal text-sm bg-green-700 rounded-full px-1.5 py-1.5"> </span>
-
+          <div className="flex items-center justify-end rounded-full py-1 gap-2 max-w-[450px] lg:w-[330px] xl:w-[450px] md:w-[255px]">
+            <span className="font-semibold text-xs"> ✅ IN STOCK</span>
+            <BsCircleFill className='text-green-800 w-3 h-3'/>
           </div>
           <button
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
             className={
-              `product-form__submit  flex items-center justify-center gap-2 w-[100%] py-2 rounded-full  text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white` +
+              `flex items-center justify-center gap-2 py-2 rounded-full w-full max-w-[455px] lg:w-[330px] xl:w-[455px] text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white` +
               (disabled || fetcher.state !== 'idle' ? ' opacity-60 cursor-not-allowed' : '')
             }
           >

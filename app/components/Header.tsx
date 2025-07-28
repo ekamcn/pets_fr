@@ -77,7 +77,7 @@ export function Header({
     <>
       {/* Top Marquee Bar */}
       <div className="w-full bg-[#a98b74] overflow-hidden whitespace-nowrap text-xs text-black">
-        <div className="animate-marquee flex gap-136 px-6 py-1 font-medium">
+        <div className="animate-marquee flex gap-136 px-6 py-2 font-medium">
           <span>Fast Shipping: 2–4 Days</span>
           <span>contact@deco-bay.com</span>
           <span>US-Based Customer Support 🇺🇸</span> <span>Fast Shipping: 2–4 Days</span>
@@ -86,7 +86,7 @@ export function Header({
         </div>
       </div>
       {/* Main Header */}
-      <header className="sticky top-0 z-2 w-full bg-white border-b px-4 md:px-8 lg:px-20">
+      <header className="sticky top-0 z-2 w-full bg-white shadow-md px-4 md:px-8 lg:px-20">
         <div className="max-w-screen-2xl mx-auto flex items-center justify-between py-4 relative">
           {/* Left: Mobile Menu Toggle */}
           <div className="flex items-center md:hidden">
@@ -124,7 +124,7 @@ export function Header({
       <style>{`
   .animate-marquee {
  display: flex;
- animation: marquee 50s linear infinite;
+ animation: marquee 120s linear infinite;
   }
 
   @keyframes marquee {

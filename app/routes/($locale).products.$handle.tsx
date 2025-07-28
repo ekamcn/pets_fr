@@ -13,6 +13,7 @@ import { ProductPrice } from '~/components/ProductPrice';
 import { ProductForm } from '~/components/ProductForm';
 import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 import { ProductImageSlider } from '~/components/ProductImageSlider';
+import { Image } from '@shopify/hydrogen';
 import FaqSection from '~/components/FaqSection';
 import ProductList from '~/components/ProductList';
 import { Suspense } from 'react';
@@ -158,7 +159,12 @@ function getDeliveryDate(daysToAdd: number) {
 function FeatureItem({ icon, title, desc }: { icon: string; title: string; desc: string }) {
   return (
     <div className="flex items-center gap-2">
-      <img src={icon} alt={title} className="w-8 h-8 object-contain text-[#9E8471]" />
+      <img 
+        src={icon} 
+        alt={title} 
+        className="w-8 h-8 object-contain" 
+        style={{ filter: 'invert(62%) sepia(16%) saturate(431%) hue-rotate(345deg) brightness(91%) contrast(88%)' }}
+      />
       <div>
         <strong className="block text-sm">{title}</strong>
         <span className="text-xs">{desc}</span>
@@ -216,9 +222,11 @@ export default function Product() {
           <h1 className="text-3xl font-bold mb-2">
             {title}
           </h1>
+
+          <p className='!pb-8'><strong>Deco Bay 🇺🇸: </strong>The American Brand That Helps You Save BIG with Unbeatable Prices!</p>
           {/* Price, Date, Info */}
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-2">
-            <span className="text-2xl font-bold text-white bg-[#9E8471] px-4 py-2 rounded-lg">
+            <span className="text-2xl font-bold text-white bg-[#9E8471] px-4 py-4 rounded-lg">
               <ProductPrice
                 price={selectedVariant?.price}
                 compareAtPrice={selectedVariant?.compareAtPrice}
@@ -236,10 +244,12 @@ export default function Product() {
 
           {/* Delivery Estimate */}
           <div className="flex items-center gap-2 pt-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 20 20">
-              <circle cx="10" cy="10" r="9" strokeWidth="2" />
-              <path d="M10 5v5l3 3" strokeWidth="2" />
-            </svg>
+          <svg  aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M18.7014 11.3962C18.7014 16.075 14.9085 19.8679 10.2297 19.8679C5.55095 19.8679 1.75806 16.075 1.75806 11.3962C1.75806 6.71746 5.55095 2.92457 10.2297 2.92457C14.9085 2.92457 18.7014 6.71746 18.7014 11.3962ZM10.2297 18.8679C14.3562 18.8679 17.7014 15.5227 17.7014 11.3962C17.7014 7.26974 14.3562 3.92457 10.2297 3.92457C6.10323 3.92457 2.75806 7.26974 2.75806 11.3962C2.75806 15.5227 6.10323 18.8679 10.2297 18.8679Z"></path>
+      <path d="M10.7203 1.7782H9.7392C9.18691 1.7782 8.7392 2.22591 8.7392 2.7782V2.92456H11.7203V2.7782C11.7203 2.22591 11.2726 1.7782 10.7203 1.7782ZM9.7392 0.778198C8.63463 0.778198 7.7392 1.67363 7.7392 2.7782V3.92456H12.7203V2.7782C12.7203 1.67363 11.8249 0.778198 10.7203 0.778198H9.7392Z" fill-rule="evenodd"></path>
+      <path d="M8.98448 11.3963C8.98448 10.7086 9.54201 10.1511 10.2298 10.1511C10.9175 10.1511 11.475 10.7086 11.475 11.3963C11.475 12.0841 10.9175 12.6416 10.2298 12.6416C9.54201 12.6416 8.98448 12.0841 8.98448 11.3963Z"></path>
+      <path d="M9.72974 11.3962C9.72974 11.1201 9.95359 10.8962 10.2297 10.8962H15.2108C15.487 10.8962 15.7108 11.1201 15.7108 11.3962C15.7108 11.6724 15.487 11.8962 15.2108 11.8962H10.2297C9.95359 11.8962 9.72974 11.6724 9.72974 11.3962Z"></path>
+      <path d="M10.2297 5.91517C10.5059 5.91517 10.7297 6.13902 10.7297 6.41517V8.90572C10.7297 9.18186 10.5059 9.40572 10.2297 9.40572C9.95359 9.40572 9.72974 9.18186 9.72974 8.90572V6.41517C9.72974 6.13902 9.95359 5.91517 10.2297 5.91517Z"></path>
+      <path d="M13.9544 7.30685C14.1497 7.50211 14.1497 7.8187 13.9544 8.01396L12.1934 9.77505C11.9981 9.97031 11.6815 9.97031 11.4862 9.77505C11.291 9.57978 11.291 9.2632 11.4862 9.06794L13.2473 7.30685C13.4426 7.11159 13.7592 7.11159 13.9544 7.30685Z"></path></svg>
             <span className='font-normal text-sm'>
               Estimated Delivery Between:&nbsp;
               <strong>{getDeliveryDate(2)}</strong> and <strong>{getDeliveryDate(7)}</strong>
@@ -251,6 +261,13 @@ export default function Product() {
             productOptions={productOptions}
             selectedVariant={selectedVariant}
           />
+
+          {/* <img src="https://deco-bay.com/cdn/shop/files/2025-06-24_19.05.29.jpg?v=1750784750"  alt="" /> */}
+          <div className=" bg-white rounded flex items-center justify-center">
+                    <Image src='./image_one.jpg'  />
+                  </div>
+
+
 
           {/* Feature Grid */}
           <div className="grid grid-cols-1 min-lg:grid-cols-2 gap-4 shadow-xl p-4 rounded-lg">
@@ -282,16 +299,16 @@ export default function Product() {
           {/* Money-Back Guarantee Box */}
           {/* <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 shadow w-full max-lg:w-3/4 mx-auto"> */}
 
-          <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 shadow w-full lg:w-3/4 mx-auto">
-            <div className="flex items-center pb-4 justify-center">
+          <div className="bg-[#f9f9f9] border border-gray-300 rounded-lg p-4 shadow w-full lg:w-5/6 mx-auto">
+            <div className="flex items-center pb-6 justify-center pt-3">
               <svg width="24" height="24" fill="none" stroke="#9E8471" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M9 12L11 14L15 10M20 12C20 16.4611 14.54 19.6937 12.6414 20.683C12.4361 20.79 12.3334 20.8435 12.191 20.8712C12.08 20.8928 11.92 20.8928 11.809 20.8712C11.6666 20.8435 11.5639 20.79 11.3586 20.683C9.45996 19.6937 4 16.4611 4 12V8.21759C4 7.41808 4 7.01833 4.13076 6.6747C4.24627 6.37113 4.43398 6.10027 4.67766 5.88552C4.9535 5.64243 5.3278 5.50207 6.0764 5.22134L11.4382 3.21067C11.6461 3.13271 11.75 3.09373 11.857 3.07827C11.9518 3.06457 12.0482 3.06457 12.143 3.07827C12.25 3.09373 12.3539 3.13271 12.5618 3.21067L17.9236 5.22134C18.6722 5.50207 19.0465 5.64243 19.3223 5.88552C19.566 6.10027 19.7537 6.37113 19.8692 6.6747C20 7.01833 20 7.41808 20 8.21759V12Z" />
               </svg>
-              <span className="ml-2 font-bold text-[#9E8471]">30-DAY MONEY-BACK GUARANTEE</span>
+              <span className="ml-2 font-bold text-[#9E8471] text-base">30-DAY MONEY-BACK GUARANTEE</span>
             </div>
 
             <ul className="list-none pl-0 mb-2 text-sm text-gray-700">
-              <li className="flex items-center mb-1">
+              <li className="flex items-center pb-2">
                 You're protected by our purchase guarantee
               </li>
               <li className="flex items-center mb-1">
@@ -307,9 +324,9 @@ export default function Product() {
                 <CheckIcon /> Carefully packaged
               </li>
             </ul>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 border-t border-gray-300'>
 
-              <p className="font-bold text-center text-gray-800 mb-1">QUESTIONS?</p>
+              <p className="font-bold text-center text-gray-800 mb-1 !pt-4">QUESTIONS?</p>
               <p className="text-start !text-sm font-normal">
                 Our customer support team is available 5 days a week:<br />
                 <a href="mailto:contact@deco-bay.com" className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">contact@deco-bay.com</a><br />

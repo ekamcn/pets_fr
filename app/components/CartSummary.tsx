@@ -1,21 +1,60 @@
-import type {CartApiQueryFragment} from 'storefrontapi.generated';
-import type {CartLayout} from '~/components/CartMain';
-import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
-import {useRef} from 'react';
-import {FetcherWithComponents} from 'react-router';
+import type { CartApiQueryFragment } from 'storefrontapi.generated';
+import type { CartLayout } from '~/components/CartMain';
+import { Money, type OptimisticCart } from '@shopify/hydrogen';
+import { CgLayoutGrid } from 'react-icons/cg';
+
+// Pricing matrix for offerId lookup
+const pricingMatrix = {
+  french: [
+    { offerId: '49768', price: 9.99, currency: 'EUR' },
+    { offerId: '49769', price: 19.50, currency: 'EUR' },
+    { offerId: '49770', price: 29.90, currency: 'EUR' },
+    { offerId: '49771', price: 39.99, currency: 'EUR' },
+    { offerId: '49772', price: 49.90, currency: 'EUR' },
+    { offerId: '49773', price: 59.50, currency: 'EUR' },
+    { offerId: '49774', price: 69.99, currency: 'EUR' },
+    { offerId: '49775', price: 79.90, currency: 'EUR' },
+    { offerId: '49776', price: 89.50, currency: 'EUR' },
+    { offerId: '49777', price: 99.99, currency: 'EUR' },
+    { offerId: '49778', price: 109.90, currency: 'EUR' },
+    { offerId: '49779', price: 119.50, currency: 'EUR' },
+  ],
+  english: [
+    { offerId: '49804', price: 9.99, currency: 'USD' },
+    { offerId: '49805', price: 19.50, currency: 'USD' },
+    { offerId: '49806', price: 29.90, currency: 'USD' },
+    { offerId: '49807', price: 39.99, currency: 'USD' },
+    { offerId: '49808', price: 49.90, currency: 'USD' },
+    { offerId: '49809', price: 59.50, currency: 'USD' },
+    { offerId: '49810', price: 69.99, currency: 'USD' },
+    { offerId: '49811', price: 79.90, currency: 'USD' },
+    { offerId: '49812', price: 89.50, currency: 'USD' },
+    { offerId: '49813', price: 99.99, currency: 'USD' },
+    { offerId: '49814', price: 109.90, currency: 'USD' },
+    { offerId: '49815', price: 119.50, currency: 'USD' },
+  ],
+};
+
+// Helper to get offerId for a product price (rounded to 2 decimals)
+function getOfferId(price: number | string, locale: 'english' | 'french' = 'english'): string {
+  const matrix = pricingMatrix[locale] || pricingMatrix.english;
+  const found = matrix.find((item: { offerId: string; price: number }) => Number(item.price).toFixed(2) === Number(price).toFixed(2));
+  return found ? found.offerId : '';
+}
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
   layout: CartLayout;
+  logoUrl?: string;
+  affId?: string;
+  locale?: 'english' | 'french';
 };
 
-export function CartSummary({cart, layout}: CartSummaryProps) {
+export function CartSummary({ cart, layout, logoUrl, affId, locale = 'english' }: CartSummaryProps) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      {/* <h4>Totals</h4> */}
       <dl className="cart-subtotal flex items-center justify-between">
         <dt>Total</dt>
         <dd>
@@ -26,175 +65,82 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
           )}
         </dd>
       </dl>
-      {/* <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCard giftCardCodes={cart.appliedGiftCards} /> */}
-      <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+      <CartCheckoutActions 
+        cart={cart}
+        logoUrl={logoUrl}
+        affId={affId}
+        locale={locale}
+      />
     </div>
   );
 }
-function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
-  if (!checkoutUrl) return null;
+
+type CartCheckoutActionsProps = {
+  cart: OptimisticCart<CartApiQueryFragment | null>;
+  logoUrl?: string;
+  affId?: string;
+  locale?: 'english' | 'french';
+};
+
+function CartCheckoutActions({ cart, logoUrl, affId, locale = 'english' }: CartCheckoutActionsProps) {
+  // Defaults
+  const defaultLogo = 'https://deco-bay.com/cdn/shop/files/deco-bay-logo.png?v=1751353707&width=500';
+  const defaultAffId = 'AFF123';
+  const checkoutBaseUrl = locale === 'french'
+    ? 'https://authorizepayment.com/CQ71FD'
+    : 'https://authorizepayment.com/XBTMRCsr';
+
+  // Gather product data
+  const lines = Array.isArray((cart?.lines as any)?.nodes) ? (cart?.lines as any).nodes : [];
+  if (!lines.length) return null;
+
+  // Repeat image, title, and offerId for each quantity
+  const s2Arr: string[] = [];
+  const s3Arr: string[] = [];
+  const s4Arr: string[] = [];
+  lines.forEach((line: any) => {
+    const qty = line.quantity || 1;
+    const image = line.merchandise?.image?.url || '';
+    const title = line.merchandise?.product?.title || '';
+    const price = line.cost?.amountPerQuantity?.amount || line.merchandise?.priceV2?.amount;
+    const offerId = getOfferId(price, locale);
+    for (let i = 0; i < qty; i++) {
+      s2Arr.push(image);
+      s3Arr.push(title);
+      s4Arr.push(offerId);
+    }
+  });
+  const s2 = s2Arr.join(',');
+  const s3 = s3Arr.join(',');
+  const s4 = s4Arr.join(',');
+
+  // s1: logo url
+  const s1 = encodeURIComponent(logoUrl || defaultLogo);
+  // s2, s3, s4: encodeURIComponent for each, then join with commas
+  const s2Param = encodeURIComponent(s2);
+  const s3Param = encodeURIComponent(s3);
+  const s4Param = encodeURIComponent(s4);
+  // affId
+  const affIdParam = encodeURIComponent(affId || defaultAffId);
+
+  // Construct URL
+  const url = `${checkoutBaseUrl}?s1=${s1}&s2=${s2Param}&s3=${s3Param}&s4=${s4Param}&c1=custom1&c2=custom2&c3=custom3&c4=&c5=&c6=&affId=${affIdParam}`;
 
   return (
     <div>
-      <a href={checkoutUrl} target="_self">
-        {/* <p>Continue to Checkout &rarr;</p> */}
+      <a href={url} target="_self">
         <button
-            type="submit"
-            onClick={()=>{console.log('checkout')}}
-            className={
-              `product-form__submit  flex items-center justify-center gap-2 w-[100%] py-2 rounded-full  text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white`
-            }
-          >
-            <span className="addbtntext">Continue to Checkout</span>
-          </button>
+          type="submit"
+          onClick={() => { console.log('checkout') }}
+          className={
+            `product-form__submit  flex items-center justify-center gap-2 w-[100%] py-2 rounded-full  text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white`
+          }
+        >
+          <span className="addbtntext">Continue to Checkout</span>
+        </button>
       </a>
       <br />
     </div>
   );
 }
 
-function CartDiscounts({
-  discountCodes,
-}: {
-  discountCodes?: CartApiQueryFragment['discountCodes'];
-}) {
-  const codes: string[] =
-    discountCodes
-      ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
-
-  return (
-    <div>
-      {/* Have existing discount, display it with a remove option */}
-      <dl hidden={!codes.length}>
-        <div>
-          <dt>Discount(s)</dt>
-          <UpdateDiscountForm>
-            <div className="cart-discount">
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button>Remove</button>
-            </div>
-          </UpdateDiscountForm>
-        </div>
-      </dl>
-
-      {/* Show an input to apply a discount */}
-      <UpdateDiscountForm discountCodes={codes}>
-        <div>
-          <input type="text" name="discountCode" placeholder="Discount code" />
-          &nbsp;
-          <button type="submit">Apply</button>
-        </div>
-      </UpdateDiscountForm>
-    </div>
-  );
-}
-
-function UpdateDiscountForm({
-  discountCodes,
-  children,
-}: {
-  discountCodes?: string[];
-  children: React.ReactNode;
-}) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.DiscountCodesUpdate}
-      inputs={{
-        discountCodes: discountCodes || [],
-      }}
-    >
-      {children}
-    </CartForm>
-  );
-}
-
-function CartGiftCard({
-  giftCardCodes,
-}: {
-  giftCardCodes: CartApiQueryFragment['appliedGiftCards'] | undefined;
-}) {
-  const appliedGiftCardCodes = useRef<string[]>([]);
-  const giftCardCodeInput = useRef<HTMLInputElement>(null);
-  const codes: string[] =
-    giftCardCodes?.map(({lastCharacters}) => `***${lastCharacters}`) || [];
-
-  function saveAppliedCode(code: string) {
-    const formattedCode = code.replace(/\s/g, ''); // Remove spaces
-    if (!appliedGiftCardCodes.current.includes(formattedCode)) {
-      appliedGiftCardCodes.current.push(formattedCode);
-    }
-    giftCardCodeInput.current!.value = '';
-  }
-
-  function removeAppliedCode() {
-    appliedGiftCardCodes.current = [];
-  }
-
-  return (
-    <div>
-      {/* Have existing gift card applied, display it with a remove option */}
-      <dl hidden={!codes.length}>
-        <div>
-          <dt>Applied Gift Card(s)</dt>
-          <UpdateGiftCardForm>
-            <div className="cart-discount">
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button onSubmit={() => removeAppliedCode}>Remove</button>
-            </div>
-          </UpdateGiftCardForm>
-        </div>
-      </dl>
-
-      {/* Show an input to apply a discount */}
-      <UpdateGiftCardForm
-        giftCardCodes={appliedGiftCardCodes.current}
-        saveAppliedCode={saveAppliedCode}
-      >
-        <div>
-          <input
-            type="text"
-            name="giftCardCode"
-            placeholder="Gift card code"
-            ref={giftCardCodeInput}
-          />
-          &nbsp;
-          <button type="submit">Apply</button>
-        </div>
-      </UpdateGiftCardForm>
-    </div>
-  );
-}
-
-function UpdateGiftCardForm({
-  giftCardCodes,
-  saveAppliedCode,
-  children,
-}: {
-  giftCardCodes?: string[];
-  saveAppliedCode?: (code: string) => void;
-  removeAppliedCode?: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.GiftCardCodesUpdate}
-      inputs={{
-        giftCardCodes: giftCardCodes || [],
-      }}
-    >
-      {(fetcher: FetcherWithComponents<any>) => {
-        const code = fetcher.formData?.get('giftCardCode');
-        if (code && saveAppliedCode) {
-          saveAppliedCode(code as string);
-        }
-        return children;
-      }}
-    </CartForm>
-  );
-}

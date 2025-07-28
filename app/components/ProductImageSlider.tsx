@@ -44,7 +44,7 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
         <img
           src={images[selectedIndex].url}
           alt={images[selectedIndex].altText || `Product image ${selectedIndex + 1}`}
-          className="rounded-lg object-contain max-h-[320px] max-w-[320px] lg:max-h-[500px] lg:max-w-[500px] w-auto mx-auto"
+          className="rounded-lg object-contain max-h-[300px] max-w-[300px] lg:max-h-[500px] lg:max-w-[500px] w-auto mx-auto"
         />
       </div>
       {/* Slider Controls and Thumbnails */}
@@ -84,7 +84,7 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
             );
           })}
         </div>
-        <button
+        {/* <button
           onClick={goRight}
           className="p-2 rounded-full border hover:bg-gray-100"
           aria-label="Scroll thumbnails right"
@@ -93,7 +93,7 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </button>
+        </button> */}
       </div>
     </div>
   );
