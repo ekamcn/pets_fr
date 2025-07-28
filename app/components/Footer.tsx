@@ -6,10 +6,7 @@ import CardSection from './CardSection';
 export function Footer() {
   return (
     <footer>
-
-<CardSection/>
-
-
+      <CardSection />
       <svg className='-mb-0.5' viewBox="0 0 1440 110">
         <path d="M0,22L1440,88L2880,22L4320,88L5760,44L7200,22L8640,11L10080,44L11520,77L12960,77L14400,55L15840,0L17280,33L18720,22L20160,11L21600,22L23040,22L24480,55L25920,33L27360,99L28800,33L30240,88L31680,11L33120,88L34560,22L34560,110L33120,110L31680,110L30240,110L28800,110L27360,110L25920,110L24480,110L23040,110L21600,110L20160,110L18720,110L17280,110L15840,110L14400,110L12960,110L11520,110L10080,110L8640,110L7200,110L5760,110L4320,110L2880,110L1440,110L0,110Z"></path>
       </svg>
@@ -21,12 +18,12 @@ export function Footer() {
             <div>
               <h3 className="text-lg font-semibold mb-4">About Us</h3>
               <div className='flex flex-col gap-4'>
-              <p className="text-sm leading-relaxed w-3/4">
-                Welcome to Deco Bay, a proudly American brand dedicated to transforming your living space with style, quality, and great value.
-              </p>
-              <p className="text-sm leading-relaxed w-3/4">
-                Founded by a team passionate about home decor, our mission is simple: to make your space more beautiful, more functional, and most importantly — more accessible to everyone.
-              </p>
+                <p className="text-sm leading-relaxed w-3/4">
+                  Welcome to Deco Bay, a proudly American brand dedicated to transforming your living space with style, quality, and great value.
+                </p>
+                <p className="text-sm leading-relaxed w-3/4">
+                  Founded by a team passionate about home decor, our mission is simple: to make your space more beautiful, more functional, and most importantly — more accessible to everyone.
+                </p>
               </div>
             </div>
 
@@ -44,7 +41,7 @@ export function Footer() {
                   <a
                     href="mailto:contact@deco-bay.com"
                     className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
-                    
+
                   >
                     contact@deco-bay.com
                   </a>.
@@ -54,24 +51,24 @@ export function Footer() {
                   <div className="font-semibold">Customer Service Hours:</div>
                   <div>Monday to Friday — 8:00 AM to 6:00 PM (EST)</div>
                 </div>
-                
+
                 {/* Bullet points */}
-                <ul className="!list-disc !list-inside space-y-1 mt-2">
+                <ul className="!list-disc !list-inside space-y-1 mt-2 text-base">
                   <li><strong>Company :</strong> D2G Group LLC</li>
                   <li ><strong>Address :</strong> 81 Commerce Drive Fall River</li>
                   <li><strong>Mail:</strong>  <a
                     href="mailto:contact@deco-bay.com"
                     className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
-                    
+
                   >
                     contact@deco-bay.com
                   </a>.</li>
                   <li><strong>Tel:</strong>  <a
-                      href="tel:+14842148789"
-                      className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
-                    >
-                      +14842148789
-                    </a></li>
+                    href="tel:+14842148789"
+                    className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                  >
+                    +14842148789
+                  </a></li>
                 </ul>
               </div>
             </div>
@@ -79,49 +76,55 @@ export function Footer() {
             {/* Useful Links Section */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-white mb-4">Useful Links</h3>
-              <nav className="space-y-2">
+              <nav className="space-y-3">
                 <Link
                   to="/contact"
-                  className="block !text-white hover:text-white transition-colors text-sm"
+                  className="block !text-white  transition-colors text-sm hover:underline hover:underline-white"
                 >
                   Contact Us
                 </Link>
                 <Link
                   to="/faq"
-                  className="block !text-white hover:text-white transition-colors text-sm"
+                  className="block !text-white transition-colors text-sm"
                 >
                   FAQ
                 </Link>
                 <div className=" border-gray-700">
-                  <h4 className="text-white font-medium mb-2 text-sm">About Us</h4>
-                  <div className="space-y-2">
+
+                  <div className="space-y-3">
+                    <Link
+                      to="/about"
+                      className="block !text-white transition-colors text-sm"
+                    >
+                      About Us
+                    </Link>
                     <Link
                       to="/terms"
-                      className="block !text-white hover:text-white transition-colors text-sm"
+                      className="block !text-white transition-colors text-sm"
                     >
                       Terms of service
                     </Link>
                     <Link
                       to="/privacy"
-                      className="block !text-white hover:text-white transition-colors text-sm"
+                      className="block !text-white transition-colors text-sm"
                     >
                       Privacy Policy
                     </Link>
                     <Link
                       to="/returns"
-                      className="block !text-white hover:text-white transition-colors text-sm"
+                      className="block !text-white transition-colors text-sm"
                     >
                       Return Policy
                     </Link>
                     <Link
                       to="/shipping"
-                      className="block !text-white hover:text-white transition-colors text-sm"
+                      className="block !text-white transition-colors text-sm"
                     >
                       Shipping policy
                     </Link>
                     <Link
                       to="/payment"
-                      className="block !text-white hover:text-white transition-colors text-sm"
+                      className="block !text-white transition-colors text-sm"
                     >
                       Payment Terms
                     </Link>
@@ -190,7 +193,7 @@ export function Footer() {
                     <Image src='./Visa_Logo.svg' width={24} height={25} className='w-12 h-8' />
                   </div>
                   <div className=" bg-white rounded flex items-center justify-center">
-                    <Image src='./apple_Logo.svg' width={24} height={25} className='w-12 h-8'/>
+                    <Image src='./apple_Logo.svg' width={24} height={25} className='w-12 h-8' />
                   </div>
                   <div className=" bg-white rounded flex items-center justify-center">
                     <Image src='./masterCard_Logo.svg' width={24} height={25} className='w-12 h-8' />

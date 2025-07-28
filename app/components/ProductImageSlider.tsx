@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface ProductImage {
   url: string;
@@ -14,28 +14,50 @@ interface ProductImageSliderProps {
 
 export function ProductImageSlider({ images }: ProductImageSliderProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [thumbStart, setThumbStart] = useState(0);
-  const THUMBS_TO_SHOW = 5;
+  const [thumbsToShow, setThumbsToShow] = useState(5);
+
+  useEffect(() => {
+    const updateThumbsToShow = () => {
+      const isMdOrSmaller = window.matchMedia('(max-width: 768px)').matches;
+      setThumbsToShow(isMdOrSmaller ? 4 : 5);
+    };
+
+    updateThumbsToShow();
+
+    window.addEventListener('resize', updateThumbsToShow);
+
+    return () => window.removeEventListener('resize', updateThumbsToShow);
+  }, []);
 
   if (!images || images.length === 0) return null;
 
-  // Move thumbnail window left/right (does NOT change selected image)
   const goLeft = () => {
-    setThumbStart((prev) => Math.max(prev - 1, 0));
-  };
-  const goRight = () => {
-    setThumbStart((prev) =>
-      Math.min(prev + 1, images.length - THUMBS_TO_SHOW)
-    );
+    setSelectedIndex((prev) => Math.max(prev - 1, 0));
   };
 
-  // When clicking a thumbnail, update selectedIndex
+  const goRight = () => {
+    setSelectedIndex((prev) => Math.min(prev + 1, images.length - 1));
+  };
+
   const handleThumbClick = (idx: number) => {
     setSelectedIndex(idx);
   };
 
-  // Only show a window of thumbnails
-  const visibleThumbs = images.slice(thumbStart, thumbStart + THUMBS_TO_SHOW);
+  const getVisibleThumbs = () => {
+    if (images.length <= thumbsToShow) {
+      return images;
+    }
+
+    let startIndex = Math.max(0, selectedIndex - Math.floor(thumbsToShow / 2));
+    
+    if (startIndex + thumbsToShow > images.length) {
+      startIndex = Math.max(0, images.length - thumbsToShow);
+    }
+
+    return images.slice(startIndex, startIndex + thumbsToShow);
+  };
+
+  const visibleThumbs = getVisibleThumbs();
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -52,8 +74,8 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
         <button
           onClick={goLeft}
           className="p-2 rounded-full border hover:bg-gray-100"
-          aria-label="Scroll thumbnails left"
-          disabled={thumbStart === 0}
+          aria-label="Select previous image"
+          disabled={selectedIndex === 0}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -61,39 +83,36 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
         </button>
         <div className="flex space-x-2 lg:space-x-4 overflow-x-auto">
           {visibleThumbs.map((img, idx) => {
-            // The actual index in the images array
-            const actualIdx = thumbStart + idx;
+            const actualIndex = images.indexOf(img);
             return (
               <button
-                key={img.id || actualIdx}
-                onClick={() => handleThumbClick(actualIdx)}
+                key={img.id || actualIndex}
+                onClick={() => handleThumbClick(actualIndex)}
                 className={`border rounded-md p-1 transition-all ${
-                  actualIdx === selectedIndex
-                    ? 'border-black'
-                    : 'border-transparent'
+                  actualIndex === selectedIndex ? 'border-black' : 'border-transparent'
                 }`}
-                aria-label={`Show image ${actualIdx + 1}`}
+                aria-label={`Show image ${actualIndex + 1}`}
                 type="button"
               >
                 <img
                   src={img.url}
-                  alt={img.altText || `Thumbnail ${actualIdx + 1}`}
+                  alt={img.altText || `Thumbnail ${actualIndex + 1}`}
                   className="w-20 h-20 lg:w-20 lg:h-20 object-cover rounded"
                 />
               </button>
             );
           })}
         </div>
-        {/* <button
+        <button
           onClick={goRight}
           className="p-2 rounded-full border hover:bg-gray-100"
-          aria-label="Scroll thumbnails right"
-          disabled={thumbStart + THUMBS_TO_SHOW >= images.length}
+          aria-label="Select next image"
+          disabled={selectedIndex === images.length - 1}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </button> */}
+        </button>
       </div>
     </div>
   );

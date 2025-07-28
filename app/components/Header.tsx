@@ -95,13 +95,13 @@ export function Header({
           {/* Left: Logo (Desktop Only) */}
           <div className="hidden md:flex items-center">
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <Image src="/deco-bay-logo.avif" alt="Store Logo" className="h-10 w-auto" />
+              <Image src="/deco-bay-logo.jpg" alt="Store Logo" className="h-10 w-auto" />
             </NavLink>
           </div>
           {/* Center: Logo (Mobile Only, Centered) */}
           <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
             <NavLink prefetch="intent" to="/" end>
-              <Image src="/deco-bay-logo.avif" alt="Store Logo" className="h-10 w-auto" />
+              <Image src="/deco-bay-logo.jpg" alt="Store Logo" className="h-10 w-auto" />
             </NavLink>
           </div>
 

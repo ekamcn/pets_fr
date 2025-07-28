@@ -4,14 +4,14 @@ import Form from '~/components/Form';
 export default function ContactPage() {
     return (
         <div>
-            <div className="bg-white py-4 !pl-5">
-                <div className="max-w-7xl mx-auto">
+    <div className="bg-white min-h-screen py-12 !pl-5">
+    <div className="max-w-7xl mx-auto flex flex-col gap-10 tracking-wider">
                     <p className='!text-3xl font-bold text-center'>Contact</p>
-                    <section>
+                    <div>
                         <h1 className="text-4xl font-bold">CONTACT INFORMATION</h1>
                         <p>We strive for optimal customer satisfaction. Please do not hesitate to contact our specialized customer service team via the contact details above or by filling out the contact form below. Your feedback is highly valuable to us. We aim to respond within 48 hours.</p>
-                    </section>
-                    <section >
+                    </div>
+                    <div >
                         <h2 className="!text-2xl font-semibold">D2C Group LLC</h2>
                         <p className='flex flex-col gap-2'>
                             <span> Address: 81 Commerce Drive, Fall River, MA 02720, USA</span>
@@ -26,18 +26,18 @@ export default function ContactPage() {
                                 Opening Hours: Monday to Friday - 9:00 AM to 5:00 PM
                             </span>
                         </p>
-                    </section>
-                    <section >
+                    </div>
+                    <div >
                         <h2 className="!text-2xl font-semibold">QUICK LINKS</h2>
                         <p className='flex flex-col gap-2'>
                             <a href="mailto:contact@deco-bay.com" className="underline underline-offset-2">Frequently Asked Questions</a>
                             <a href="tel:+14842148789" className=" underline underline-offset-2">Privacy Policy</a>
                             <a href="https://deco-bay.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Terms of service</a>
                         </p>
-                    </section>
+                    </div>
                 </div>
-            </div>
             <Form />
+            </div>
         </div>
     );
 } 

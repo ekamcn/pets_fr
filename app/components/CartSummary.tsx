@@ -84,7 +84,8 @@ type CartCheckoutActionsProps = {
 
 function CartCheckoutActions({ cart, logoUrl, affId, locale = 'english' }: CartCheckoutActionsProps) {
   // Defaults
-  const defaultLogo = 'https://deco-bay.com/cdn/shop/files/deco-bay-logo.png?v=1751353707&width=500';
+  // const defaultLogo = 'https://deco-bay.com/cdn/shop/files/deco-bay-logo.png?v=1751353707&width=500&height=500&crop=center';
+  const defaultLogo = 'https://plus.unsplash.com/premium_photo-1666900440561-94dcb6865554?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   const defaultAffId = 'AFF123';
   const checkoutBaseUrl = locale === 'french'
     ? 'https://authorizepayment.com/CQ71FD'
@@ -114,8 +115,11 @@ function CartCheckoutActions({ cart, logoUrl, affId, locale = 'english' }: CartC
   const s3 = s3Arr.join(',');
   const s4 = s4Arr.join(',');
 
-  // s1: logo url
-  const s1 = encodeURIComponent(logoUrl || defaultLogo);
+  // s1: logo url with square dimensions
+  const squareLogoUrl = logoUrl
+    ? `${logoUrl}${logoUrl.includes('?') ? '&' : '?'}width=500&height=500&crop=center`
+    : defaultLogo;
+  const s1 = encodeURIComponent(squareLogoUrl);
   // s2, s3, s4: encodeURIComponent for each, then join with commas
   const s2Param = encodeURIComponent(s2);
   const s3Param = encodeURIComponent(s3);
@@ -143,4 +147,3 @@ function CartCheckoutActions({ cart, logoUrl, affId, locale = 'english' }: CartC
     </div>
   );
 }
-
