@@ -44,7 +44,9 @@ export default function Form() {
           />
         </div>
         <div className="flex justify-center">
-          <button type="submit" className="button bg-[#9e846f] text-white font-medium px-8 py-3 rounded-full shadow hover:bg-[#7c6a5a] transition-colors" onClick={()=>{console.log("Button is clicked")}}>
+          <button type="submit" className="button bg-[#9e846f] text-white font-medium px-8 py-3 rounded-full shadow hover:bg-[#7c6a5a] transition-colors" 
+          // onClick={()=>{console.log("Button is clicked")}}
+          >
             Send
           </button>
         </div>

@@ -135,7 +135,7 @@ function CartCheckoutActions({ cart, logoUrl, affId, locale = 'english' }: CartC
       <a href={url} target="_self">
         <button
           type="submit"
-          onClick={() => { console.log('checkout') }}
+          // onClick={() => { console.log('checkout') }}
           className={
             `product-form__submit  flex items-center justify-center gap-2 w-[100%] py-2 rounded-full  text-lg font-bold transition-colors duration-200 bg-[#9E8471] text-white`
           }

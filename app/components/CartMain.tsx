@@ -63,9 +63,9 @@ function CartEmpty({
       <Link to="/collections/all" onClick={close} prefetch="viewport">
         <button
           type="submit"
-          onClick={() => {
-            console.log('checkout');
-          }}
+          // onClick={() => {
+          //   console.log('checkout');
+          // }}
           className="product-form__submit flex items-center justify-center gap-2 w-full px-3 py-2 rounded-full text-md font-medium transition-colors duration-200 bg-[#9E8471] text-white cursor-pointer"
         >
           <span className="addbtntext">Continue to Shopping</span>
