@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 interface ProductImage {
   url: string;
@@ -12,7 +12,7 @@ interface ProductImageSliderProps {
   images: ProductImage[];
 }
 
-export function ProductImageSlider({ images }: ProductImageSliderProps) {
+export function ProductImageSlider({images}: ProductImageSliderProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [thumbsToShow, setThumbsToShow] = useState(5);
 
@@ -49,7 +49,7 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
     }
 
     let startIndex = Math.max(0, selectedIndex - Math.floor(thumbsToShow / 2));
-    
+
     if (startIndex + thumbsToShow > images.length) {
       startIndex = Math.max(0, images.length - thumbsToShow);
     }
@@ -62,10 +62,13 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Main Image */}
-      <div className="w-full flex justify-center mb-4 lg:mb-8">
+      <div className="w-full flex justify-center mb-4 lg:mb-4">
         <img
           src={images[selectedIndex].url}
-          alt={images[selectedIndex].altText || `Product image ${selectedIndex + 1}`}
+          alt={
+            images[selectedIndex].altText ||
+            `Product image ${selectedIndex + 1}`
+          }
           className="rounded-lg object-contain max-h-[300px] max-w-[300px] lg:max-h-[500px] lg:max-w-[500px] w-auto mx-auto"
         />
       </div>
@@ -73,12 +76,23 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
       <div className="flex items-center space-x-2 lg:space-x-4 pt-2 lg:pt-4">
         <button
           onClick={goLeft}
-          className="p-2 rounded-full border hover:bg-gray-100"
+          className="p-2 rounded-full bg-[var(--color-1)] cursor-pointer"
           aria-label="Select previous image"
           disabled={selectedIndex === 0}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M15 19l-7-7 7-7"
+              stroke="#ffffff"
+            />
           </svg>
         </button>
         <div className="flex space-x-2 lg:space-x-4 overflow-x-auto">
@@ -89,7 +103,9 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
                 key={img.id || actualIndex}
                 onClick={() => handleThumbClick(actualIndex)}
                 className={`border rounded-md p-1 transition-all ${
-                  actualIndex === selectedIndex ? 'border-black' : 'border-transparent'
+                  actualIndex === selectedIndex
+                    ? 'border-black'
+                    : 'border-transparent'
                 }`}
                 aria-label={`Show image ${actualIndex + 1}`}
                 type="button"
@@ -105,12 +121,23 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
         </div>
         <button
           onClick={goRight}
-          className="p-2 rounded-full border hover:bg-gray-100"
+          className="p-2 rounded-full bg-[var(--color-1)] cursor-pointer"
           aria-label="Select next image"
           disabled={selectedIndex === images.length - 1}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M9 5l7 7-7 7"
+              stroke="#ffffff"
+            />
           </svg>
         </button>
       </div>

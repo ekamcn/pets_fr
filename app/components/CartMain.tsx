@@ -51,7 +51,7 @@ function CartEmpty({
   hidden: boolean;
   layout?: CartMainProps['layout'];
 }) {
-  const {close} = useAside();
+  const {close} = useAside('header');
   return (
     <div
       hidden={hidden}
@@ -66,7 +66,7 @@ function CartEmpty({
           // onClick={() => {
           //   console.log('checkout');
           // }}
-          className="product-form__submit flex items-center justify-center gap-2 w-full px-3 py-2 rounded-full text-md font-medium transition-colors duration-200 bg-[#9E8471] text-white cursor-pointer"
+          className="product-form__submit flex items-center justify-center gap-2 w-full px-3 py-2 rounded-full text-md font-medium transition-colors duration-200 bg-[var(--color-1)] text-white cursor-pointer"
         >
           <span className="addbtntext">Continue to Shopping</span>
         </button>

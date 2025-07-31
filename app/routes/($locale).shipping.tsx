@@ -1,71 +1,137 @@
 import React from 'react';
 
 export default function ShippingPolicyPage() {
-    return (
-        <div className="bg-white min-h-screen py-12 !pl-5">
-            <div className="max-w-7xl mx-auto flex flex-col gap-10 tracking-wider">
-                <p className='!text-3xl font-bold'>Shipping Policy</p>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Who We Are</h2>
-                    <p className='!leading-7'>D2G Group LLC ("we," "us," or "our") operates the website https://deco-bay.com/ (the "Site"). Our goal is to ensure a seamless and transparent shipping process for your convenience and satisfaction. Below are the details of our shipping process.</p>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Shipping Costs</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Free Shipping: We offer free shipping on all orders.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Shipping Range</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Delivery Area: We currently ship within our service regions.</li>
-                        <li>Future Expansion: We are considering expanding our delivery areas.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Order Processing Time</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Processing Time: Orders are processed within 1-2 business days, Monday to Saturday.</li>
-                        <li>Cut-off Time: Orders placed before 22:00 (GMT-08:00) Pacific Standard Time (Los Angeles) will be processed the same day; those placed after will be processed the next business day.</li>
-                        <li>No Shipping Days: Orders are not processed on Sunday or public holidays.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Delivery Time</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Estimated Delivery: Orders typically arrive within 2-4 business days after processing, depending on the destination.</li>
-                        <li>Total Delivery Time: 2-6 business days.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Shipping Process</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Courier Services: We use reliable carriers such as DHL, and FedEx for all shipments.</li>
-                        <li>Tracking Information: After your order is shipped, you will receive an email with tracking details.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Lost or Damaged Items</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-1">
-                        <li>Damaged Orders: If your order arrives damaged, please contact us within 48 hours to initiate a resolution.</li>
-                        <li>Lost Orders: If your order is lost, please reach out to us immediately for assistance.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Returns</h2>
-                    <p className='!leading-7'>Returns Policy: For detailed return instructions, please refer to our <a href="/returns-policy" className="underline underline-offset-4">Returns Policy</a>.</p>
-                </div>
-                <div>
-                    <h2 className="!text-2xl font-semibold">Contact Us</h2>
-                    <p className='!leading-7 !pb-4'>If you have questions or concerns about this Shipping Policy, please contact us:</p>
-                    <p className='flex flex-col gap-2'>
-                        <span>Email: <a href="mailto:contact@deco-bay.com" className="underline underline-offset-4">contact@deco-bay.com</a></span>
-                        <span>Phone: <a href="tel:+14842148789" className="underline underline-offset-4">+1(484)2148789</a></span>
-                        <span>Address: 81 Commerce Drive Fall River, MA 02720</span>
-                        <span className='pt-4'>Last updated: 1-7-2025</span>
-                    </p>
-                </div>
-            </div>
+  return (
+    <div className="bg-white min-h-screen py-12 !pl-5">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10 tracking-wider">
+        <p className="!text-3xl font-bold">Shipping Policy</p>
+        <div>
+          <h2 className="!text-2xl font-semibold">Who We Are</h2>
+          <p className="!leading-7">
+            {import.meta.env.VITE_COMPANY_NAME || 'Company Name Not Set'}
+            ("we," "us," or "our") operates the website{' '}
+            {import.meta.env.VITE_DOMAIN_NAME || 'Domain Not Set'}
+            (the "Site"). Our goal is to ensure a seamless and transparent
+            shipping process for your convenience and satisfaction. Below are
+            the details of our shipping process.
+          </p>
         </div>
-    );
+        <div>
+          <h2 className="!text-2xl font-semibold">Shipping Costs</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>Free Shipping: We offer free shipping on all orders.</li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Shipping Range</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>
+              Delivery Area: We currently ship within our service regions.
+            </li>
+            <li>
+              Future Expansion: We are considering expanding our delivery areas.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Order Processing Time</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>
+              Processing Time: Orders are processed within 1-2 business days,
+              Monday to Saturday.
+            </li>
+            <li>
+              Cut-off Time: Orders placed before 22:00 (GMT-08:00) Pacific
+              Standard Time (Los Angeles) will be processed the same day; those
+              placed after will be processed the next business day.
+            </li>
+            <li>
+              No Shipping Days: Orders are not processed on Sunday or public
+              holidays.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Delivery Time</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>
+              Estimated Delivery: Orders typically arrive within 2-4 business
+              days after processing, depending on the destination.
+            </li>
+            <li>Total Delivery Time: 2-6 business days.</li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Shipping Process</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>
+              Courier Services: We use reliable carriers such as DHL, and FedEx
+              for all shipments.
+            </li>
+            <li>
+              Tracking Information: After your order is shipped, you will
+              receive an email with tracking details.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Lost or Damaged Items</h2>
+          <ul className="!list-disc !list-inside text-gray-700 space-y-1">
+            <li>
+              Damaged Orders: If your order arrives damaged, please contact us
+              within 48 hours to initiate a resolution.
+            </li>
+            <li>
+              Lost Orders: If your order is lost, please reach out to us
+              immediately for assistance.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Returns</h2>
+          <p className="!leading-7">
+            Returns Policy: For detailed return instructions, please refer to
+            our{' '}
+            <a href="/returns-policy" className="underline underline-offset-4">
+              Returns Policy
+            </a>
+            .
+          </p>
+        </div>
+        <div>
+          <h2 className="!text-2xl font-semibold">Contact Us</h2>
+          <p className="!leading-7 !pb-4">
+            If you have questions or concerns about this Shipping Policy, please
+            contact us:
+          </p>
+          <p className="flex flex-col gap-2">
+            <span>
+              Email:{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
+                className="underline underline-offset-4"
+              >
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+              </a>
+            </span>
+            <span>
+              Phone:{' '}
+              <a
+                href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`}
+                className="underline underline-offset-4"
+              >
+                 {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}
+              </a>
+            </span>
+            <span>
+              Address:{' '}
+              {import.meta.env.VITE_COMPANY_ADDRESS || 'Address Not Set'}, MA
+              02720
+            </span>
+            <span className="pt-4">Last updated: 1-7-2025</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

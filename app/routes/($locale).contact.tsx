@@ -12,15 +12,20 @@ export default function ContactPage() {
                         <p>We strive for optimal customer satisfaction. Please do not hesitate to contact our specialized customer service team via the contact details above or by filling out the contact form below. Your feedback is highly valuable to us. We aim to respond within 48 hours.</p>
                     </div>
                     <div >
-                        <h2 className="!text-2xl font-semibold">D2C Group LLC</h2>
+                        <h2 className="!text-2xl font-semibold">{import.meta.env.VITE_COMPANY_NAME || 'Company Name Not Set'}
+</h2>
                         <p className='flex flex-col gap-2'>
-                            <span> Address: 81 Commerce Drive, Fall River, MA 02720, USA</span>
-                            <span> Email: <a href="mailto:contact@deco-bay.com" className="underline underline-offset-2">contact@deco-bay.com</a>   </span>
+                            <span> Address: {import.meta.env.VITE_COMPANY_ADDRESS || 'Address Not Set'}
+</span>
+                            <span> Email: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
+ className="underline underline-offset-2">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+</a>   </span>
                             <span>
-                                Phone: <a href="tel:+14842148789" className="underline underline-offset-2">+1(484)2148789</a>
+                                Phone: <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`}
+ className="underline underline-offset-2"> {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}</a>
                             </span>
                             <span>
-                                Website: <a href="https://deco-bay.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">deco-bay.com</a>
+                                Website: <a href="https://happyssnouts.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{import.meta.env.VITE_STORE_NAME || 'Store name Not Set'}</a>
                             </span>
                             <span>
                                 Opening Hours: Monday to Friday - 9:00 AM to 5:00 PM
@@ -30,9 +35,11 @@ export default function ContactPage() {
                     <div >
                         <h2 className="!text-2xl font-semibold">QUICK LINKS</h2>
                         <p className='flex flex-col gap-2'>
-                            <a href="mailto:contact@deco-bay.com" className="underline underline-offset-2">Frequently Asked Questions</a>
-                            <a href="tel:+14842148789" className=" underline underline-offset-2">Privacy Policy</a>
-                            <a href="https://deco-bay.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Terms of service</a>
+                            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
+ className="underline underline-offset-2">Frequently Asked Questions</a>
+                            <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`}
+ className=" underline underline-offset-2">Privacy Policy</a>
+                            <a href="https://happyssnouts.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Terms of service</a>
                         </p>
                     </div>
                 </div>

@@ -8,44 +8,77 @@ export const meta: MetaFunction = () => {
   return [{title: `Hydrogen | Products`}];
 };
 
+// Helper to build Shopify Storefront API query string from filters
+function buildProductQueryString({
+  availability,
+  priceGte,
+  priceLte,
+}: {
+  availability?: string;
+  priceGte?: string;
+  priceLte?: string;
+}) {
+  const queryParts: string[] = [];
+
+  // Handle availability filter
+  if (availability && ['0', '1'].includes(availability)) {
+    queryParts.push(
+      `available_for_sale:${availability === '1' ? 'true' : 'false'}`,
+    );
+  }
+
+  // Handle price filters
+  if (
+    priceGte !== undefined &&
+    priceGte !== '' &&
+    !isNaN(parseFloat(priceGte))
+  ) {
+    queryParts.push(`variants.price:>=${parseFloat(priceGte).toFixed(2)}`);
+  }
+  if (
+    priceLte !== undefined &&
+    priceLte !== '' &&
+    !isNaN(parseFloat(priceLte))
+  ) {
+    queryParts.push(`variants.price:<=${parseFloat(priceLte).toFixed(2)}`);
+  }
+
+  return queryParts.join(' ');
+}
+
 export async function loader({context, request}: LoaderFunctionArgs) {
   const {storefront} = context;
   const url = new URL(request.url);
 
   const page = getPageFromRequest(request);
   const pageSize = 24;
-  const availability = url.searchParams.get('filter.v.availability');
-  const priceGte = url.searchParams.get('filter.v.price.gte');
-  const priceLte = url.searchParams.get('filter.v.price.lte');
+  const availability =
+    url.searchParams.get('filter.v.availability') || undefined;
+  const priceGte = url.searchParams.get('filter.v.price.gte') || undefined;
+  const priceLte = url.searchParams.get('filter.v.price.lte') || undefined;
   const sortBy = url.searchParams.get('sort_by') || 'best-selling';
 
-  // Convert filters to GraphQL filters
-  const filters: any[] = [];
-  if (availability) filters.push({available: availability === '1'});
-  if (priceGte || priceLte) {
-    const priceFilter: {price?: {min?: number; max?: number}} = {};
-    if (priceGte)
-      priceFilter.price = {...priceFilter.price, min: parseFloat(priceGte)};
-    if (priceLte)
-      priceFilter.price = {...priceFilter.price, max: parseFloat(priceLte)};
-    filters.push(priceFilter);
-  }
+  // Convert filters to Shopify query string
+  const query =
+    buildProductQueryString({availability, priceGte, priceLte}) || '';
+  console.log('Generated Query:', query, 'Sort By:', sortBy); // Debug filters and sort
 
   const sortKeyMap: Record<string, string> = {
     'best-selling': 'BEST_SELLING',
     manual: 'COLLECTION_DEFAULT',
+    featured: 'COLLECTION_DEFAULT', // Assuming 'featured' uses manual collection order
     'title-ascending': 'TITLE',
     'title-descending': 'TITLE',
     'price-ascending': 'PRICE',
     'price-descending': 'PRICE',
-    'created-ascending': 'CREATED',
-    'created-descending': 'CREATED',
+    'created-ascending': 'CREATED_AT', // Use CREATED_AT for date sorting
+    'created-descending': 'CREATED_AT',
   };
 
   const reverseMap: Record<string, boolean> = {
     'title-descending': true,
     'price-descending': true,
-    'created-descending': true,
+    'created-descending': true, // New to old
   };
 
   const sortKey = sortKeyMap[sortBy] || 'BEST_SELLING';
@@ -55,7 +88,7 @@ export async function loader({context, request}: LoaderFunctionArgs) {
   const {cursors, totalProducts} = await getAllProductCursors(
     storefront,
     pageSize,
-    filters,
+    query,
     sortKey,
     reverse,
   );
@@ -68,7 +101,7 @@ export async function loader({context, request}: LoaderFunctionArgs) {
     variables: {
       first: pageSize,
       after,
-      filters,
+      query,
       sortKey,
       reverse,
     },
@@ -94,7 +127,7 @@ export async function loader({context, request}: LoaderFunctionArgs) {
 async function getAllProductCursors(
   storefront: any,
   pageSize: number,
-  filters: any[],
+  query: string,
   sortKey: string,
   reverse: boolean,
 ): Promise<{
@@ -113,7 +146,7 @@ async function getAllProductCursors(
         pageInfo: {hasNextPage: boolean};
       };
     } = await storefront.query(GET_CURSOR_QUERY, {
-      variables: {first: pageSize, after, filters, sortKey, reverse},
+      variables: {first: pageSize, after, query, sortKey, reverse},
     });
 
     const products = response.products;
@@ -162,21 +195,21 @@ export default function Collection() {
   }) => {
     const params = new URLSearchParams(searchParams);
     if (newFilters.availability !== undefined) {
-      if (newFilters.availability) {
+      if (['0', '1'].includes(newFilters.availability)) {
         params.set('filter.v.availability', newFilters.availability);
       } else {
         params.delete('filter.v.availability');
       }
     }
     if (newFilters.priceGte !== undefined) {
-      if (newFilters.priceGte) {
+      if (newFilters.priceGte && !isNaN(parseFloat(newFilters.priceGte))) {
         params.set('filter.v.price.gte', newFilters.priceGte);
       } else {
         params.delete('filter.v.price.gte');
       }
     }
     if (newFilters.priceLte !== undefined) {
-      if (newFilters.priceLte) {
+      if (newFilters.priceLte && !isNaN(parseFloat(newFilters.priceLte))) {
         params.set('filter.v.price.lte', newFilters.priceLte);
       } else {
         params.delete('filter.v.price.lte');
@@ -188,7 +221,23 @@ export default function Collection() {
 
   const updateSort = (newSortBy: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set('sort_by', newSortBy);
+    if (
+      [
+        'best-selling',
+        'manual',
+        'featured',
+        'title-ascending',
+        'title-descending',
+        'price-ascending',
+        'price-descending',
+        'created-ascending',
+        'created-descending',
+      ].includes(newSortBy)
+    ) {
+      params.set('sort_by', newSortBy);
+    } else {
+      params.set('sort_by', 'best-selling'); // Fallback to default
+    }
     params.set('page', '1'); // Reset to first page on sort change
     setSearchParams(params);
   };
@@ -309,8 +358,8 @@ export default function Collection() {
 }
 
 const GET_CURSOR_QUERY = `#graphql
-  query GetCursors($first: Int!, $after: String) {
-    products(first: $first, after: $after) {
+  query GetCursors($first: Int!, $after: String, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
+    products(first: $first, after: $after, query: $query, sortKey: $sortKey, reverse: $reverse) {
       edges {
         cursor
       }
@@ -348,8 +397,8 @@ const CATALOG_QUERY = `#graphql
     }
   }
  
-  query ProductList($first: Int, $after: String) {
-    products(first: $first, after: $after) {
+  query ProductList($first: Int, $after: String, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
+    products(first: $first, after: $after, query: $query, sortKey: $sortKey, reverse: $reverse) {
       nodes {
         ...ProductFragment
       }
@@ -359,5 +408,3 @@ const CATALOG_QUERY = `#graphql
     }
   }
 ` as const;
-
-

@@ -12,8 +12,8 @@ interface ImageBannerProps {
 
 // Main banner component
 export function ImageBanner({
-    title = "Deco Bays",
-    subtitle = "Welcome to Deco Bay, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
+    title = "Happy Snoutss",
+    subtitle = "Welcome to Happy Snouts, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
     description = "Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone.",
     imageUrl = '',
     buttonText = "Shop Now",
@@ -86,8 +86,8 @@ export function ImageBanner({
 
 // Alternative banner with more layout options
 export function ImageBannerVariant({
-    title = "Deco Bays",
-    subtitle = "Welcome to Deco Bay, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
+    title = "Happy Snoutss",
+    subtitle = "Welcome to Happy Snouts, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
     description = "Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone.",
     imageUrl = '',
     buttonText = "Shop Now",

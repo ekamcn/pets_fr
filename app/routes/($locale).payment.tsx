@@ -7,7 +7,8 @@ export default function PaymentTermsPage() {
                 <p className='!text-3xl font-bold'>Payment Terms</p>
                 <div>
                     <h2 className="!text-2xl font-semibold">Payment Processing</h2>
-                    <p className='!leading-7'>When you place an order on our website, your card is charged immediately and not at the time of shipment. Your billing statement will appear as: D2G Group LLC</p>
+                    <p className='!leading-7'>When you place an order on our website, your card is charged immediately and not at the time of shipment. Your billing statement will appear as: {import.meta.env.VITE_COMPANY_NAME || 'Company Name Not Set'}
+</p>
                 </div>
                 <div>
                     <h2 className="!text-2xl font-semibold">Accepted Payment Methods</h2>
@@ -27,7 +28,8 @@ export default function PaymentTermsPage() {
                 </div>
                 <div>
                     <h2 className="!text-2xl font-semibold">Refunds</h2>
-                    <p className='!leading-7'>If you wish to obtain a refund, please contact us at the following address: contact@deco-bay.com. You have 30 days from receipt of your order to exercise your right of withdrawal.</p>
+                    <p className='!leading-7'>If you wish to obtain a refund, please contact us at the following address: {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+. You have 30 days from receipt of your order to exercise your right of withdrawal.</p>
                     <p className='!leading-7'>The refund will be processed to the payment method used for the order and may take between 3 and 5 business days to appear in your bank account.</p>
                 </div>
                 <div>
@@ -40,12 +42,17 @@ export default function PaymentTermsPage() {
                 </div>
                 <div>
                     <h2 className="!text-2xl font-semibold">Contact Information</h2>
-                    <p className='!leading-7 !pb-4'>To contact us, simply send an email to contact@deco-bay.com or call +14842148789 Monday to Friday: 8:00-18:00.</p>
+                    <p className='!leading-7 !pb-4'>To contact us, simply send an email to {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+ or call {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}  Monday to Friday: 8:00-18:00.</p>
                     <p className='flex flex-col gap-2'>
-                        <span>Address: 81 Commerce Drive Fall River, MA 02720</span>
-                        <span>Email: <a href="mailto:contact@deco-bay.com" className="underline underline-offset-4">contact@deco-bay.com</a></span>
-                        <span>Phone: <a href="tel:+14842148789" className="underline underline-offset-4">+1(484)2148789</a></span>
-                        <span>Website: <a href="https://deco-bay.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">deco-bay.com</a></span>
+                        <span>Address: {import.meta.env.VITE_COMPANY_ADDRESS || 'Address Not Set'}
+</span>
+                        <span>Email: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
+ className="underline underline-offset-4"> {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+</a></span>
+                        <span>Phone: <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`}
+ className="underline underline-offset-4"> {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}</a></span>
+                        <span>Website: <a href="https://happyssnouts.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_STORE_NAME || 'Store name Not Set'}</a></span>
                         <span className='pt-4'>Last updated: 1-7-2025</span>
                     </p>
                 </div>
