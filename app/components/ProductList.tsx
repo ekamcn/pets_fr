@@ -1,6 +1,6 @@
-import {useRef} from 'react';
-import {Link} from 'react-router';
- 
+import { useRef } from 'react';
+import { Link } from 'react-router';
+
 export interface Product {
   id: string;
   title: string;
@@ -19,14 +19,14 @@ export interface Product {
     height?: number;
   } | null;
 }
- 
+
 interface ProductListProps {
   products: Product[];
 }
- 
-export default function ProductList({products}: ProductListProps) {
+
+export default function ProductList({ products }: ProductListProps) {
   const sliderRef = useRef<HTMLUListElement>(null);
- 
+
   const scroll = (direction: 'left' | 'right') => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -38,7 +38,7 @@ export default function ProductList({products}: ProductListProps) {
       behavior: 'smooth',
     });
   };
- 
+
   return (
     <div className="max-w-7xl px-5 !mx-auto">
       <p className="!text-3xl font-bold">You will Love them</p>
@@ -58,7 +58,7 @@ export default function ProductList({products}: ProductListProps) {
                   className="hover:underline"
                 >
                   <div data-product-handle={product.handle}>
-                    <div style={{aspectRatio: '1/1'}}>
+                    <div style={{ aspectRatio: '1/1' }}>
                       <div>
                         <div>
                           <div>
@@ -162,7 +162,7 @@ export default function ProductList({products}: ProductListProps) {
                   className="hover:underline"
                 >
                   <div data-product-handle={product.handle}>
-                    <div style={{aspectRatio: '1/1'}}>
+                    <div style={{ aspectRatio: '1/1' }}>
                       <div>
                         <div>
                           <div>
@@ -212,5 +212,5 @@ export default function ProductList({products}: ProductListProps) {
     </div>
   );
 }
- 
- 
+
+

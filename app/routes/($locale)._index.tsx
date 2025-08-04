@@ -1,16 +1,16 @@
-import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link, type MetaFunction} from 'react-router';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
+import { Await, useLoaderData, Link, type MetaFunction } from 'react-router';
+import { Suspense } from 'react';
+import { Image, Money } from '@shopify/hydrogen';
 import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
-import {ProductItem} from '~/components/ProductItem';
-import {ImageBanner} from '~/components/ImageBanner';
-import {AllProductsWidget} from '~/components/AllProductsWidget';
-import {AllCollectionsWidgetSimple} from '~/components/AllCollections';
-import {CollectionByHandle} from '~/components/GetCollectionByHandle';
+import { ProductItem } from '~/components/ProductItem';
+import { ImageBanner } from '~/components/ImageBanner';
+import { AllProductsWidget } from '~/components/AllProductsWidget';
+import { AllCollectionsWidgetSimple } from '~/components/AllCollections';
+import { CollectionByHandle } from '~/components/GetCollectionByHandle';
 import FaqSection from '~/components/FaqSection';
 
 const sections = [
@@ -87,7 +87,7 @@ const sections = [
 ];
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{ title: 'Hydrogen | Home' }];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -97,15 +97,15 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
+* Load data necessary for rendering content above the fold. This is the critical data
+* needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
+*/
+async function loadCriticalData({ context }: LoaderFunctionArgs) {
+  const [{ collections }] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
@@ -116,11 +116,11 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
 }
 
 /**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- */
-function loadDeferredData({context}: LoaderFunctionArgs) {
+* Load data for rendering content below the fold. This data is deferred and will be
+* fetched after the initial page load. If it's unavailable, the page should still 200.
+* Make sure to not throw any errors here, as it will cause the page to 500.
+*/
+function loadDeferredData({ context }: LoaderFunctionArgs) {
   const recommendedProducts = context.storefront
     .query(RECOMMENDED_PRODUCTS_QUERY)
     .catch((error) => {
@@ -139,10 +139,11 @@ export default function Homepage() {
   return (
     <div className="home">
       <ImageBanner
-        title="Cosy Critters"
+        title="Cosy Critters "
         imageUrl={import.meta.env.VITE_BANNER}
-        subtitle="Welcome to Cosy Critters, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
-        description="Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone."
+        mobileImageUrl={import.meta.env.VITE_MOBILE_BANNER}
+        subtitle="At Cosy Critters, every pet is more than just a companion — they're family."
+        description="That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deserve."
         buttonText="Shop Now"
         buttonUrl=""
       />
@@ -156,6 +157,7 @@ export default function Homepage() {
         showTitle={true}
         showDescription={false}
         className="featured-collection"
+        forceSmallCols2={true}
       />
 
       <CollectionByHandle
@@ -167,6 +169,7 @@ export default function Homepage() {
         showTitle={true}
         showDescription={false}
         className="featured-collection"
+        forceSmallCols2={true}
       />
 
       <AllCollectionsWidgetSimple />
@@ -183,7 +186,7 @@ export default function Homepage() {
         className="featured-collection"
       />
 
-      <FaqSection sections={sections} showNewsletter rounded heading='Emails' />
+      <FaqSection sections={sections} showNewsletter rounded heading='Emails'/>
 
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}
@@ -227,8 +230,8 @@ function RecommendedProducts({
             <div className="recommended-products-grid">
               {response
                 ? response.products.nodes.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                  ))
+                  <ProductItem key={product.id} product={product} />
+                ))
                 : null}
             </div>
           )}
@@ -281,7 +284,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
       height
     }
   }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
+  query RecommendedProductsPage ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
     products(first: 4, sortKey: UPDATED_AT, reverse: true) {
       nodes {
@@ -290,3 +293,4 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     }
   }
 ` as const;
+

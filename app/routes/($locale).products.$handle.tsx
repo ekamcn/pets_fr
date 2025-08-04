@@ -95,10 +95,12 @@ const sections = [
               You can reach us by visiting our Contact Us page here or by
               emailing us at{' '}
               <a
-                href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
+
                 className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
               >
-                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+
               </a>
               "
             </p>
@@ -279,8 +281,6 @@ export default function Product() {
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
-  console.log(selectedVariant?.price, "fhjdsfghjdsfhgds");
-
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -293,7 +293,7 @@ export default function Product() {
   const data = useLoaderData<typeof loader>();
   return (
     <div>
-      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4 pb-20">
+      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4 pb-20 !pt-10">
         <div className="flex flex-col items-center">
           <div className="sticky top-8">
             <ProductImageSlider
@@ -314,8 +314,8 @@ export default function Product() {
           <h1 className="text-3xl font-bold mb-2">{title}</h1>
 
           <p className="!pb-8">
-            <strong>Deco Bay 🇺🇸: </strong>The American Brand That Helps You Save
-            BIG with Unbeatable Prices!
+            <strong>Cosy Critters  🇺🇸: </strong>The American Brand That Helps You
+            Save BIG with Unbeatable Prices!
           </p>
           {/* Price, Date, Info */}
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-2">
@@ -652,4 +652,5 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
  }
  }
 ` as const;
+
 

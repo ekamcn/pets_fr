@@ -1,13 +1,13 @@
-import {Suspense, useState, useEffect, useRef} from 'react';
-import {Await, NavLink, useAsyncValue, useLocation} from 'react-router';
+import { Suspense, useState, useEffect, useRef } from 'react';
+import { Await, NavLink, useAsyncValue, useLocation } from 'react-router';
 import {
   type CartViewPayload,
   Image,
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
+import type { HeaderQuery, CartApiQueryFragment } from 'storefrontapi.generated';
+import { useAside } from '~/components/Aside';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -29,7 +29,7 @@ interface CollectionNode {
 
 interface GraphQLResponse {
   data?: GraphQLCollectionsResponse;
-  errors?: Array<{message: string}>;
+  errors?: Array<{ message: string }>;
 }
 
 interface GraphQLCollectionsResponse {
@@ -70,19 +70,23 @@ export function Header({
   cart,
   publicStoreDomain,
 }: HeaderProps) {
-  const {shop, menu} = header;
+  const { shop, menu } = header;
   const logo = import.meta.env.VITE_LOGO;
 
   return (
     <>
       {/* Top Marquee Bar */}
       <div className="w-full bg-[var(--color-1)] overflow-hidden whitespace-nowrap text-xs">
-        <div className="animate-marquee flex gap-136 px-6 py-2 !font-normal text-black !text-xs  tracking-widest">
+        <div className="animate-marquee flex gap-136 px-6 py-2 !font-normal text-black !text-xs tracking-widest">
           <span>Fast Shipping: 2–4 Days</span>
-          <span>{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}</span>
+          <span>
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+          </span>
           <span>US-Based Customer Support 🇺🇸</span>
           <span>Fast Shipping: 2–4 Days</span>
-          <span>{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}</span>
+          <span>
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+          </span>
           <span>US-Based Customer Support 🇺🇸</span>
         </div>
       </div>
@@ -123,19 +127,19 @@ export function Header({
       </header>
       {/* Marquee Animation Style */}
       <style>{`
-  .animate-marquee {
+ .animate-marquee {
  display: flex;
  animation: marquee 150s linear infinite;
-  }
+ }
 
-  @keyframes marquee {
-    0% {
+ @keyframes marquee {
+ 0% {
  transform: translateX(100%);
-    }
-    100% {
+ }
+ 100% {
  transform: translateX(-100%);
-    }
-  }
+ }
+ }
 `}</style>
     </>
   );
@@ -163,7 +167,7 @@ function transformMenuToHTML(menu: any, collections: any) {
         type: 'simple' as const,
         href: '/',
         title: 'Home',
-        isActive: true,
+        // isActive: true,
         className:
           'header__menu-item list-menu__item link link--text focus-inset',
       },
@@ -177,11 +181,11 @@ function transformMenuToHTML(menu: any, collections: any) {
       },
       // Add static menu items
       // {
-      //   id: 'about',
-      //   type: 'simple' as const,
-      //   href: '/about',
-      //   title: 'About Us',
-      //   className: 'header__menu-item list-menu__item link link--text focus-inset'
+      // id: 'about',
+      // type: 'simple' as const,
+      // href: '/about',
+      // title: 'About Us',
+      // className: 'header__menu-item list-menu__item link link--text focus-inset'
       // },
       // Transform original menu items (except catalog which becomes dropdown)
       ...baseItems
@@ -240,14 +244,14 @@ export function HeaderMenu({
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
   const className = `header-menu-${viewport}`;
-  const {close} = useAside('header');
+  const { close } = useAside('header');
   const location = useLocation();
 
   // State for dynamic collections fetching
   const [collections, setCollections] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   // Refs for click outside detection
-  const dropdownRefs = useRef<{[key: string]: HTMLDetailsElement | null}>({});
+  const dropdownRefs = useRef<{ [key: string]: HTMLDetailsElement | null }>({});
 
   // Fetch collections dynamically
   useEffect(() => {
@@ -343,6 +347,7 @@ export function HeaderMenu({
                     end={item.href === '/'}
                     onClick={close}
                     prefetch="intent"
+                    style={activeLinkStyle}
                   >
                     <span
                       className={`${item.isActive ? 'header__active-menu-item ' : ''}`}
@@ -406,6 +411,7 @@ export function HeaderMenu({
                                 className="header__menu-item list-menu__item link link--text focus-inset caption-large "
                                 onClick={close}
                                 prefetch="intent"
+                                style={activeLinkStyle}
                               >
                                 {subItem.title}
                               </NavLink>
@@ -473,7 +479,7 @@ export function HeaderMenu({
                 </summary>
                 <div className="mt-2 ml-4 space-y-1">
                   {item.submenu?.map(
-                    (subItem: {id: string; href: string; title: string}) => (
+                    (subItem: { id: string; href: string; title: string }) => (
                       <NavLink
                         key={subItem.id}
                         to={subItem.href}
@@ -504,12 +510,12 @@ function HeaderCtas({
     <nav className="header-ctas flex items-center !gap-2" role="navigation">
       {/* <HeaderMenuMobileToggle /> */}
       {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink> */}
+ <Suspense fallback="Sign in">
+ <Await resolve={isLoggedIn} errorElement="Sign in">
+ {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+ </Await>
+ </Suspense>
+ </NavLink> */}
       {/* <SearchToggle /> */}
       <CartToggle cart={cart} />
     </nav>
@@ -517,7 +523,7 @@ function HeaderCtas({
 }
 
 function HeaderMenuMobileToggle() {
-  const {open} = useAside('header');
+  const { open } = useAside('header');
   return (
     <button
       className="header-menu-mobile-toggle reset"
@@ -529,7 +535,7 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  const {open} = useAside('header');
+  const { open } = useAside('header');
   return (
     <button className="reset" onClick={() => open('search')}>
       Search
@@ -537,9 +543,9 @@ function SearchToggle() {
   );
 }
 
-function CartBadge({count}: {count: number | null}) {
-  const {open} = useAside('header');
-  const {publish, shop, cart, prevCart} = useAnalytics();
+function CartBadge({ count }: { count: number | null }) {
+  const { open } = useAside('header');
+  const { publish, shop, cart, prevCart } = useAnalytics();
 
   return (
     <button
@@ -581,7 +587,7 @@ function CartBadge({count}: {count: number | null}) {
   );
 }
 
-function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
+function CartToggle({ cart }: Pick<HeaderProps, 'cart'>) {
   return (
     <Suspense fallback={<CartBadge count={null} />}>
       <Await resolve={cart}>
@@ -651,3 +657,4 @@ function activeLinkStyle({
     color: isPending ? 'grey' : 'black',
   };
 }
+

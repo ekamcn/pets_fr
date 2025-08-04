@@ -15,7 +15,7 @@ export function Footer() {
     form.reset();
 
   };
-  const logo =` ${import.meta.env.VITE_LOGO}`
+  const logo = ` ${import.meta.env.VITE_LOGO}`
   return (
     <footer>
       <CardSection />
@@ -118,10 +118,10 @@ export function Footer() {
                       About Us
                     </Link> */}
                     <Link
-                      to="/terms"
+                      to="/payment"
                       className="block !text-white transition-colors text-sm"
                     >
-                      Terms of service
+                      Payment Terms
                     </Link>
                     <Link
                       to="/privacy"
@@ -129,6 +129,7 @@ export function Footer() {
                     >
                       Privacy Policy
                     </Link>
+
                     <Link
                       to="/returns"
                       className="block !text-white transition-colors text-sm"
@@ -142,10 +143,10 @@ export function Footer() {
                       Shipping policy
                     </Link>
                     <Link
-                      to="/payment"
+                      to="/terms"
                       className="block !text-white transition-colors text-sm"
                     >
-                      Payment Terms
+                      Terms of service
                     </Link>
                   </div>
                 </div>
