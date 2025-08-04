@@ -7,10 +7,10 @@ export default function AboutPage() {
         <p className="!text-3xl font-bold">About Us</p>
         <div>
           <h1 className="text-4xl font-bold text-[#2c3e50]">
-            Welcome to Happy Snouts
+            Welcome to Cosy Critters
           </h1>
           <p className="text-lg text-gray-700">
-            <strong>Happy Snouts</strong> is a home décor brand committed to
+            <strong>Cosy Critters</strong> is a home décor brand committed to
             transforming your space with style, quality, and affordability.
             Founded by a team passionate about interior design, our mission is
             simple: to make your home more beautiful, functional, and accessible
@@ -21,7 +21,7 @@ export default function AboutPage() {
           <h2 className="!text-2xl font-semibold text-[#2c3e50]">Our Story</h2>
           <div className="flex flex-col gap-5">
             <p className="text-gray-700">
-              Happy Snouts was born from a simple idea: everyone deserves a home
+              Cosy Critters was born from a simple idea: everyone deserves a home
               that reflects their personality—without overspending. We know how
               much the right décor can change a space, and how expensive it
               often is. That’s why we offer high-quality products at fair
@@ -41,7 +41,7 @@ export default function AboutPage() {
           </h2>
           <div className="flex flex-col gap-5">
             <p className="text-gray-700">
-              At Happy Snouts, we believe home décor should be a pleasure, not a
+              At Cosy Critters, we believe home décor should be a pleasure, not a
               luxury. Our collections are carefully curated to suit all tastes
               and budgets.
             </p>
@@ -65,7 +65,7 @@ export default function AboutPage() {
               small spaces—so every corner counts.
             </p>
             <p className="text-gray-700">
-              But Happy Snouts is more than just products. We aim to support
+              But Cosy Critters is more than just products. We aim to support
               your home projects—big or small—with advice, ideas, and
               inspiration every step of the way.
             </p>
@@ -109,11 +109,11 @@ export default function AboutPage() {
 
         <div>
           <h2 className="!text-2xl font-semibold text-[#2c3e50]">
-            Why Choose Happy Snouts?
+            Why Choose Cosy Critters?
           </h2>
           <div className="flex flex-col gap-5">
             <p className="text-gray-700">
-              At Happy Snouts, we’re not just another home décor store—we're
+              At Cosy Critters, we’re not just another home décor store—we're
               your partner in making your house feel like home. We’re committed
               to offering a unique shopping experience, personalized support,
               and top-quality products that respect your budget.
@@ -130,7 +130,7 @@ export default function AboutPage() {
           <p className="text-gray-700">
             Explore our website and find thousands of products to transform your
             home. Whether you're looking for furniture, accessories, or
-            textiles, <strong>Happy Snouts</strong> is here to help you bring
+            textiles, <strong>Cosy Critters</strong> is here to help you bring
             your vision to life.
           </p>
         </div>

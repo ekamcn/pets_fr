@@ -1,5 +1,5 @@
-import {redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {useLoaderData, type MetaFunction} from 'react-router';
+import { redirect, type LoaderFunctionArgs } from '@shopify/remix-oxygen';
+import { useLoaderData, type MetaFunction } from 'react-router';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -8,16 +8,17 @@ import {
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
+import { ProductPrice } from '~/components/ProductPrice';
 // import { ProductImage } from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {ProductImageSlider} from '~/components/ProductImageSlider';
-import {Image} from '@shopify/hydrogen';
+import { ProductForm } from '~/components/ProductForm';
+import { redirectIfHandleIsLocalized } from '~/lib/redirect';
+import { ProductImageSlider } from '~/components/ProductImageSlider';
+import { Image } from '@shopify/hydrogen';
 import FaqSection from '~/components/FaqSection';
 import ProductList from '~/components/ProductList';
-import {Suspense} from 'react';
-import {Await} from 'react-router';
+import { FixedBuyNowButton } from '~/components/FixedBuyNowButton';
+import { Suspense } from 'react';
+import { Await } from 'react-router';
 
 const sections = [
   {
@@ -94,12 +95,10 @@ const sections = [
               You can reach us by visiting our Contact Us page here or by
               emailing us at{' '}
               <a
-                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
-
+                href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
                 className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
               >
-                 {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
               "
             </p>
@@ -110,9 +109,9 @@ const sections = [
   },
 ];
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
-    {title: `Hydrogen | ${data?.product.title ?? ''}`},
+    { title: `Hydrogen | ${data?.product.title ?? ''}` },
     {
       rel: 'canonical',
       href: `/products/${data?.product.handle}`,
@@ -127,7 +126,7 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -139,33 +138,33 @@ async function loadCriticalData({
   params,
   request,
 }: LoaderFunctionArgs) {
-  const {handle} = params;
-  const {storefront} = context;
+  const { handle } = params;
+  const { storefront } = context;
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
 
-  const [{product}] = await Promise.all([
+  const [{ product }] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
-      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+      variables: { handle, selectedOptions: getSelectedProductOptions(request) },
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!product?.id) {
-    throw new Response(null, {status: 404});
+    throw new Response(null, { status: 404 });
   }
 
   // The API handle might be localized, so redirect to the localized handle
-  redirectIfHandleIsLocalized(request, {handle, data: product});
+  redirectIfHandleIsLocalized(request, { handle, data: product });
 
   return {
     product,
   };
 }
 
-function loadDeferredData({context, params}: LoaderFunctionArgs) {
+function loadDeferredData({ context, params }: LoaderFunctionArgs) {
   const recommendedProducts = context.storefront
     .query(RECOMMENDED_PRODUCTS_QUERY)
     .catch((error) => {
@@ -178,11 +177,56 @@ function loadDeferredData({context, params}: LoaderFunctionArgs) {
     recommendedProducts,
   };
 }
+const locale = import.meta.env.VITE_LANGUAGE;
 
+function getDeliveryDateOld(daysToAdd: number) {
+  const baseDate = new Date(); // Start from today
+  const date = new Date(baseDate);
+  let businessDaysAdded = 0;
+
+  while (businessDaysAdded < daysToAdd) {
+    date.setDate(date.getDate() + 1);
+    if (date.getDay() !== 0) {
+      // Skip Sundays
+      businessDaysAdded++;
+    }
+  }
+
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  // Format based on locale
+  if (locale === 'fr') {
+    // French format: DD/MM
+    return `${day}/${month}`;
+  } else {
+    // US format: MM/DD
+    return `${month}/${day}`;
+  }
+}
 function getDeliveryDate(daysToAdd: number) {
-  const date = new Date();
-  date.setDate(date.getDate() + daysToAdd);
-  return date.toLocaleDateString('en-US', {day: '2-digit', month: 'long'});
+  const baseDate = new Date(); // Start from today
+  const date = new Date(baseDate);
+  let businessDaysAdded = 0;
+
+  while (businessDaysAdded < daysToAdd) {
+    date.setDate(date.getDate() + 1);
+    if (date.getDay() !== 0) {
+      businessDaysAdded++;
+    }
+  }
+
+  // Format based on locale
+  if (locale === 'fr') {
+    // French format: DD/MM
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthName = date.toLocaleDateString('en', { month: 'long' });
+    return `${day}/${monthName}`;
+  } else {
+    // US format: Full month name with day
+    const monthName = date.toLocaleDateString('en', { month: 'long' });
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${monthName} ${day}`;
+  }
 }
 
 function FeatureItem({
@@ -229,12 +273,14 @@ function CheckIcon() {
 }
 
 export default function Product() {
-  const {product} = useLoaderData<typeof loader>();
+  const { product } = useLoaderData<typeof loader>();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
+  console.log(selectedVariant?.price, "fhjdsfghjdsfhgds");
+
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -243,16 +289,16 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, descriptionHtml} = product;
+  const { title, descriptionHtml } = product;
   const data = useLoaderData<typeof loader>();
   return (
     <div>
-      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4">
+      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4 pb-20">
         <div className="flex flex-col items-center">
           <div className="sticky top-8">
             <ProductImageSlider
               images={
-                product.images?.edges.map((edge: {node: any}) => ({
+                product.images?.edges.map((edge: { node: any }) => ({
                   id: edge.node.id,
                   url: edge.node.url || edge.node.src || edge.node.originalSrc,
                   altText: edge.node.altText,
@@ -268,8 +314,8 @@ export default function Product() {
           <h1 className="text-3xl font-bold mb-2">{title}</h1>
 
           <p className="!pb-8">
-            <strong>Happy Snouts 🇺🇸: </strong>The American Brand That Helps You
-            Save BIG with Unbeatable Prices!
+            <strong>Deco Bay 🇺🇸: </strong>The American Brand That Helps You Save
+            BIG with Unbeatable Prices!
           </p>
           {/* Price, Date, Info */}
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-2">
@@ -279,8 +325,8 @@ export default function Product() {
                 compareAtPrice={selectedVariant?.compareAtPrice}
               />
             </span>
-            <span className="text-sm text-gray-700 pl-0 sm:pl-4 pb-3   ">
-              Today's Offer —{' '}
+            <span className="text-sm text-gray-700 pl-0 sm:pl-4 pb-3 ">
+              Today's Offer —
               {new Date().toLocaleDateString('en-US', {
                 weekday: 'long',
                 year: 'numeric',
@@ -306,7 +352,6 @@ export default function Product() {
               ></path>
             </svg>
             <span className="font-normal text-sm pl-2">
-              {' '}
               Limited Stock | Ready to Ship
             </span>
           </p>
@@ -332,10 +377,10 @@ export default function Product() {
               <path d="M10.2297 5.91517C10.5059 5.91517 10.7297 6.13902 10.7297 6.41517V8.90572C10.7297 9.18186 10.5059 9.40572 10.2297 9.40572C9.95359 9.40572 9.72974 9.18186 9.72974 8.90572V6.41517C9.72974 6.13902 9.95359 5.91517 10.2297 5.91517Z"></path>
               <path d="M13.9544 7.30685C14.1497 7.50211 14.1497 7.8187 13.9544 8.01396L12.1934 9.77505C11.9981 9.97031 11.6815 9.97031 11.4862 9.77505C11.291 9.57978 11.291 9.2632 11.4862 9.06794L13.2473 7.30685C13.4426 7.11159 13.7592 7.11159 13.9544 7.30685Z"></path>
             </svg>
-            <span className="font-normal !text-sm">
+            <span className="font-normal text-sm">
               Estimated Delivery Between:&nbsp;
-              <strong>{getDeliveryDate(2)}</strong> and{' '}
-              <strong>{getDeliveryDate(7)}</strong>
+              <strong> {getDeliveryDateOld(2)} </strong> and{' '}
+              <strong> {getDeliveryDateOld(4)} </strong>
             </span>
           </div>
 
@@ -345,13 +390,12 @@ export default function Product() {
             selectedVariant={selectedVariant}
           />
 
-          {/* <img src="https://happyssnouts.com/cdn/shop/files/2025-06-24_19.05.29.jpg?v=1750784750"  alt="" /> */}
+          {/* <img src="{import.meta.env.VITE_DOMAIN_NAME}/cdn/shop/files/2025-06-24_19.05.29.jpg?v=1750784750" alt="" /> */}
           <div className=" bg-white rounded flex items-center justify-center">
             <Image src="./image_one.jpg" />
           </div>
-
           {/* Feature Grid */}
-          <div className="grid grid-cols-1 min-lg:grid-cols-2 gap-4 shadow-xl p-4 rounded-lg">
+          <div className="grid grid-cols-2 min-lg:grid-cols-2 gap-4 shadow-xl p-4 rounded-lg">
             <FeatureItem
               icon="https://cdn.shopify.com/s/files/1/0805/7733/1526/files/surprise.png?v=1722838527"
               title="Free Shipping"
@@ -375,7 +419,7 @@ export default function Product() {
           </div>
           {/* Product Description */}
           <div className="prose max-w-none mt-4">
-            <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+            <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           </div>
           {/* Money-Back Guarantee Box */}
           {/* <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 shadow w-full max-lg:w-3/4 mx-auto"> */}
@@ -422,19 +466,17 @@ export default function Product() {
                 Our customer support team is available 5 days a week:
                 <br />
                 <a
-                  href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
-
+                  href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
-                   {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-
+                  {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                 </a>
                 <br />
                 <a
-                  href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`}
+                  href="tel:+14842148789"
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
-                   {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}
+                  +14842989854
                 </a>
               </p>
             </div>
@@ -456,150 +498,158 @@ export default function Product() {
           }}
         />
       </div>
-      <FaqSection sections={sections} showNewsletter incline />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={data.recommendedProducts}>
-          {(response) =>
-            response &&
-            response.products &&
-            response.products.nodes.length > 0 ? (
-              <ProductList products={response.products.nodes} />
-            ) : null
-          }
-        </Await>
-      </Suspense>
+      <div className="pb-20">
+        <FaqSection sections={sections} showNewsletter incline heading='Newsletter' />
+      </div>
+      <div className="pb-20">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Await resolve={data.recommendedProducts}>
+            {(response: any) =>
+              response &&
+                response.products &&
+                response.products.nodes.length > 0 ? (
+                <ProductList products={response.products.nodes} />
+              ) : null
+            }
+          </Await>
+        </Suspense>
+      </div>
+
+      {/* Fixed Buy Now Button */}
+      <FixedBuyNowButton selectedVariant={selectedVariant} />
     </div>
   );
 }
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
-    id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
-  }
+ fragment ProductVariant on ProductVariant {
+ availableForSale
+ compareAtPrice {
+ amount
+ currencyCode
+ }
+ id
+ image {
+ __typename
+ id
+ url
+ altText
+ width
+ height
+ }
+ price {
+ amount
+ currencyCode
+ }
+ product {
+ title
+ handle
+ }
+ selectedOptions {
+ name
+ value
+ }
+ sku
+ title
+ unitPrice {
+ amount
+ currencyCode
+ }
+ }
 ` as const;
 
 const PRODUCT_FRAGMENT = `#graphql
-  fragment Product on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    encodedVariantExistence
-    encodedVariantAvailability
-    options {
-      name
-      optionValues {
-        name
-        firstSelectableVariant {
-          ...ProductVariant
-        }
-        swatch {
-          color
-          image {
-            previewImage {
-              url
-            }
-          }
-        }
-      }
-    }
-    selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
-    }
-    adjacentVariants (selectedOptions: $selectedOptions) {
-      ...ProductVariant
-    }
-    seo {
-      description
-      title
-    }
-    images(first: 10) {
-      edges {
-        node {
-          id
-          url
-          altText
-          width
-          height
-        }
-      }
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
+ fragment Product on Product {
+ id
+ title
+ vendor
+ handle
+ descriptionHtml
+ description
+ encodedVariantExistence
+ encodedVariantAvailability
+ options {
+ name
+ optionValues {
+ name
+ firstSelectableVariant {
+ ...ProductVariant
+ }
+ swatch {
+ color
+ image {
+ previewImage {
+ url
+ }
+ }
+ }
+ }
+ }
+ selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
+ ...ProductVariant
+ }
+ adjacentVariants (selectedOptions: $selectedOptions) {
+ ...ProductVariant
+ }
+ seo {
+ description
+ title
+ }
+ images(first: 10) {
+ edges {
+ node {
+ id
+ url
+ altText
+ width
+ height
+ }
+ }
+ }
+ }
+ ${PRODUCT_VARIANT_FRAGMENT}
 ` as const;
 
 const PRODUCT_QUERY = `#graphql
-  query Product(
-    $country: CountryCode
-    $handle: String!
-    $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...Product
-    }
-  }
-  ${PRODUCT_FRAGMENT}
+ query Product(
+ $country: CountryCode
+ $handle: String!
+ $language: LanguageCode
+ $selectedOptions: [SelectedOptionInput!]!
+ ) @inContext(country: $country, language: $language) {
+ product(handle: $handle) {
+ ...Product
+ }
+ }
+ ${PRODUCT_FRAGMENT}
 ` as const;
 
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    featuredImage {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 7, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
+ fragment RecommendedProduct on Product {
+ id
+ title
+ handle
+ priceRange {
+ minVariantPrice {
+ amount
+ currencyCode
+ }
+ }
+ featuredImage {
+ id
+ url
+ altText
+ width
+ height
+ }
+ }
+ query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
+ @inContext(country: $country, language: $language) {
+ products(first: 7, sortKey: UPDATED_AT, reverse: true) {
+ nodes {
+ ...RecommendedProduct
+ }
+ }
+ }
 ` as const;
+

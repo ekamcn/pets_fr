@@ -12,9 +12,9 @@ interface ImageBannerProps {
 
 // Main banner component
 export function ImageBanner({
-    title = "Happy Snoutss",
-    subtitle = "Welcome to Happy Snouts, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
-    description = "Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone.",
+    title = "Cosy Critterss",
+    subtitle = "At Cosy Critters, every pet is more than just a companion — they're family.",
+    description = "That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deser",
     imageUrl = '',
     buttonText = "Shop Now",
     buttonUrl = "",
@@ -86,9 +86,9 @@ export function ImageBanner({
 
 // Alternative banner with more layout options
 export function ImageBannerVariant({
-    title = "Happy Snoutss",
-    subtitle = "Welcome to Happy Snouts, a proudly American brand committed to transforming your home with style, quality, and unbeatable value.",
-    description = "Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone.",
+    title = "Cosy Critterss",
+    subtitle = "At Cosy Critters, every pet is more than just a companion — they're family.",
+    description = "That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deser",
     imageUrl = '',
     buttonText = "Shop Now",
     buttonUrl = "/collections/all",

@@ -139,9 +139,9 @@ export default function Homepage() {
   return (
     <div className="home">
       <ImageBanner
-        title="Happy Snouts"
-        imageUrl={`/logo?imagename=VITE_BANNER`}
-        subtitle="Welcome to Happy Snouts, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
+        title="Cosy Critters"
+        imageUrl={import.meta.env.VITE_BANNER}
+        subtitle="Welcome to Cosy Critters, a proudly American brand committed to transforming your home with style, quality, and unbeatable value."
         description="Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone."
         buttonText="Shop Now"
         buttonUrl=""
@@ -183,7 +183,7 @@ export default function Homepage() {
         className="featured-collection"
       />
 
-      <FaqSection sections={sections} showNewsletter rounded />
+      <FaqSection sections={sections} showNewsletter rounded heading='Emails' />
 
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}

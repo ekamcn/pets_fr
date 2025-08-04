@@ -71,7 +71,7 @@ export function Header({
   publicStoreDomain,
 }: HeaderProps) {
   const {shop, menu} = header;
-  const logo = "/logo?imagename=VITE_LOGO";
+  const logo = import.meta.env.VITE_LOGO;
 
   return (
     <>
@@ -96,13 +96,13 @@ export function Header({
           {/* Left: Logo (Desktop Only) */}
           <div className="hidden md:flex items-center">
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <Image src={logo} alt="Store Logo" className="h-10 w-auto" />
+              <Image src={logo} alt="Store Logo" className="h-14 w-auto" />
             </NavLink>
           </div>
           {/* Center: Logo (Mobile Only, Centered) */}
           <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
             <NavLink prefetch="intent" to="/" end>
-              <Image src={logo} alt="Store Logo" className="h-10 w-auto" />
+              <Image src={logo} alt="Store Logo" className="h-14 w-auto" />
             </NavLink>
           </div>
 
@@ -627,15 +627,15 @@ const FALLBACK_HEADER_MENU = {
       url: '/policies',
       items: [],
     },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
-      items: [],
-    },
+    // {
+    //   id: 'gid://shopify/MenuItem/461609599032',
+    //   resourceId: 'gid://shopify/Page/92591030328',
+    //   tags: [],
+    //   title: 'About',
+    //   type: 'PAGE',
+    //   url: '/pages/about',
+    //   items: [],
+    // },
   ],
 };
 

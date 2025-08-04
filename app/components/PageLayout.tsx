@@ -1,5 +1,5 @@
 import {Await, Link} from 'react-router';
-import {Suspense, useId} from 'react';
+import {Suspense, useEffect, useId} from 'react';
 import type {
   CartApiQueryFragment,
   FooterQuery,
@@ -15,7 +15,7 @@ import {
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {AllProductsWidget} from './AllProductsWidget';
-
+ 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
   footer: Promise<FooterQuery | null>;
@@ -24,7 +24,7 @@ interface PageLayoutProps {
   publicStoreDomain: string;
   children?: React.ReactNode;
 }
-
+ 
 export function PageLayout({
   cart,
   children = null,
@@ -33,6 +33,17 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }: PageLayoutProps) {
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const gclid = urlParams.get('gclid');
+ 
+    if (gclid) {
+      const expiry = new Date();
+      expiry.setTime(expiry.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
+      document.cookie = `gclid=${gclid}; expires=${expiry.toUTCString()}; path=/; SameSite=Lax`;
+    }
+  }, []);
+ 
   return (
     <>
       <Aside.Provider contextId="header">
@@ -58,7 +69,7 @@ export function PageLayout({
     </>
   );
 }
-
+ 
 function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
   return (
     <Aside type="cart" heading="CART" contextId="header">
@@ -72,7 +83,7 @@ function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
     </Aside>
   );
 }
-
+ 
 function SearchAside() {
   const queriesDatalistId = useId();
   return (
@@ -96,19 +107,19 @@ function SearchAside() {
             </>
           )}
         </SearchFormPredictive>
-
+ 
         <SearchResultsPredictive>
           {({items, total, term, state, closeSearch}) => {
             const {articles, collections, pages, products, queries} = items;
-
+ 
             if (state === 'loading' && term.current) {
               return <div>Loading...</div>;
             }
-
+ 
             if (!total) {
               return <SearchResultsPredictive.Empty term={term} />;
             }
-
+ 
             return (
               <>
                 <SearchResultsPredictive.Queries
@@ -154,7 +165,7 @@ function SearchAside() {
     </Aside>
   );
 }
-
+ 
 function MobileMenuAside({
   header,
   publicStoreDomain,
@@ -176,3 +187,5 @@ function MobileMenuAside({
     )
   );
 }
+ 
+ 
