@@ -61,9 +61,10 @@ export function PageLayout({
             publicStoreDomain={publicStoreDomain}
           />
         )}
-      </Aside.Provider>
-      <Aside.Provider contextId="filters">
-        <main>{children}</main>
+
+<Aside.Provider contextId="filters">
+          <main>{children}</main>
+        </Aside.Provider>
       </Aside.Provider>
       <Footer />
     </>
