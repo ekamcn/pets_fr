@@ -252,6 +252,8 @@ export default function Collection() {
       .map((v: string) => v.trim());
     return values?.includes(import.meta.env.VITE_STORE_NAME);
   });
+console.log(filteredProducts,"filteredProducts");
+console.log(collection,"collection");
 
   return (
     <>

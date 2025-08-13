@@ -145,7 +145,12 @@ export function Header({
       <style>{`
     .animate-marquee {
       display: flex;
-      animation: marquee 200s linear infinite;
+      animation: marquee 180s linear infinite;
+    }
+      @media (max-width: 768px) {
+      .animate-marquee {
+        animation-duration: 70s;
+      }
     }
     /* Pause animation on hover */
     .animate-marquee:hover {
@@ -154,7 +159,7 @@ export function Header({
 
     @keyframes marquee {
       0% {
-        transform: translateX(100%);
+        transform: translateX(10%);
       }
       100% {
         transform: translateX(-100%);
