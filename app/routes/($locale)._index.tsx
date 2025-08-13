@@ -171,7 +171,7 @@ export default function Homepage() {
 
       <CollectionByHandle
         handle="tout-a-moins-de-20"
-        title="tout a moins de 20"
+        title="TOUT À MOINS DE 20€"
         limit={20}
         columnSize="5"
         showTitle={true}

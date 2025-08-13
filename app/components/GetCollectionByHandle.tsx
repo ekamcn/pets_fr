@@ -266,7 +266,7 @@ export function CollectionByHandle({
     );
   }
 
-  const displayTitle = collection?.title;
+  const displayTitle = title || collection?.title;
   const products = filteredProducts?.slice(0, limit);
 
   // Map columnSize to actual Tailwind classes
