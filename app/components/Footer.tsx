@@ -75,7 +75,7 @@ export function Footer() {
                   <div className="font-semibold">
                     Horaires du service client :
                   </div>
-                  <div>Du lundi au vendredi : 9:00 - 5:00 (UTC+1)</div>
+                  <div>Du lundi au vendredi : 9:00 AM - 5:00 AM (UTC+1)</div>
                 </div>
 
                 {/* Bullet points */}

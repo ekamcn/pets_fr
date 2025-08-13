@@ -6,13 +6,7 @@ import {
   useState,
 } from 'react';
 
-type AsideType =
-  | 'search'
-  | 'cart'
-  | 'mobile'
-  | 'closed'
-  | 'mobile-availability'
-  | 'mobile-price';
+type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'mobile-availability' | 'mobile-price' | 'collections' | 'informations';
 type AsideContextValue = {
   type: AsideType;
   open: (mode: AsideType) => void;
@@ -20,10 +14,7 @@ type AsideContextValue = {
 };
 
 // Create a map to store multiple contexts
-const asideContexts = new Map<
-  string,
-  React.Context<AsideContextValue | null>
->();
+const asideContexts = new Map<string, React.Context<AsideContextValue | null>>();
 
 // Get or create a context for a specific ID
 function getAsideContext(contextId: string) {
@@ -54,7 +45,7 @@ export function Aside({
   heading: React.ReactNode;
   contextId?: string;
 }) {
-  const {type: activeType, close} = useAside(contextId);
+  const { type: activeType, close } = useAside(contextId);
   const expanded = type === activeType;
 
   useEffect(() => {
@@ -68,7 +59,7 @@ export function Aside({
             close();
           }
         },
-        {signal: abortController.signal},
+        { signal: abortController.signal },
       );
     }
     return () => abortController.abort();
@@ -81,40 +72,25 @@ export function Aside({
       role="dialog"
     >
       <button className="close-outside" onClick={close} />
-      <aside>
-        <header>
+      <aside style={{ height: '100vh' }} className="flex flex-col">
+        <header className="flex-shrink-0">
           <h3>{heading}</h3>
-          <button
-            className="close reset w-5 h-5"
-            onClick={close}
-            aria-label="Close"
-          >
-            <svg
-              onClick={close}
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              focusable="false"
-              role="presentation"
-              fill="none"
-              viewBox="0 0 18 17"
-            >
-              <path
-                d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z"
-                fill="currentColor"
-              ></path>
-            </svg>
+          <button className="close reset w-5 h-5" onClick={close} aria-label="Close">
+            <svg onClick={close} xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation"  fill="none" viewBox="0 0 18 17">
+              <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+              </path></svg>
           </button>
         </header>
-        <main>{children}</main>
+        <main className="flex-1 min-h-0 overflow-y-auto">{children}</main>
       </aside>
     </div>
   );
 }
 
-Aside.Provider = function AsideProvider({
-  children,
-  contextId = 'default',
-}: {
+Aside.Provider = function AsideProvider({ 
+  children, 
+  contextId = 'default' 
+}: { 
   children: ReactNode;
   contextId?: string;
 }) {
@@ -138,9 +114,8 @@ export function useAside(contextId: string = 'default') {
   const AsideContext = getAsideContext(contextId);
   const aside = useContext(AsideContext);
   if (!aside) {
-    throw new Error(
-      `useAside must be used within an AsideProvider with contextId: ${contextId}`,
-    );
+    throw new Error(`useAside must be used within an AsideProvider with contextId: ${contextId}`);
   }
   return aside;
 }
+

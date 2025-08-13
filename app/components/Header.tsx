@@ -80,6 +80,7 @@ export function Header({
   return (
     <>
       {/* Top Marquee Bar */}
+      <header className="sticky top-0 z-2 w-full bg-white shadow-md">
       <div className="w-full bg-[var(--color-1)] overflow-hidden whitespace-nowrap text-xs">
         <div className="animate-marquee flex gap-136 px-6 py-2 !font-normal text-black !text-xs tracking-widest">
           <span>{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</span>
@@ -97,56 +98,69 @@ export function Header({
         </div>
       </div>
       {/* Main Header */}
-      <header className="sticky top-0 z-2 w-full bg-white shadow-xs px-3.5 py-4">
-        <div className="max-w-[80rem] mx-auto xl:px-14 flex items-center justify-between relative">
+        <div className="px-4 md:px-8 lg:px-20 max-w-screen-2xl mx-auto flex items-center justify-between py-4 relative">
           {/* Left: Mobile Menu Toggle */}
-          <div className="flex items-center lg:!hidden h-10 w-10">
+          <div className="flex items-center lg:hidden">
             <HeaderMenuMobileToggle />
           </div>
           {/* Left: Logo (Desktop Only) */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center pl-40 pt-2.5">
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <Image src={logo} alt="Store Logo" className="h-16 w-auto" />
-            </NavLink>
-            {/* Center: Desktop Menu */}
-            <div className="hidden md:flex items-center flex-1 justify-center">
-              <HeaderMenu
-                menu={menu}
-                viewport="desktop"
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
+              <Image
+                src={logo}
+                alt="Store Logo"
+                className="h-8 w-auto md:h-10 lg:h-12 xl:h-14 object-contain"
               />
-            </div>
+            </NavLink>
           </div>
           {/* Center: Logo (Mobile Only, Centered) */}
           <div className="absolute left-1/2 transform -translate-x-1/2 lg:hidden">
             <NavLink prefetch="intent" to="/" end>
-              <Image src={logo} alt="Store Logo" className="h-14 w-auto" />
+              <Image
+                src={logo}
+                alt="Store Logo"
+                className="h-14 w-auto object-contain max-w-[300px] pt-2"
+              />
             </NavLink>
           </div>
 
+          {/* Center: Desktop Menu */}
+          <div className="!hidden md:flex items-center ml-8 flex-1 mt-2 lg:!block">
+            <HeaderMenu
+              menu={menu}
+              viewport="desktop"
+              primaryDomainUrl={header.shop.primaryDomain.url}
+              publicStoreDomain={publicStoreDomain}
+            />
+          </div>
           {/* Right: CTAs (Login, Cart) */}
           <div className="flex items-center space-x-6">
             <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
           </div>
         </div>
       </header>
+      <CollectionsAside />
+      <InformationsAside />
       {/* Marquee Animation Style */}
       <style>{`
- .animate-marquee {
- display: flex;
- animation: marquee 150s linear infinite;
- }
+    .animate-marquee {
+      display: flex;
+      animation: marquee 200s linear infinite;
+    }
+    /* Pause animation on hover */
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
 
- @keyframes marquee {
- 0% {
- transform: translateX(100%);
- }
- 100% {
- transform: translateX(-100%);
- }
- }
-`}</style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  `}</style>
     </>
   );
 }
@@ -295,7 +309,7 @@ export function HeaderMenu({
           body: JSON.stringify({
             query: ALL_COLLECTIONS_QUERY,
             variables: {
-              first: 100,
+              first: 50,
             },
           }),
         });
@@ -359,7 +373,8 @@ export function HeaderMenu({
     const transformedMenu = transformMenuToHTML(
       menu || FALLBACK_HEADER_MENU,
       collections,
-    `${import.meta.env.VITE_STORE_NAME }`
+      import.meta.env.VITE_STORE_NAME
+
     );
 
     return (
@@ -378,7 +393,7 @@ export function HeaderMenu({
                     style={activeLinkStyle}
                   >
                     <span
-                      className={`hover:underline underline-offset-2 decoration-[2px] ${item.isActive ? 'header__active-menu-item ' : ''}`}
+                      className={`${item.isActive ? 'header__active-menu-item ' : ''}`}
                     >
                       {item.title}
                     </span>
@@ -424,7 +439,7 @@ export function HeaderMenu({
                       </summary>
                       <ul
                         id={`HeaderMenu-MenuList-${item.id}`}
-                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup  !overflow-y-auto !max-h-96 "
+                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup"
                         tabIndex={-1}
                       >
                         {item.submenu?.map(
@@ -463,12 +478,12 @@ export function HeaderMenu({
   const transformedMenu = transformMenuToHTML(
     menu || FALLBACK_HEADER_MENU,
     collections,
-    `${import.meta.env.VITE_STORE_NAME }`
+    import.meta.env.VITE_STORE_NAME
   );
 
   return (
     <nav
-      className={`${className} flex flex-col space-y-2 p-4`}
+      className={`${className} flex flex-col space-y-2 p-4 lg:hidden`}
       role="navigation"
     >
       {transformedMenu.items.map((item) => {
@@ -477,11 +492,17 @@ export function HeaderMenu({
             <NavLink
               key={item.id}
               to={item.href}
-              className="header-menu-item block py-2 px-3 text-base font-medium rounded-md hover:bg-gray-100 transition-colors"
+              className="header-menu-item block py-2 px-3 text-lg font-medium rounded-md hover:bg-gray-100 transition-colors w-full"
               end={item.href === '/'}
               onClick={close}
               prefetch="intent"
-              style={activeLinkStyle}
+              style={({isActive}) => ({
+                backgroundColor: isActive
+                  ? 'rgba(var(--color-1), 0.2)'
+                  : 'transparent',
+                color: 'black',
+                opacity: isActive ? 1 : 1,
+              })}
             >
               {item.title}
             </NavLink>
@@ -489,39 +510,13 @@ export function HeaderMenu({
         } else if (item.type === 'dropdown') {
           return (
             <div key={item.id} className="mobile-dropdown">
-              <details className="group">
-                <summary className="flex justify-between items-center py-2 px-3 text-base font-medium rounded-md hover:bg-gray-100 cursor-pointer list-none">
-                  <span>{item.title}</span>
-                  <svg
-                    className="w-4 h-4 transition-transform group-open:rotate-180"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div className="mt-2 ml-4 space-y-1">
-                  {item.submenu?.map(
-                    (subItem: {id: string; href: string; title: string}) => (
-                      <NavLink
-                        key={subItem.id}
-                        to={subItem.href}
-                        className="block py-2 px-3 text-sm text-gray-600 rounded-md hover:bg-gray-50 transition-colors"
-                        onClick={close}
-                        prefetch="intent"
-                      >
-                        {subItem.title}
-                      </NavLink>
-                    ),
-                  )}
-                </div>
-              </details>
+              <button
+                className="flex justify-between items-center py-2 px-3 text-lg font-medium rounded-md hover:bg-gray-100 cursor-pointer w-full text-left"
+                onClick={() => open(item.id === 'collections' ? 'collections' : 'informations')}
+              >
+                <span>{item.title}</span>
+                <BsArrowRight className="w-5 h-5" />
+              </button>
             </div>
           );
         }
@@ -554,8 +549,24 @@ function HeaderCtas({
 function HeaderMenuMobileToggle() {
   const {open} = useAside('header');
   return (
-    <button className="reset h-full w-full" onClick={() => open('mobile')}>
-      <span className="text-3xl font-extralight">☰</span>
+    <button
+      className="header-menu-mobile-toggle reset"
+      onClick={() => open('mobile')}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
+        role="presentation"
+        className="w-5 h-5"
+        fill="none"
+        viewBox="0 0 18 16"
+      >
+        <path
+          d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
+          fill="currentColor"
+        ></path>
+      </svg>
     </button>
   );
 }
@@ -585,7 +596,7 @@ function CartBadge({count}: {count: number | null}) {
           url: window.location.href || '',
         } as CartViewPayload);
       }}
-      className="relative w-7 h-7"
+      className="relative w-6 h-6 cursor-pointer"
       aria-label="Open cart"
     >
       {/* Cart Icon */}
@@ -660,13 +671,13 @@ const FALLBACK_HEADER_MENU = {
       items: [],
     },
     // {
-    //   id: 'gid://shopify/MenuItem/461609599032',
-    //   resourceId: 'gid://shopify/Page/92591030328',
-    //   tags: [],
-    //   title: 'About',
-    //   type: 'PAGE',
-    //   url: '/pages/about',
-    //   items: [],
+    // id: 'gid://shopify/MenuItem/461609599032',
+    // resourceId: 'gid://shopify/Page/92591030328',
+    // tags: [],
+    // title: 'About',
+    // type: 'PAGE',
+    // url: '/pages/about',
+    // items: [],
     // },
   ],
 };
@@ -681,8 +692,165 @@ function activeLinkStyle({
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',
-    textDecoration: isActive ? 'underline' : 'none',
-    textDecorationThickness: isActive ? '2px' : 'initial',
-    textUnderlineOffset: isActive ? '3px' : 'initial',
   };
+}
+
+// Add InformationsAside component
+function InformationsAside() {
+  const aside = useAside('header');
+
+  const informationsAside = aside && aside.type === 'informations' && (
+    <div className="lg:hidden">
+      <Aside type="informations" heading="Informations" contextId="header">
+        <div className="bg-white h-full overflow-y-auto relative pt-4 flex flex-col gap-8 pb-24">
+          <div className="px-4 flex flex-col gap-3">
+            <div>
+              <button
+                type="button"
+                className="flex gap-2 items-center pl-4 pb-3 cursor-pointer"
+                onClick={() => aside.open('mobile')}
+                aria-label="Back to mobile menu"
+              >
+                <BsArrowLeft className="w-5 h-5" />
+                <p>Informations</p>
+              </button>
+              <div className="grid grid-cols-1 gap-1">
+                <NavLink
+                  to="/about"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full"
+                  onClick={() => aside.close()}
+                >
+                  <p className="font-normal text-gray-900 !text-lg">🏁 À propos de Esprit Auto Moto</p>
+                </NavLink>
+                <NavLink
+                  to="/faq"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full"
+                  onClick={() => aside.close()}
+                >
+                  <p className="font-normal text-gray-900 !text-lg">Foire aux questions</p>
+                </NavLink>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </Aside>
+    </div>
+  );
+  return <>{informationsAside}</>;
+}
+
+// Add CollectionsAside component
+function CollectionsAside() {
+  const aside = useAside('header');
+  const [collections, setCollections] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const currentTheme = import.meta.env.VITE_STORE_NAME;
+  const collectionsData =
+    collections?.edges
+      ?.filter((edge: any) => {
+        const values = edge.node.metafield?.value
+          ?.split(",")                // split into array
+          .map((v: string) => v.trim()); // remove extra spaces
+ 
+        return values?.includes(currentTheme);
+      })
+      ?.map((edge: any) => ({
+        id: edge.node.handle,
+        href: `/collections/${edge.node.handle}`,
+        title: edge.node.title,
+      })) || [];
+
+  // Fetch collections
+  useEffect(() => {
+    async function fetchCollections() {
+      try {
+        setLoading(true);
+        const response = await fetch('/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: ALL_COLLECTIONS_QUERY,
+            variables: {
+              first: 50,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = (await response.json()) as GraphQLResponse;
+        if (result.errors && result.errors.length > 0) {
+          throw new Error(result.errors[0].message);
+        }
+
+        const graphqlData = result.data;
+        if (graphqlData) {
+          setCollections(graphqlData.collections);
+        }
+      } catch (err) {
+        console.error('Error fetching collections:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCollections();
+  }, []);
+
+  const collectionsAside = aside && aside.type === 'collections' && (
+    <div className="lg:hidden">
+      <Aside type="collections" heading="All Collections" contextId="header">
+        <div className="bg-white h-full overflow-y-auto relative pt-4 flex flex-col gap-8 pb-24">
+          <div className="px-4 flex flex-col gap-3">
+            <div>
+              <button
+                type="button"
+                className="flex gap-2 items-center pl-4 pb-3 cursor-pointer"
+                onClick={() => aside.open('mobile')}
+                aria-label="Back to mobile menu"
+              >
+                <BsArrowLeft className="w-5 h-5" />
+                <p>All Collections</p>
+              </button>
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="inline-block w-5 h-5 border-3 border-gray-200 border-t-gray-800 rounded-full animate-spin"></div>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Loading collections...
+                  </p>
+                </div>
+              ) : collections ? (
+                <div className="grid grid-cols-1 gap-1">
+                  {collectionsData?.map((edge: any) => (
+                    <NavLink
+                      key={edge?.id}
+                      to={`${edge?.href}`}
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full"
+                      onClick={() => aside.close()}
+                    >
+                      <p className="font-normal text-gray-900 !text-lg">
+                        {edge?.title}
+                      </p>
+                    </NavLink>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center py-8 text-gray-600">
+                  No collections found.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </Aside>
+    </div>
+  );
+
+  return <>{collectionsAside}</>;
 }
