@@ -58,7 +58,7 @@ function CartEmpty({
       className="flex flex-col items-center justify-center h-full min-h-[60vh] w-full"
     >
       <br />
-      <strong>Your Cart is Empty</strong>
+      <strong>Votre panier est vide</strong>
       <br />
       <Link to="/collections/all" onClick={close} prefetch="viewport">
         <button
@@ -68,7 +68,8 @@ function CartEmpty({
           // }}
           className="product-form__submit flex items-center justify-center gap-2 w-full px-3 py-2 rounded-full text-md font-medium transition-colors duration-200 bg-[var(--color-1)] text-white cursor-pointer"
         >
-          <span className="addbtntext">Continue to Shopping</span>
+          <span className="addbtntext">Continuer les achats
+          </span>
         </button>
       </Link>
     </div>

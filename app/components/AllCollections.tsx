@@ -14,11 +14,14 @@ interface CollectionNode {
     id: string;
     url: string;
   };
+  metafield?: {
+    value: string | null;
+  };
 }
 
 interface GraphQLResponse {
   data?: GraphQLCollectionsResponse;
-  errors?: Array<{ message: string }>;
+  errors?: Array<{message: string}>;
 }
 
 interface GraphQLCollectionsResponse {
@@ -55,6 +58,9 @@ const ALL_COLLECTIONS_QUERY = `
             id
             url
           }
+          metafield(namespace: "custom", key: "theme_types") {
+            value
+          }
         }
       }
     }
@@ -62,18 +68,23 @@ const ALL_COLLECTIONS_QUERY = `
 `;
 
 // Function to convert GraphQL response to CollectionFragment format
-function convertToCollectionFragment(node: CollectionNode): CollectionFragment {
+function convertToCollectionFragment(
+  node: CollectionNode,
+): CollectionFragment & {metafield?: {value: string | null}} {
   return {
     id: node.id,
     handle: node.handle,
     title: node.title,
-    image: node.image ? {
-      id: node.image.id,
-      url: node.image.url,
-      altText: node.title,
-      width: 400,
-      height: 400,
-    } : undefined,
+    image: node.image
+      ? {
+          id: node.image.id,
+          url: node.image.url,
+          altText: node.title,
+          width: 400,
+          height: 400,
+        }
+      : undefined,
+    metafield: node.metafield,
   };
 }
 
@@ -87,32 +98,34 @@ interface AllCollectionsWidgetProps {
 
 /**
  * AllCollectionsWidget - A self-contained component to display all collections
- * 
+ *
  * This component fetches real collection data from your Shopify storefront using GraphQL.
  * It can be used anywhere in your application without requiring props.
  * It includes its own loading state and error handling.
- * 
+ *
  * Usage:
  * ```tsx
  * // With all default settings
  * <AllCollectionsWidgetSimple />
- * 
+ *
  * // With custom settings
- * <AllCollectionsWidget 
- *   title="Shop Collections" 
- *   limit={6} 
- *   showTitle={true} 
+ * <AllCollectionsWidget
+ *   title="Shop Collections"
+ *   limit={6}
+ *   showTitle={true}
  * />
  * ```
  */
 export function AllCollectionsWidget({
-  title = "Discover Our Collections",
-  limit = 3,
-  className = "all-collections-widget",
+  title = 'Discover Our Collections',
+  limit = 100,
+  className = 'all-collections-widget',
   showTitle = true,
   storefront,
 }: AllCollectionsWidgetProps = {}) {
-  const [collections, setCollections] = React.useState<CollectionsData | null>(null);
+  const [collections, setCollections] = React.useState<CollectionsData | null>(
+    null,
+  );
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -121,7 +134,7 @@ export function AllCollectionsWidget({
       try {
         setLoading(true);
         setError(null);
-        
+
         // Use fetch to call the GraphQL API
         const response = await fetch('/graphql', {
           method: 'POST',
@@ -136,27 +149,27 @@ export function AllCollectionsWidget({
           }),
         });
 
-    
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const result = await response.json() as GraphQLResponse;
-      //  console.log('GraphQL response collection:', result);
+        const result = (await response.json()) as GraphQLResponse;
+        //  console.log('GraphQL response collection:', result);
         if (result.errors && result.errors.length > 0) {
           throw new Error(result.errors[0].message);
         }
 
         const graphqlData = result.data;
-        
+
         if (!graphqlData) {
           throw new Error('No data received from GraphQL API');
         }
-        
+
         // Convert GraphQL response to our expected format
         const convertedCollections: CollectionsData = {
-          nodes: graphqlData.collections.edges.map(edge => convertToCollectionFragment(edge.node)),
+          nodes: graphqlData.collections.edges.map((edge) =>
+            convertToCollectionFragment(edge.node),
+          ),
           pageInfo: {
             hasPreviousPage: false,
             hasNextPage: true,
@@ -164,11 +177,13 @@ export function AllCollectionsWidget({
             endCursor: 'end',
           },
         };
-        
+
         setCollections(convertedCollections);
       } catch (err) {
         console.error('Error fetching collections:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch collections');
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch collections',
+        );
       } finally {
         setLoading(false);
       }
@@ -177,6 +192,18 @@ export function AllCollectionsWidget({
     fetchCollections();
   }, [limit]);
 
+  const filteredCollections = collections?.nodes.filter(
+    (collection: CollectionFragment) => {
+      const titleMatch = import.meta.env.VITE_DISCOVER_OUR_COLLECTIONS.includes(
+        collection.title,
+      );
+      const values = collection?.metafield?.value
+        ?.split(',')
+        .map((v: string) => v.trim());
+      const metafieldMatch = values?.includes(import.meta.env.VITE_STORE_NAME);
+      return titleMatch && metafieldMatch;
+    },
+  );
   if (loading) {
     return (
       <div className={`${className} loading`}>
@@ -198,7 +225,7 @@ export function AllCollectionsWidget({
     );
   }
 
-  if (!collections || collections.nodes.length === 0) {
+  if (!filteredCollections || filteredCollections.length === 0) {
     return (
       <div className={`${className} no-collections`}>
         <p className="text-center py-8 text-gray-600 bg-gray-100 rounded">
@@ -209,20 +236,22 @@ export function AllCollectionsWidget({
   }
 
   return (
-    <div className={`${className} p-3 my-12 border-y-2 border-[var(--color-1)] `}>
-      {showTitle && (
-        <h2 className="mb-8 !pb-4  !text-3xl max-sm:text-lg font-bold text-[var(--color-2)] text-center tracking-tight">
-          {title}
-        </h2>
-      )}
-      <div className="grid grid-cols-3 gap-5 max-w-6xl mx-auto px-5">
-        {collections.nodes.slice(0, limit).map((collection, index) => (
-          <CollectionItem
-            key={collection.id}
-            collection={collection}
-            index={index}
-          />
-        ))}
+    <div className={`${className} p-2 my-12 w-full`}>
+      <div className="border-y-3 border-[var(--color-1)] max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+        {showTitle && (
+          <h2 className="!pb-6 !text-3xl max-sm:!text-2xl font-bold text-[var(--color-2)] text-center tracking-tight">
+            {title}
+          </h2>
+        )}
+        <div className="grid lg:grid-cols-3 grid-cols-2 md:grid-cols-3 gap-5">
+          {filteredCollections.slice(0, 3).map((collection, index) => (
+            <CollectionItem
+              key={collection.id}
+              collection={collection}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -263,13 +292,13 @@ function CollectionItem({
 
 /**
  * AllCollectionsWidgetSimple - A no-props version of AllCollectionsWidget
- * 
+ *
  * This is the simplest way to add collection display to any route.
  * Just import and use:
- * 
+ *
  * ```tsx
  * import {AllCollectionsWidgetSimple} from '~/components/AllCollections';
- * 
+ *
  * export default function MyRoute() {
  *   return (
  *     <div>

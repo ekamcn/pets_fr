@@ -1,23 +1,26 @@
-import { Link } from 'react-router';
-import { Image, Money } from '@shopify/hydrogen';
+import {Link} from 'react-router';
+import {Image, Money} from '@shopify/hydrogen';
 import type {
   ProductItemFragment,
   CollectionItemFragment,
   RecommendedProductFragment,
 } from 'storefrontapi.generated';
-import { useVariantUrl } from '~/lib/variants';
+import {useVariantUrl} from '~/lib/variants';
+import {FaClock} from 'react-icons/fa';
 
 export function ProductItem({
   product,
   loading,
   badgeText,
+  badgeLogo,
 }: {
   product:
-  | CollectionItemFragment
-  | ProductItemFragment
-  | RecommendedProductFragment;
+    | CollectionItemFragment
+    | ProductItemFragment
+    | RecommendedProductFragment;
   loading?: 'eager' | 'lazy';
   badgeText?: string; // Optional badge text for flash deals or discounts
+  badgeLogo?: boolean;
 }) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
@@ -37,14 +40,21 @@ export function ProductItem({
 
   return (
     <Link
-      className="border border-gray-300 bg-white p-2.5 text-center shadow-md relative flex flex-col justify-between transition-transform duration-200 ease-in-out hover:scale-105 rounded-sm"
+      className="border border-gray-300 bg-white p-2.5 text-center shadow-md relative flex flex-col justify-between transition-transform duration-200 ease-in-out hover:scale-105"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
     >
       {/* Flash Deal Badge - positioned absolute like the CSS */}
       {badgeText && (
-        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center">
+        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 !text-[10px] rounded-sm flex gap-2 items-center">
+          {badgeLogo && (
+            <img
+              src="/alarm-clock-svgrepo-com.svg"
+              alt="Alarm Clock"
+              style={{width: 20, height: 20}}
+            />
+          )}
           {badgeText}
         </div>
       )}
@@ -64,13 +74,13 @@ export function ProductItem({
       </div>
 
       {/* Product Title */}
-      <h4 className="flex flex-wrap text-sm font-bold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] leading-tight">
+      <div className="flex flex-wrap justify-center items-center text-center text-sm font-bold text-gray-800 mb-2.5 line-clamp-2 min-h-[2.5rem] leading-tight">
         {product.title}
-      </h4>
+      </div>
 
       {/* Price Info Section - with margin like CSS */}
       <div
-        className={`my-2.5 flex ${compareAtPrice ? 'flex-wrap' : 'flex-col'} gap-1 justify-center items-center`}
+        className={`flex ${compareAtPrice ? 'flex-wrap' : 'flex-col'} gap-1 justify-center items-center`}
       >
         {/* Compare At Price (strikethrough if discounted) - show first */}
         {hasDiscount && compareAtPrice && (
@@ -92,25 +102,25 @@ export function ProductItem({
             </>
           )}
         </div>
-
+        {badgeText === 'Offre Flash' && <hr className="separator" />}
         {/* Savings Badge - only if there's a discount */}
-        {badgeText === 'Flash Sale' && (
-          <div className="w-full !text-sm font-medium text-[#666666] px-2 py-1 mt-3">
+        {badgeText === 'Offre Flash' && (
+          <div className="w-full !text-sm font-medium text-[#666666] px-2 pb-1 mt-2.5">
             <p className="text-[#B7B7B7] !text-xs  !md:pt-2">
-              Today&apos;s Special Offer:
+              Offre spéciale du jour :
             </p>
             <div className="flex flex-wrap justify-center gap-1 !text-xs text-center">
               <span>
-                {new Date().toLocaleDateString('en-US', { weekday: 'long' })},
+                {new Date().toLocaleDateString('fr-FR', {weekday: 'long'})},
               </span>
-              <span className="text-red-600">
-                {new Date().toLocaleDateString('en-US', { month: 'long' })}
-              </span>
-              <span>
-                {new Date().toLocaleDateString('en-US', { day: 'numeric' })},
+              <span className="text-[var(--color-1)]">
+                {new Date().toLocaleDateString('fr-FR', {month: 'long'})}
               </span>
               <span>
-                {new Date().toLocaleDateString('en-US', { year: 'numeric' })}
+                {new Date().toLocaleDateString('fr-FR', {day: 'numeric'})},
+              </span>
+              <span>
+                {new Date().toLocaleDateString('fr-FR', {year: 'numeric'})}
               </span>
             </div>
           </div>
@@ -119,4 +129,3 @@ export function ProductItem({
     </Link>
   );
 }
-

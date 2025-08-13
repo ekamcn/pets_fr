@@ -140,14 +140,14 @@ export default function CollectionFilters({
     <div className="w-full pt-6">
       <div className="flex flex-wrap items-center gap-4 justify-between">
         <div className="flex items-center gap-2 text-base font-semibold">
-          <span className="text-sm font-bold">Filter :</span>
+          <span className="text-sm font-bold">Filtre :</span>
           <div className="relative" ref={availabilityRef}>
             <button
               type="button"
               className="flex items-center gap-1 px-2 py-1 font-normal text-sm rounded"
               onClick={handleAvailabilityClick}
             >
-              Availability
+              Disponibilité
               <svg width="10" height="10" viewBox="0 0 10 6" className="ml-1">
                 <path
                   fillRule="evenodd"
@@ -160,13 +160,13 @@ export default function CollectionFilters({
             {showAvailability && (
               <div className="absolute left-0 top-full pt-2 bg-white border border-gray-300 rounded shadow p-4 z-10 min-w-[350px]">
                 <div className="flex items-center justify-between pb-3">
-                  <span className="font-normal text-sm">0 selected</span>
+                  <span className="font-normal text-sm">0 sélectionnés</span>
                   <a
                     href="#"
                     className="font-normal underline text-sm"
                     onClick={handleReset}
                   >
-                    Reset
+                    Réinitialiser
                   </a>
                 </div>
                 <div className="border-t pt-4">
@@ -191,7 +191,7 @@ export default function CollectionFilters({
                             })
                           }
                         />
-                        <span>In stock ({totalProducts})</span>
+                        <span>En stock ({totalProducts})</span>
                       </label>
                     </li>
                     <li>
@@ -207,7 +207,7 @@ export default function CollectionFilters({
                           id="Filter-Availability-2"
                           disabled
                         />
-                        <span>Out of stock (0)</span>
+                        <span>En rupture de stock (0)</span>
                       </label>
                     </li>
                   </ul>
@@ -221,7 +221,7 @@ export default function CollectionFilters({
               className="flex items-center gap-1 px-2 py-1 font-normal text-sm rounded"
               onClick={handlePriceClick}
             >
-              Price
+              Prix
               <svg width="10" height="10" viewBox="0 0 10 6" className="ml-1">
                 <path
                   fillRule="evenodd"
@@ -235,14 +235,14 @@ export default function CollectionFilters({
               <div className="absolute left-0 top-full pt-2 bg-white border border-gray-300 rounded shadow p-4 z-10 min-w-[350px]">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-normal text-sm">
-                    The highest price is $69.99
+                    Le prix le plus élevé est de €69,99
                   </span>
                   <a
                     href="#"
                     className="underline text-sm font-normal"
                     onClick={handleReset}
                   >
-                    Reset
+                    Réinitialiser
                   </a>
                 </div>
                 <div className="flex items-center gap-3 border-t pt-4">
@@ -253,7 +253,7 @@ export default function CollectionFilters({
                       name="filter.v.price.gte"
                       id="Filter-Price-GTE"
                       type="number"
-                      placeholder="From"
+                      placeholder="De"
                       min="0"
                       max="69.99"
                       value={localPriceGte}
@@ -267,7 +267,7 @@ export default function CollectionFilters({
                       name="filter.v.price.lte"
                       id="Filter-Price-LTE"
                       type="number"
-                      placeholder="To"
+                      placeholder="À"
                       min="0"
                       max="69.99"
                       value={localPriceLte}
@@ -280,7 +280,7 @@ export default function CollectionFilters({
           </div>
         </div>
         <div className="flex items-center gap-2 ml-auto">
-          <span className="font-bold text-sm">Sort by:</span>
+          <span className="font-bold text-sm">Trier par :</span>
           <select
             className="rounded p-1 text-sm text-black"
             name="sort_by"
@@ -299,7 +299,7 @@ export default function CollectionFilters({
           </select>
         </div>
         <p className="font-semibold text-gray-700 !text-sm">
-          {totalProducts} products
+          {totalProducts}  produits
         </p>
       </div>
     </div>
@@ -401,7 +401,7 @@ export default function CollectionFilters({
           {/* Sort by */}
           <div className="flex items-center gap-2 px-2 justify-between">
             <span className="font-normal text-gray-700 text-sm tracking-widest">
-              Sort by:
+              Trier par :
             </span>
             <select
               className="rounded p-1 font-normal text-sm"

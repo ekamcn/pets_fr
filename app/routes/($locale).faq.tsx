@@ -4,118 +4,246 @@ import Form from '~/components/Form';
 
 const sections = [
   {
-    title: 'Shipping & Returns',
+    title: 'Livraison & Retours',
     faqs: [
       {
-        question: 'What is my order number?',
+        question: 'Quel est mon numéro de commande ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>Your order confirmation email may have been filtered into your spam or junk folder. Please check those folders first.</p>
-            <p>If you still cannot find the confirmation email containing your order number, please contact us at <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a> with the subject line: "My Order Number."</p>
-            <p>We respond within 24 business hours.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Il se peut que votre e-mail de confirmation de commande soit
+              arrivé dans vos courriers indésirables (spams). Nous vous invitons
+              donc à vérifier vos courriers indésirables.
+            </p>
+            <p>
+              Si après vérification, vous ne trouvez pas l’e-mail de
+              confirmation comprenant votre numéro de commande, veuillez nous
+              contacter à l’adresse suivante :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+              . Mentionnez l’objet de l’e-mail : “Mon numéro de commande”.
+            </p>
+            <p>Nous répondons dans les 24 heures ouvrables.</p>
           </div>
         ),
       },
       {
-        question: 'How can I cancel my order?',
+        question: 'Comment annuler ma commande ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>You can cancel your order within 24 hours of purchase on our store.</p>
-            <p>If you are within this timeframe, please contact our customer service at <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a> with the subject line: "Order Cancellation" and include your order number.</p>
-            <p>Our team will cancel your order and process a full refund.</p>
-            <p>If your package has already been shipped, we cannot cancel the order. Once you receive your order, you may return the item to our warehouse for a refund if necessary.</p>
-            <p>We respond within 24 business hours.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Il vous est possible d’annuler votre commande jusqu’à 24 heures
+              après achat sur notre boutique {import.meta.env.VITE_COMPANY_NAME}.
+            </p>
+            <p>
+              Si vous êtes dans ce délai, contactez le service client à
+              l’adresse suivante :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+              . Mentionnez l’objet de l’e-mail : “Annulation de commande” et le
+              numéro de la commande à annuler.
+            </p>
+            <p>
+              Nos équipes se chargeront d’annuler votre commande et procéderont
+              ensuite à un remboursement intégral.
+            </p>
+            <p>
+              Si votre colis a déjà été expédié, nous ne pouvons rien faire
+              jusqu’à ce que vous receviez votre commande, après quoi nous
+              pourrons procéder à un remboursement si nécessaire, après retour
+              de l’article vers nos entrepôts.
+            </p>
+            <p>Nous répondons dans les 24 heures ouvrables.</p>
           </div>
         ),
       },
       {
-        question: 'What are the delivery times?',
+        question: 'Quels sont les délais de livraison ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>When you place an order on our store, it is processed by our fulfillment center within 1 business day. Delivery usually takes between 2 to 4 days.</p>
-            <p>In rare cases (postal strikes, holiday seasons, etc.), delivery may take a little longer.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Lorsque vous passez une commande sur notre boutique
+              {import.meta.env.VITE_COMPANY_NAME}, celle-ci est traitée par notre centre
+              d’exécution sous 1 jour ouvrable.
+            </p>
+            <p>
+              La livraison prend en moyenne 2 à 4 jours. Dans des cas très
+              exceptionnels (grève de la poste, fêtes de fin d’année, etc.),
+              cela peut être un peu plus long.
+            </p>
           </div>
         ),
       },
       {
-        question: 'Where is my order?',
+        question: 'Où se trouve ma commande ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>To find out the status of your package or track your order, please visit the "Order Tracking" page and enter the following information:</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Pour savoir où se trouve votre colis / suivre votre colis, nous
+              vous invitons à vous rendre sur la page “Suivi commande” et d’y
+              entrer les informations suivantes :
+            </p>
             <ul className="list-disc ml-6">
-              <li>Your order number</li>
-              <li>The email address used when placing the order</li>
+              <li>Votre numéro de commande</li>
+              <li>L’adresse e-mail utilisée lors de l’achat</li>
             </ul>
-            <p>If you need additional information about your order status, feel free to contact our customer service at: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a></p>
-            <p>Please include the subject line: "Order Status" and your order number. We respond within 24 business hours.</p>
+            <p>
+              Si vous désirez des informations complémentaires sur le statut de
+              votre commande, n’hésitez pas à contacter le service client à
+              l’adresse suivante :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+            </p>
+            <p>
+              Mentionnez l’objet de l’e-mail : “Statut de ma commande” et le
+              numéro de votre commande. Nous répondons dans les 24 heures
+              ouvrables.
+            </p>
           </div>
         ),
       },
       {
-        question: 'How to return an item and get a refund?',
+        question: 'Comment effectuer un retour et obtenir un remboursement ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>We're sorry if you encountered any issues with your order. If you received a damaged or incorrect item, or if you are not satisfied with your purchase, please contact our customer service at: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a></p>
-            <p>Please include the subject line: "Return/Refund Request" and your order number. We will respond within 24 business hours.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Nous sommes désolés si vous avez rencontré un problème avec votre
+              commande.
+            </p>
+            <p>
+              Si vous avez reçu un article endommagé, non conforme ou que vous
+              n’êtes pas satisfait de votre commande, contactez le service
+              client à l’adresse :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                     {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} 
+              </a>
+            </p>
+            <p>
+              Mentionnez l’objet de l’e-mail : “Demande de retour/remboursement”
+              et le numéro de votre commande.
+            </p>
+            <p>Nous vous répondrons dans les 24 heures ouvrables.</p>
           </div>
         ),
       },
       {
-        question: 'Can I modify my order?',
+        question: 'Est-il possible de modifier ma commande ?',
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>You can modify your order (color, size, model) within 24 hours of purchase on our store. If you are within this timeframe, please contact our customer service at: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a> Include the subject line: "Order Modification" and your order number.</p>
-            <p>If your package has already been shipped, we cannot make any changes until you receive your order. After that, we can arrange a new shipment once the original item is returned to our warehouse.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Il vous est possible de modifier votre commande (couleur, taille,
+              modèle) jusqu’à 24 heures après achat sur notre boutique
+              {import.meta.env.VITE_COMPANY_NAME}.
+            </p>
+            <p>
+              Si vous êtes dans ce délai, contactez le service client à
+              l’adresse suivante :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+              . Mentionnez l’objet de l’e-mail : “Modification de ma commande”
+              et le numéro de votre commande.
+            </p>
+            <p>
+              Si votre colis a déjà été expédié, nous ne pouvons rien faire
+              jusqu’à ce que vous receviez votre commande, après quoi nous
+              pourrons procéder à un nouvel envoi, après retour de l’article
+              vers nos entrepôts.
+            </p>
           </div>
         ),
       },
       {
-        question: 'Do you ship internationally?',
+        question: "Livrez-vous à l'international ?",
         answer: (
-          <div className='flex flex-col gap-4'>
-            <p>Our store ships many products every day to customers all around the world.</p>
+          <div className="flex flex-col gap-4">
+            <p>
+              Votre boutique expédie tous les jours de nombreux produits et ce
+              dans les 4 coins du globe.
+            </p>
           </div>
         ),
       },
     ],
   },
   {
-    title: 'Order Tracking',
+    title: 'Traçabilité',
     faqs: [
       {
-        question: "My tracking number isn't working",
-        answer: <p>Please allow up to 24 hours for your tracking number to update. If it still doesn't work, contact us at <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"> {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a></p>,
+        question: 'Mon numéro de suivi (tracking) ne fonctionne pas',
+        answer: (
+          <div className="flex flex-col gap-4">
+            <p>
+              Votre numéro de suivi ne fonctionne pas directement à la réception
+              du mail de confirmation d'envoi. Il sera actif dans les 7 jours
+              ouvrables.
+            </p>
+            <p>
+              Ne vous inquiétez pas, votre commande a bien été expédiée et sera
+              livrée à votre domicile.
+            </p>
+          </div>
+        ),
       },
       {
-        question: 'Is my information secure?',
-        answer: <p>Yes, we use industry-standard security measures to protect your information.</p>,
+        question: 'Mes informations sont-elles sécurisées ?',
+        answer: (
+          <div className="flex flex-col gap-4">
+            <p>
+              Notre site est totalement sécurisé et hébergé par un serveur HTTPS
+              qui garantit votre protection et celle de l'ensemble de vos
+              données personnelles.
+            </p>
+            <p>
+              Nous collaborons entre-autre avec VISA, Mastercard et American
+              Express qui sont des leaders mondiaux qui ne permettraient pas la
+              viabilité d'une boutique telle que la nôtre si le taux de clients
+              insatisfaits était important.
+            </p>
+          </div>
+        ),
       },
     ],
   },
   {
-    title: 'About Us',
+    title: 'À propos de nous',
     faqs: [
       {
-        question: 'Do you have a contact form?',
-        answer: <p>Yes, you can contact us via our contact form on the website or by emailing <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
- className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"> {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-</a></p>,
+        question: 'Possédez-vous un formulaire de contact ?',
+        answer: (
+          <p>
+            Oui tout à fait, vous pouvez nous contacter par formulaire en allant
+            en bas de cette page.
+          </p>
+        ),
       },
       {
-        question: 'Can I contact you or reply via SMS?',
-        answer: <p>Currently, we only support email communication for customer service.</p>,
+        question: 'Puis-je vous contacter ou répondre par SMS ?',
+        answer: (
+          <p>
+            Malheureusement, non. Si vous avez reçu un SMS de notre part, sachez
+            que celui-ci est automatisé et que nous ne recevrons jamais votre
+            réponse. Merci de nous contacter par e-mail.
+          </p>
+        ),
       },
     ],
   },
@@ -124,12 +252,13 @@ const sections = [
 export default function FAQPage() {
   return (
     <div>
-      <h1 className='text-center !text-3xl font-bold !py-4'>FAQ</h1>
-      <FaqSection sections={sections}/>
-<div>
-
-      <Form/>
-</div>
+      <h1 className="text-center !text-3xl font-bold !py-4">
+        Foire aux questions
+      </h1>
+      <FaqSection sections={sections} />
+      <div>
+        <Form />
+      </div>
     </div>
   );
-} 
+}

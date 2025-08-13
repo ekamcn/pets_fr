@@ -69,6 +69,9 @@ const GET_COLLECTION_BY_HANDLE_QUERY = `
             id
             url
           }
+          metafield(namespace: "custom", key: "theme_types") {
+          value
+        }
           variants(first: 1) {
             edges {
               node {
@@ -144,6 +147,7 @@ interface CollectionByHandleProps {
   badgeText?: string; // Optional badge text for flash deals or discounts
   showDescription?: boolean;
   forceSmallCols2?: boolean;
+  badgeLogo?: boolean; // Optional logo for the badge
 }
 
 /**
@@ -173,10 +177,19 @@ export function CollectionByHandle({
   showTitle = true,
   showDescription = false,
   forceSmallCols2 = false,
+  badgeLogo
 }: CollectionByHandleProps) {
   const [collection, setCollection] = React.useState<CollectionNode | null>(
     null,
   );
+
+  const filteredProducts = collection?.products.nodes.filter((product: any) => {
+    const values = product.metafield?.value
+      ?.split(',')
+      .map((v: string) => v.trim());
+    return values?.includes(import.meta.env.VITE_STORE_NAME);
+  });
+
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -253,18 +266,8 @@ export function CollectionByHandle({
     );
   }
 
-  if (!collection || !collection.products.nodes.length) {
-    return (
-      <div className={`${className}`}>
-        <p className="text-center p-8 text-gray-600 bg-gray-50 rounded">
-          No products found in this collection.
-        </p>
-      </div>
-    );
-  }
-
-  const displayTitle = title || collection.title;
-  const products = collection.products.nodes.slice(0, limit);
+  const displayTitle = collection?.title;
+  const products = filteredProducts?.slice(0, limit);
 
   // Map columnSize to actual Tailwind classes
   const getGridCols = (size: string) => {
@@ -278,60 +281,59 @@ export function CollectionByHandle({
   };
 
   return (
-    <div className={`${className} my-4 px-4 max-w-7xl mx-auto`}>
+    <div className={`${className} my-5 px-3.5 md:px-12 max-w-[75rem] mx-auto`}>
       {/* Collection Header */}
       {showTitle && (
-        <h2 className="mb-4 text-xl md:!text-3xl text-gray-800 text-center capitalize">
+        <div className="mb-7 text-2xl font-bold md:!text-3xl text-gray-800 text-center capitalize">
           {displayTitle}
-        </h2>
+        </div>
       )}
 
       {/* Collection Description */}
-      {showDescription && collection.description && (
+      {showDescription && collection?.description && (
         <p className="mb-6 text-gray-600 text-center max-w-3xl mx-auto">
-          {collection.description}
+          {collection?.description}
         </p>
       )}
 
-      {/* Products Grid */}
-      <div
-        className={`grid grid-cols-1 ${forceSmallCols2 ? 'grid-cols-2' : 'grid-cols-1'
-          } ${getGridCols(columnSize)} gap-6 mt-4 md:grid-cols-3`}
-      >
-        {products.map((productNode, index) => {
-          const product = convertToProductItemFragment(productNode);
-          return (
+      {/* Products Grid OR No Products Message */}
+      {filteredProducts && filteredProducts.length > 0 ? (
+        <div
+          className={`grid grid-cols-1 ${
+            forceSmallCols2 ? 'grid-cols-2' : 'grid-cols-1'
+          } ${getGridCols(columnSize)} gap-4 mt-4 md:grid-cols-3`}
+        >
+          {filteredProducts.slice(0, limit).map((productNode, index) => {
+            const product = convertToProductItemFragment(productNode);
+            return (
             <ProductItem
               key={product.id}
               product={product}
               badgeText={badgeText}
               loading={index < 8 ? 'eager' : undefined}
-            />
-          );
-        })}
-      </div>
-
-      {/* Collection Info
-      {collection.products.nodes.length > limit && (
-        <div className="text-center mt-6">
-          <p className="text-gray-600">
-            Showing {limit} of {collection.products.nodes.length} products
-          </p>
+              badgeLogo={badgeLogo}
+              />
+            );
+          })}
         </div>
-      )} */}
+      ) : (
+        <p className="text-center p-8 text-gray-600 bg-gray-50 rounded">
+          No products found in this collection.
+        </p>
+      )}
     </div>
   );
 }
 
 /**
-* CollectionByHandleSimple - A no-props version for quick usage
-*
-* Usage:
-* ```tsx
-* <CollectionByHandleSimple handle="featured-products" />
-* ```
-*/
-export function CollectionByHandleSimple({ handle }: { handle: string }) {
+ * CollectionByHandleSimple - A no-props version for quick usage
+ *
+ * Usage:
+ * ```tsx
+ * <CollectionByHandleSimple handle="featured-products" />
+ * ```
+ */
+export function CollectionByHandleSimple({handle}: {handle: string}) {
   return (
     <CollectionByHandle
       handle={handle}

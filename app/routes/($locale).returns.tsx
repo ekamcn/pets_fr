@@ -1,104 +1,173 @@
 import React from 'react';
 
-export default function ReturnPolicyPage() {
-    return (
-        <div className="bg-white min-h-screen py-8 sm:py-12 px-4 sm:px-5 [&_ul]:-indent-[1.3em]">
-            <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-10 tracking-wider">
-                <p className='!text-2xl sm:!text-3xl font-bold'>Return Policy</p>
-                <p className="!text-2xl sm:!text-3xl lg:!text-3xl font-bold">{import.meta.env.VITE_COMPANY_NAME} Return and Refund Policy</p>
-                <div>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>Last Updated: 1-7-2025</p>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>Thank you for shopping with us at {import.meta.env.VITE_COMPANY_NAME}. Our Return and Refund Policy aims to ensure a smooth and transparent experience. Please review the guidelines below for eligibility, processes, and timelines for returns, refunds, and exchanges.</p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Scope and Contact Information</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>For questions regarding returns and refunds, please contact us through any of the methods below:</p>
-                    <p className='flex flex-col gap-2 !text-sm sm:!text-base'>
-                        <span>Email: <a href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}" className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</a></span>
-                        <span>Phone: <a href="tel:+14842148789" className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a></span>
-                        <span>Address: {import.meta.env.VITE_COMPANY_ADDRESS}</span>
-                    </p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Policy Overview</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Return Period: 30 days from delivery date</li>
-                        <li>Refund Processing Time: 5 business days from receipt</li>
-                        <li>Return Shipping Costs: Free and Covered by us even the product is defective or incorrect.</li>
-                        <li>Return label: Included in the package, Free</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Order Cancellations</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>You may cancel your order within two hours of purchase by contacting our customer service team. If your order has already been shipped, please follow the steps in our Return Instructions below.</p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Return Conditions</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>We offer returns under the following conditions:</p>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Return Window: Items can be returned within 30 days of delivery.</li>
-                        <li>Item Condition: Items must be in their original, unused condition with all tags attached and in the original packaging.</li>
-                        <li>Receipt or Proof of Purchase: Required for all returns.</li>
-                        <li>Exceptions: Certain products, such as custom or personalized items and hygiene products (e.g., undergarments), are non-returnable unless unopened and unused.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Return Instructions</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>To start a return, please follow these steps:</p>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Contact Customer Service: Email {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} with your order number, reason for return, and any supporting photos if applicable.</li>
-                        <li>Receive Return Authorization: Our team will review your request and provide a return authorization and detailed instructions.</li>
-                        <li>Return Packaging: Safely package the item, ensuring all tags and original packaging are included, and attach the return authorization form.</li>
-                        <li>Shipping: Use a reliable shipping service with tracking. Return shipping free and Covered by us even the product is defective or incorrect.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Refund Policy</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>Refund Approval: Once we receive and inspect your returned item, we will notify you regarding the approval status within 5 business days.</p>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Processing Time: Approved refunds will be processed to your original payment method within 5 business days. Your bank or credit card provider may require additional time to post the refund.</li>
-                        <li>Confirmation: You will receive a confirmation email once the refund is processed.</li>
-                    </ul>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pt-4'>If you do not see the refund within the expected time, please check with your bank. For further assistance, contact us at {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}.</p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Exchange Policy</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>We offer exchanges for incorrect or defective items. Contact us within 30 days of delivery, and we'll cover the return shipping costs for eligible exchanges. If an incorrect size was ordered, please follow the return process and then place a new order for the correct size.</p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Exceptions and Special Cases</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Defective or Damaged Items: If your item arrives damaged or defective, contact us within 48 hours. We'll arrange a return at no cost to you and offer a replacement or full refund as per your preference.</li>
-                        <li>Incorrect Product: If you receive an incorrect item, please contact us, and we'll cover the return shipping and send you the correct item promptly.</li>
-                        <li>Lost Packages: If your package does not arrive within the estimated timeframe, contact us so we can initiate an investigation with the shipping carrier.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Processing Times</h2>
-                    <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Return Window: Returns must be initiated and shipped within 30 days of receiving the item.</li>
-                        <li>Inspection Period: Once received, returns are inspected within 5 business days.</li>
-                        <li>Refund Issuance: Refunds are processed to the original payment method within 5 business days after inspection.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Return Shipping Address</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>Please send approved returns to:</p>
-                    <p className='flex flex-col gap-2 !text-sm sm:!text-base'>
-                        <span>{import.meta.env.VITE_COMPANY_NAME}</span>
-                        <span>{import.meta.env.VITE_COMPANY_ADDRESS}</span>
-                    </p>
-                </div>
-                <div>
-                    <h2 className="!text-xl sm:!text-2xl font-semibold">Contact Information</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>If you have further questions or require assistance with returns or refunds, please reach out:</p>
-                    <p className='flex flex-col gap-2 !text-sm sm:!text-base'>
-                        <span>Email: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</a></span>
-                        <span>Phone: <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a></span>
-                        <span>Address: {import.meta.env.VITE_COMPANY_ADDRESS}</span>
-                    </p>
-                </div>
-            </div>
+export default function RefundPolicyPage() {
+  return (
+    <div className="bg-white min-h-screen py-8 sm:py-12 px-4 sm:px-5">
+      <div className="max-w-3xl mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-10 tracking-wider">
+        <p className="!text-2xl sm:!text-3xl font-bold">
+          Politiques de Remboursements
+        </p>
+        <p className="leading-6 sm:leading-7 !text-sm">
+          Mis à jour le 1-7-2025
+        </p>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Durée de la Politique de Retours
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Notre politique de retour dure 30 jours. Si 30 jours se sont écoulés
+            depuis votre achat, nous ne pouvons malheureusement pas vous offrir
+            de remboursement ou d&apos;échange, sauf dans les cas couverts par
+            le droit de rétractation de 14 jours.
+          </p>
         </div>
-    );
+
+        <div>
+          <h2 className="!text-base font-semibold">Conditions de Retour</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            L'article doit être inutilisé, dans son état d'origine, de
+            préférence dans l'emballage d’origine. En cas d'article défectueux
+            ou endommagé à la réception, veuillez nous envoyer la description et
+            des photos/vidéos à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Tout retour nécessite un reçu ou une preuve d’achat. Merci de ne pas
+            renvoyer votre achat au fabricant. Nous vous indiquerons la
+            procédure à suivre après validation de votre demande.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">Droit de Rétractation</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Conformément à la législation européenne, vous disposez de 30 jours
+            à compter de la réception de votre commande pour exercer votre droit
+            de rétractation sans justification. Pour cela, contactez-nous par
+            email à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">Frais de Retour</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Les frais de retour sont à notre charge. Merci de nous contacter
+            pour organiser un retour sans frais via nos bordereaux prépayés.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Délais et Processus de Remboursement
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Une fois l’article reçu et inspecté, vous serez informé par email de
+            la décision. En cas d’approbation, le remboursement sera effectué
+            sous 5 jours ouvrés sur le mode de paiement initial.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Comment Initier un Retour
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Envoyez un email à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>{' '}
+            avec votre numéro de commande, une copie de la facture, et une
+            description du problème. Ensuite, envoyez le colis à :<br />
+            {import.meta.env.VITE_COMPANY_ADDRESS}H.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Remboursements Tardifs ou Manquants
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Vérifiez votre compte bancaire, puis contactez votre société de
+            carte de crédit et votre banque. Si vous n’avez toujours pas reçu le
+            remboursement, contactez-nous à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">Articles de Vente</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Seuls les articles à prix régulier peuvent être remboursés. Les
+            articles soldés ne sont pas remboursables.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">Échange (le cas échéant)</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Les articles défectueux ou endommagés peuvent être échangés contre
+            un article identique. Veuillez nous envoyer une preuve (photo/vidéo)
+            et le numéro de commande par email. Expédiez ensuite le produit à
+            l’adresse figurant sur l’emballage d’origine.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">Nous Contacter</h2>
+          <p className="flex flex-col gap-2 !text-sm">
+            <span>
+              Email :{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="underline underline-offset-4"
+              >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+            </span>
+            <span>
+              Téléphone :{' '}
+              <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a>
+            </span>
+            <span>
+              Heures d'ouverture : Du lundi au vendredi de 8h à 18h (UTC+1)
+            </span>
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Informations de l’Entreprise
+          </h2>
+          <ul className="!list-disc !list-inside pl-6 text-sm space-y-1">
+            <li>Société : CLICKOUTIL SAS</li>
+            <li>SIREN : 30337622200053</li>
+            <li>
+              Adresse : {import.meta.env.VITE_COMPANY_ADDRESS}H
+            </li>
+            <li>
+              Email :{' '}
+              <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+              {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>
+            </li>
+            <li>
+              Téléphone :{' '}
+              <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }

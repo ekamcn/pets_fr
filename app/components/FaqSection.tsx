@@ -53,6 +53,7 @@ interface FaqSectionProps {
     rounded?: boolean;
     heading?:string;
     incline?:boolean;
+    description?:string;
 }
 
 export default function FaqSection({
@@ -61,6 +62,7 @@ export default function FaqSection({
     rounded,
     heading,
     incline,
+    description
 }: FaqSectionProps) {
     const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
 
@@ -135,9 +137,9 @@ export default function FaqSection({
                 ))}
                 {showNewsletter && (
                     <div className="text-center mt-8 px-4 sm:px-6">
-                        <h3 className="text-2xl sm:text-3xl font-bold">Subscribe to Our {heading}</h3>
-                        <p className="text-sm sm:text-base text-[var(--color-2)] mt-1 mb-4">
-                            Be the first to know about our new product launches and exclusive promotions!
+                        <h3 className="text-2xl sm:text-3xl font-bold">S'abonner à nos {heading}</h3>
+                        <p className="text-sm sm:text-base text-white !py-5 !leading-tight whitespace-wrap">
+                        {description}
                         </p>
 
                         <form
@@ -148,7 +150,7 @@ export default function FaqSection({
                                 required
                                 type="email"
                                 placeholder="Email"
-                                className="w-full px-4 py-3 border-2 !rounded-full !border-white text-white placeholder-white bg-[var(--color-2)] focus:outline-none focus:ring-2 focus:ring-white"
+                                className="w-full px-6 py-3 border-2 !rounded-full !border-white text-white placeholder-white bg-[var(--color-2)] focus:outline-none focus:ring-2 focus:ring-white"
                             />
                             <button
                                 type="submit"
@@ -190,7 +192,7 @@ export default function FaqSection({
                                         <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white"></path>
                                     </svg>
                                     <span className="font-semibold text-sm text-white">
-                                        Thanks for subscribing
+                                        Merci de votre inscription
                                     </span>
                                 </div>
                             </div>

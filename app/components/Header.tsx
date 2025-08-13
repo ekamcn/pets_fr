@@ -1,13 +1,14 @@
-import { Suspense, useState, useEffect, useRef } from 'react';
-import { Await, NavLink, useAsyncValue, useLocation } from 'react-router';
+import {Suspense, useState, useEffect, useRef} from 'react';
+import {Await, NavLink, useAsyncValue, useLocation} from 'react-router';
 import {
   type CartViewPayload,
   Image,
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
-import type { HeaderQuery, CartApiQueryFragment } from 'storefrontapi.generated';
-import { useAside } from '~/components/Aside';
+import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
+import {Aside, useAside} from '~/components/Aside';
+import {BsArrowLeft, BsArrowRight} from 'react-icons/bs';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -29,7 +30,7 @@ interface CollectionNode {
 
 interface GraphQLResponse {
   data?: GraphQLCollectionsResponse;
-  errors?: Array<{ message: string }>;
+  errors?: Array<{message: string}>;
 }
 
 interface GraphQLCollectionsResponse {
@@ -45,23 +46,26 @@ type Viewport = 'desktop' | 'mobile';
 
 // GraphQL query for fetching collections
 const ALL_COLLECTIONS_QUERY = `
- query GetAllCollections($first: Int!) {
- collections(first: $first) {
- edges {
- cursor
- node {
- id
- handle
- title
- description
- image {
- id
- url
- }
- }
- }
- }
- }
+  query GetAllCollections($first: Int!) {
+    collections(first: $first) {
+      edges {
+       cursor
+        node {
+          id
+          handle
+          title
+          description
+          metafield(namespace: "custom", key: "theme_types") {
+          value
+        }
+          image {
+            id
+            url
+          }
+        }
+      }
+    }
+  }
 `;
 
 export function Header({
@@ -70,7 +74,7 @@ export function Header({
   cart,
   publicStoreDomain,
 }: HeaderProps) {
-  const { shop, menu } = header;
+  const {shop, menu} = header;
   const logo = import.meta.env.VITE_LOGO;
 
   return (
@@ -78,47 +82,49 @@ export function Header({
       {/* Top Marquee Bar */}
       <div className="w-full bg-[var(--color-1)] overflow-hidden whitespace-nowrap text-xs">
         <div className="animate-marquee flex gap-136 px-6 py-2 !font-normal text-black !text-xs tracking-widest">
-          <span>Fast Shipping: 2–4 Days</span>
+          <span>{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</span>
           <span>
             {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
           </span>
-          <span>US-Based Customer Support 🇺🇸</span>
-          <span>Fast Shipping: 2–4 Days</span>
+          <span>Service client Français 🇫🇷</span>
           <span>
             {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
           </span>
-          <span>US-Based Customer Support 🇺🇸</span>
+          <span>Livraison en 2 à 4 jours</span>
+          <span>
+            {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}
+          </span>
         </div>
       </div>
       {/* Main Header */}
-      <header className="sticky top-0 z-2 w-full bg-white shadow-md px-4 md:px-8 lg:px-20">
-        <div className="max-w-screen-2xl mx-auto flex items-center justify-between py-4 relative">
+      <header className="sticky top-0 z-2 w-full bg-white shadow-xs px-3.5 py-4">
+        <div className="max-w-[80rem] mx-auto xl:px-14 flex items-center justify-between relative">
           {/* Left: Mobile Menu Toggle */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:!hidden h-10 w-10">
             <HeaderMenuMobileToggle />
           </div>
           {/* Left: Logo (Desktop Only) */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center gap-8">
             <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-              <Image src={logo} alt="Store Logo" className="h-14 w-auto" />
+              <Image src={logo} alt="Store Logo" className="h-16 w-auto" />
             </NavLink>
+            {/* Center: Desktop Menu */}
+            <div className="hidden md:flex items-center flex-1 justify-center">
+              <HeaderMenu
+                menu={menu}
+                viewport="desktop"
+                primaryDomainUrl={header.shop.primaryDomain.url}
+                publicStoreDomain={publicStoreDomain}
+              />
+            </div>
           </div>
           {/* Center: Logo (Mobile Only, Centered) */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
+          <div className="absolute left-1/2 transform -translate-x-1/2 lg:hidden">
             <NavLink prefetch="intent" to="/" end>
               <Image src={logo} alt="Store Logo" className="h-14 w-auto" />
             </NavLink>
           </div>
 
-          {/* Center: Desktop Menu */}
-          <div className="hidden md:flex items-center flex-1 justify-center">
-            <HeaderMenu
-              menu={menu}
-              viewport="desktop"
-              primaryDomainUrl={header.shop.primaryDomain.url}
-              publicStoreDomain={publicStoreDomain}
-            />
-          </div>
           {/* Right: CTAs (Login, Cart) */}
           <div className="flex items-center space-x-6">
             <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
@@ -146,14 +152,35 @@ export function Header({
 }
 
 // Transform menu object to the desired structure
-function transformMenuToHTML(menu: any, collections: any) {
+function transformMenuToHTML(menu: any, collections: any, currentTheme: string) {
   // Get collections data from the query
   const collectionsData =
-    collections?.edges?.map((edge: any) => ({
-      id: edge.node.handle,
-      href: `/collections/${edge.node.handle}`,
-      title: edge.node.title,
-    })) || [];
+    collections?.edges
+      ?.filter((edge: any) => {
+        const values = edge.node.metafield?.value
+          ?.split(",")                // split into array
+          .map((v: string) => v.trim()); // remove extra spaces
+
+        return values?.includes(currentTheme);
+      })
+      ?.map((edge: any) => ({
+        id: edge.node.handle,
+        href: `/collections/${edge.node.handle}`,
+        title: edge.node.title,
+      })) || [];
+
+  const informationData = [
+    {
+      id: 'about',
+      href: `/about`,
+      title: '🏁 À propos de Esprit Auto Moto',
+    },
+    {
+      id: 'faq',
+      href: `/faq`,
+      title: 'Foire aux questions',
+    },
+  ];
 
   // Map the original menu items to our desired structure
   const baseItems = menu?.items || [];
@@ -166,7 +193,7 @@ function transformMenuToHTML(menu: any, collections: any) {
         id: 'home',
         type: 'simple' as const,
         href: '/',
-        title: 'Home',
+        title: 'Accueil',
         // isActive: true,
         className:
           'header__menu-item list-menu__item link link--text focus-inset',
@@ -175,9 +202,16 @@ function transformMenuToHTML(menu: any, collections: any) {
       {
         id: 'collections',
         type: 'dropdown' as const,
-        title: 'Our Collections',
+        title: 'Mes Collections',
         className: 'header__menu-item list-menu__item link focus-inset',
         submenu: collectionsData,
+      },
+      {
+        id: 'information',
+        type: 'dropdown' as const,
+        title: 'Informations',
+        className: 'header__menu-item list-menu__item link focus-inset',
+        submenu: informationData,
       },
       // Add static menu items
       // {
@@ -218,14 +252,7 @@ function transformMenuToHTML(menu: any, collections: any) {
               'header__menu-item list-menu__item link link--text focus-inset',
           };
         }),
-      {
-        id: 'faq',
-        type: 'simple' as const,
-        href: '/faq',
-        title: 'FAQ',
-        className:
-          'header__menu-item list-menu__item link link--text focus-inset',
-      },
+      // Always add Home as first item
     ],
   };
 
@@ -244,14 +271,14 @@ export function HeaderMenu({
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
   const className = `header-menu-${viewport}`;
-  const { close } = useAside('header');
+  const {close, open} = useAside('header');
   const location = useLocation();
 
   // State for dynamic collections fetching
   const [collections, setCollections] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   // Refs for click outside detection
-  const dropdownRefs = useRef<{ [key: string]: HTMLDetailsElement | null }>({});
+  const dropdownRefs = useRef<{[key: string]: HTMLDetailsElement | null}>({});
 
   // Fetch collections dynamically
   useEffect(() => {
@@ -268,7 +295,7 @@ export function HeaderMenu({
           body: JSON.stringify({
             query: ALL_COLLECTIONS_QUERY,
             variables: {
-              first: 50,
+              first: 100,
             },
           }),
         });
@@ -332,6 +359,7 @@ export function HeaderMenu({
     const transformedMenu = transformMenuToHTML(
       menu || FALLBACK_HEADER_MENU,
       collections,
+    `${import.meta.env.VITE_STORE_NAME }`
     );
 
     return (
@@ -350,7 +378,7 @@ export function HeaderMenu({
                     style={activeLinkStyle}
                   >
                     <span
-                      className={`${item.isActive ? 'header__active-menu-item ' : ''}`}
+                      className={`hover:underline underline-offset-2 decoration-[2px] ${item.isActive ? 'header__active-menu-item ' : ''}`}
                     >
                       {item.title}
                     </span>
@@ -396,7 +424,7 @@ export function HeaderMenu({
                       </summary>
                       <ul
                         id={`HeaderMenu-MenuList-${item.id}`}
-                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup"
+                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup  !overflow-y-auto !max-h-96 "
                         tabIndex={-1}
                       >
                         {item.submenu?.map(
@@ -435,6 +463,7 @@ export function HeaderMenu({
   const transformedMenu = transformMenuToHTML(
     menu || FALLBACK_HEADER_MENU,
     collections,
+    `${import.meta.env.VITE_STORE_NAME }`
   );
 
   return (
@@ -479,7 +508,7 @@ export function HeaderMenu({
                 </summary>
                 <div className="mt-2 ml-4 space-y-1">
                   {item.submenu?.map(
-                    (subItem: { id: string; href: string; title: string }) => (
+                    (subItem: {id: string; href: string; title: string}) => (
                       <NavLink
                         key={subItem.id}
                         to={subItem.href}
@@ -523,19 +552,16 @@ function HeaderCtas({
 }
 
 function HeaderMenuMobileToggle() {
-  const { open } = useAside('header');
+  const {open} = useAside('header');
   return (
-    <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
-    >
-      <h1>☰</h1>
+    <button className="reset h-full w-full" onClick={() => open('mobile')}>
+      <span className="text-3xl font-extralight">☰</span>
     </button>
   );
 }
 
 function SearchToggle() {
-  const { open } = useAside('header');
+  const {open} = useAside('header');
   return (
     <button className="reset" onClick={() => open('search')}>
       Search
@@ -543,9 +569,9 @@ function SearchToggle() {
   );
 }
 
-function CartBadge({ count }: { count: number | null }) {
-  const { open } = useAside('header');
-  const { publish, shop, cart, prevCart } = useAnalytics();
+function CartBadge({count}: {count: number | null}) {
+  const {open} = useAside('header');
+  const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
     <button
@@ -559,7 +585,7 @@ function CartBadge({ count }: { count: number | null }) {
           url: window.location.href || '',
         } as CartViewPayload);
       }}
-      className="relative w-6 h-6"
+      className="relative w-7 h-7"
       aria-label="Open cart"
     >
       {/* Cart Icon */}
@@ -587,7 +613,7 @@ function CartBadge({ count }: { count: number | null }) {
   );
 }
 
-function CartToggle({ cart }: Pick<HeaderProps, 'cart'>) {
+function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
   return (
     <Suspense fallback={<CartBadge count={null} />}>
       <Await resolve={cart}>
@@ -655,6 +681,8 @@ function activeLinkStyle({
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',
+    textDecoration: isActive ? 'underline' : 'none',
+    textDecorationThickness: isActive ? '2px' : 'initial',
+    textUnderlineOffset: isActive ? '3px' : 'initial',
   };
 }
-

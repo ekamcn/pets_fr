@@ -25,7 +25,7 @@ export default function Form() {
                 <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"></path>
                 <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white"></path>
               </svg>
-              <span className="font-semibold text-sm">Thanks for contacting us. We'll get back to you as soon as possible.</span>
+              <span className="font-semibold text-sm">Merci de nous avoir contactés. Nous vous répondrons dès que possible.</span>
             </div>
           </div>
         )}
@@ -34,49 +34,49 @@ export default function Form() {
         <div className="flex flex-col gap-2 w-full">
           <div className="flex flex-col md:flex-row gap-4 w-full">
             <input
-              className="!rounded-full w-full px-4 py-3 border !border-gray-400 text-black bg-transparent focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
+              className="!text-sm !rounded-full w-full px-4 py-3 border !border-gray-400 text-black bg-transparent focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
               autoComplete="name"
               type="text"
               id="ContactForm-name"
               name="contact[Name]"
-              placeholder="Name"
+              placeholder="Nom"
               required
             />
             <input
               autoComplete="email"
               type="email"
               id="ContactForm-email"
-              className="w-full px-4 py-3 border !border-gray-400 text-black bg-transparent !rounded-full focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
+              className="!text-sm w-full px-4 py-3 border !border-gray-400 text-black bg-transparent !rounded-full focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
               name="contact[email]"
               spellCheck="false"
               autoCapitalize="off"
               aria-required="true"
-              placeholder="Email"
+              placeholder="E-mail"
               required
             />
           </div>
           <input
             type="tel"
             id="ContactForm-phone"
-            className="w-full px-4 py-3 border !border-gray-400 text-black bg-transparent !rounded-full focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
+            className="!text-sm w-full px-4 py-3 border !border-gray-400 text-black bg-transparent !rounded-full focus:outline-none focus:ring-2 focus:ring-white placeholder-black"
             autoComplete="tel"
             name="contact[Phone number]"
             pattern="[0-9\-]*"
-            placeholder="Phone number"
+            placeholder="Numéro de téléphone"
             required
           />
           <textarea
             id="ContactForm-comments"
-            className="w-full px-4 pt-2 border !border-gray-400 text-black bg-transparent !rounded-4xl focus:outline-none focus:ring-2 focus:ring-white placeholder-black placeholder:text-left resize-none min-h-[120px]"
+            className="!text-sm w-full px-4 pt-2 border !border-gray-400 text-black bg-transparent !rounded-4xl focus:outline-none focus:ring-2 focus:ring-white placeholder-black placeholder:text-left resize-none min-h-[120px]"
             name="Comments"
-            placeholder="Comments"
+            placeholder="Commentaire"
           />
         </div>
         <div className="flex justify-center">
           <button type="submit" className="button bg-[var(--color-1)] text-white font-medium px-8 py-3 rounded-full shadow hover:bg-[var(--color-1)] transition-colors cursor-pointer" 
           // onClick={()=>{console.log("Button is clicked")}}
           >
-            Send
+            Envoyer
           </button>
         </div>
       </form>

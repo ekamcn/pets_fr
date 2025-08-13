@@ -157,12 +157,29 @@ export function Layout({children}: {children?: React.ReactNode}) {
   const typography =
     import.meta.env.VITE_TYPOGRAPHY?.replace(/"/g, '') ||
     'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
   const color1 = import.meta.env.VITE_COLOR1?.replace(/"/g, '');
   const color2 = import.meta.env.VITE_COLOR2?.replace(/"/g, '');
+  const color3 = import.meta.env.VITE_COLOR3?.replace(/"/g, '') || '';
 
   return (
     <html lang="en">
       <head>
+        {typography.includes('Source Sans Pro') && (
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+          />
+        )}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            body {
+              font-family: ${typography};
+            }
+          `,
+          }}
+        />
         {/* Google Site Verification (placed first as per best practices) */}
         <meta
           name="google-site-verification"
@@ -215,6 +232,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
               --font-family: ${typography};
               --color-1: ${color1};
               --color-2: ${color2};
+              --color-3: ${color3};
             }
           `,
         }}

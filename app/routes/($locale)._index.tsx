@@ -15,70 +15,63 @@ import FaqSection from '~/components/FaqSection';
 
 const sections = [
   {
-    title: 'Questions? We’ve Got Answers',
+    title: 'Foires Aux Questions',
     faqs: [
       {
-        question: 'Before You Reach Out',
+        question: 'A lire avant de nous contacter',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              <strong>PLEASE NOTE :</strong> We kindly ask you to check our FAQ
-              carefully before contacting us.
+              <strong>ATTENTION :</strong> Merci de lire attentivement notre FAQ avant de nous contacter.
             </p>
             <p>
-              If you don’t find the answer to your question, feel free to email
-              us at{' '}
+              Si vous ne trouvez pas la réponse à votre question, merci de nous envoyer un e-mail à{' '}
               <a
-                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
-                className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                href="mailto:contact@refletjardin.com"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
               >
-                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
+                contact@refletjardin.com
               </a>
-              "
             </p>
           </div>
         ),
       },
       {
-        question: 'What Payment Methods Do You Accept?',
+        question: 'Quels sont les modes de paiement acceptés ?',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              We accept a variety of payment methods, including Visa and
-              MasterCard.
+              Nous acceptons divers modes de paiement, notamment Visa, MasterCard, American Express.
             </p>
             <p>
-              All transactions are securely processed and encrypted to ensure
-              your peace of mind.
+              Toutes les transactions sont sécurisées et cryptées pour votre tranquillité d&apos;esprit.
             </p>
           </div>
         ),
       },
       {
-        question: 'How Can I Track My Order?',
+        question: 'Comment suivre ma commande ?',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              Once your order has been shipped, you’ll receive a confirmation
-              email with a tracking number.
+              Une fois votre commande expédiée, vous recevrez un e-mail de confirmation contenant un numéro de suivi.
             </p>
             <p>
-              You can use this number to track your package in real time on our
-              website or directly on the carrier’s website.
+              Ce numéro vous permet de suivre votre colis en temps réel sur notre site ou sur le site du transporteur.
             </p>
           </div>
         ),
       },
       {
-        question: 'What Is Your Return Policy?',
+        question: 'Quelle est votre politique de retour ?',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              We offer a flexible return policy. If you’re not satisfied with
-              your purchase, please contact us within 30 days of receiving your
-              order to arrange a return or exchange.
+              Nous offrons une politique de retour flexible. Si vous n&apos;êtes pas satisfait de votre achat, veuillez nous contacter dans les 30 jours suivant la réception de votre commande pour organiser un retour ou un échange.
             </p>
-            <p>For full details, please visit our Returns Policy page.</p>
+            <p>
+              Consultez notre page sur la politique de retour pour plus d&apos;informations.
+            </p>
           </div>
         ),
       },
@@ -139,11 +132,11 @@ export default function Homepage() {
   return (
     <div className="home">
       <ImageBanner
-        title="Cosy Critters "
+        title="Cosy Critters3 "
         imageUrl={import.meta.env.VITE_BANNER}
         mobileImageUrl={import.meta.env.VITE_MOBILE_BANNER}
-        subtitle="At Cosy Critters, every pet is more than just a companion — they're family."
-        description="That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deserve."
+        subtitle="Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée par des passionnés, pour des passionnés."
+        description="Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, Esprit Auto Moto est là pour vous équiper avec style, efficacité et performance."
         buttonText="Shop Now"
         buttonUrl=""
       />
@@ -153,10 +146,10 @@ export default function Homepage() {
         title="offer flash"
         limit={6}
         columnSize="6"
-        badgeText="Flash Sale"
-        showTitle={true}
+        badgeText="Offre Flash"
+        showTitle={false}
         showDescription={false}
-        className="featured-collection"
+        className="featured-collection pt-5"
         forceSmallCols2={true}
       />
 
@@ -165,7 +158,8 @@ export default function Homepage() {
         title="derniere chance"
         limit={20}
         columnSize="4"
-        badgeText="Last Chance"
+        badgeText="DERNIÈRE CHANCE"
+        badgeLogo
         showTitle={true}
         showDescription={false}
         className="featured-collection"
@@ -186,7 +180,7 @@ export default function Homepage() {
         className="featured-collection"
       />
 
-      <FaqSection sections={sections} showNewsletter rounded heading='Emails'/>
+      <FaqSection sections={sections} showNewsletter rounded heading='emails' description='Soyez les premiers à être informés des nouvelles collections et des offres exclusives.'/>
 
       {/* <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} /> */}

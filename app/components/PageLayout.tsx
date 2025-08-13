@@ -176,6 +176,7 @@ function MobileMenuAside({
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
+      <div className="lg:hidden">
       <Aside type="mobile" heading="MENU" contextId="header">
         <HeaderMenu
           menu={header.menu}
@@ -184,6 +185,7 @@ function MobileMenuAside({
           publicStoreDomain={publicStoreDomain}
         />
       </Aside>
+      </div>
     )
   );
 }

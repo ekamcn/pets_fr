@@ -33,11 +33,11 @@ export function AddToCartButton({
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
             className={
-              `flex items-center justify-center gap-2 py-2 cursor-pointer rounded-full w-full max-w-[455px] lg:w-[330px] xl:w-[455px] text-lg  font-normal transition-colors duration-200 bg-[var(--color-1)] text-white` +
+              `flex items-center justify-center gap-2 py-4 cursor-pointer rounded-full w-full max-w-[455px] lg:w-[330px] xl:w-[455px] text-lg  font-normal transition-colors duration-200 bg-[var(--color-1)] text-white` +
               (disabled || fetcher.state !== 'idle' ? ' opacity-60 cursor-not-allowed' : '')
             }
           >
-            <span className="addbtntext">{children}</span>
+            <span className="addbtntext text-sm">{children}</span>
           </button>
         </>
       )}

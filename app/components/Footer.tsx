@@ -1,11 +1,11 @@
-import { Image } from '@shopify/hydrogen';
-import { Link } from 'react-router';
+import {Image} from '@shopify/hydrogen';
+import {Link} from 'react-router';
 import CardSection from './CardSection';
-import { useState } from 'react';
-
+import {useState} from 'react';
 
 export function Footer() {
-  const [isFooterNewsletterSubmitted, setIsFooterNewsletterSubmitted] = useState(false);
+  const [isFooterNewsletterSubmitted, setIsFooterNewsletterSubmitted] =
+    useState(false);
 
   const handleFooterNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,177 +13,220 @@ export function Footer() {
 
     const form = e.target as HTMLFormElement;
     form.reset();
-
   };
-  const logo = ` ${import.meta.env.VITE_LOGO}`
+  const logo = ` ${import.meta.env.VITE_LOGO}`;
   return (
     <footer>
       <CardSection />
-      <svg className='-mb-0.5' viewBox="0 0 1440 110" style={{ fill: 'var(--color-2)' }}>
+      <svg
+        className="-mb-0.5"
+        viewBox="0 0 1440 110"
+        style={{fill: 'var(--color-2)'}}
+      >
         <path d="M0,22L1440,88L2880,22L4320,88L5760,44L7200,22L8640,11L10080,44L11520,77L12960,77L14400,55L15840,0L17280,33L18720,22L20160,11L21600,22L23040,22L24480,55L25920,33L27360,99L28800,33L30240,88L31680,11L33120,88L34560,22L34560,110L33120,110L31680,110L30240,110L28800,110L27360,110L25920,110L24480,110L23040,110L21600,110L20160,110L18720,110L17280,110L15840,110L14400,110L12960,110L11520,110L10080,110L8640,110L7200,110L5760,110L4320,110L2880,110L1440,110L0,110Z"></path>
       </svg>
 
       <div className="footer text-white">
-        <div className="container mx-auto px-10 py-12 lg:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="container !max-w-[75rem] mx-auto px-10 py-12 lg:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
             {/* About Us */}
             <div>
-              <div className="pb-6">
-                <Image src={logo} alt="Store Logo" className="!h-14 !w-auto" />
+              <div className="flex w-full items-center justify-center md:items-start md:justify-start pb-6">
+                <Image
+                  src={logo}
+                  alt="Logo de la boutique"
+                  className="!h-14 !w-auto shrink-0"
+                />
               </div>
-              <h3 className="text-lg font-semibold mb-4">About Us</h3>
+              <h3 className="text-lg font-bold mb-2.5">Qui sommes-nous ?</h3>
               <div className="flex flex-col gap-4">
-                <p className="text-sm leading-relaxed w-3/4">
-                  At Cosy Critters, every pet is more than just a companion —
-                  they're family.
+                <p className="text-sm leading-relaxed">
+                  Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée
+                  par des passionnés, pour des passionnés.
                 </p>
-                <p className="!text-sm leading-relaxed w-3/4">
-                  That’s why we created a boutique entirely dedicated to their
-                  comfort, happiness, and everyday well-being. Our mission is to
-                  bring you high-quality, practical, soft, and irresistibly cute
-                  products to pamper your loyal companion just the way they
-                  deserve.
+                <p className="!text-sm leading-relaxed">
+                  Que vous rouliez en voiture ou en deux-roues, que vous soyez
+                  amateur de tuning, adepte de sensations fortes ou simplement
+                  soucieux de bien entretenir votre véhicule, Esprit Auto Moto
+                  est là pour vous équiper avec style, efficacité et
+                  performance.
                 </p>
               </div>
             </div>
 
             {/* Contact */}
             <div>
-              <h3 className="text-base lg:text-lg font-semibold mb-4">Contact</h3>
+              <h3 className="text-base font-semibold mb-4">Contact</h3>
               <div className="space-y-4 text-sm">
-                {/* First line */}
                 <div>
-                  <strong>Need Assistance or Have Questions?</strong>
-                </div>
-                {/* Sentence with email */}
-                <div>
-                  Our team is here to help! For any inquiries, simply send us an email at{' '}
+                  Besoin d’assistance ou avez-vous des questions ? Notre équipe
+                  est là pour vous aider ! Pour nous contacter, envoyez
+                  simplement un e-mail à{' '}
                   <a
-                    href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                    href="/contact"
                     className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
-
                   >
-                    {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
-                  </a>.
+                    nous contacter
+                  </a>
+                  .
                 </div>
                 {/* Gap, then Customer Service Hours */}
                 <div>
-                  <div className="font-semibold">Customer Service Hours:</div>
-                  <div>Monday to Friday — 8:00 AM to 6:00 PM (EST)</div>
+                  <div className="font-semibold">
+                    Horaires du service client :
+                  </div>
+                  <div>Du lundi au vendredi : 9:00 - 5:00 (UTC+1)</div>
                 </div>
 
                 {/* Bullet points */}
-                <ul className="!list-disc !list-outside !pl-5 space-y-1 mt-2 text-sm sm:text-base">
-                  <li className="break-words"><strong>Company:</strong> {import.meta.env.VITE_COMPANY_NAME}</li>
-                  <li className="break-words"><strong>Address:</strong> {import.meta.env.VITE_COMPANY_ADDRESS}</li>
-                  <li className="break-words"><strong>Mail:</strong> <a
-                    href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
-                    className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4 break-all"
-                  >
-                    {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
-                  </a></li>
-                  <li><strong>Tel:</strong> <a
-                    href="tel:+14842148789"
-                    className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
-                  >
-                    +14842148789
-                  </a></li>
+                <ul className="!list-disc !list-outside !pl-5 space-y-1 mt-2 !text-sm">
+                  <li className="break-words">
+                    <strong>Société :</strong>{' '}
+                    {import.meta.env.VITE_COMPANY_NAME}
+                  </li>
+                  <li className="break-words">
+                    <strong>SIREN :</strong> 30337622200053
+                  </li>
+                  <li className="break-words">
+                    <strong>Adresse :</strong>{' '}
+                    {import.meta.env.VITE_COMPANY_ADDRESS}
+                  </li>
+                  <li className="break-words">
+                    <strong>Mail :</strong>{' '}
+                    <a
+                      href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                      className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4 break-all"
+                    >
+                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                    </a>
+                  </li>
+                  <li>
+                    <strong>Tel :</strong>{' '}
+                    <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} 
+                      className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a>
+                  </li>
                 </ul>
               </div>
             </div>
 
             {/* Useful Links Section */}
             <div className="space-y-4 lg:space-y-3">
-              <h3 className="text-base lg:text-lg font-semibold text-white mb-4">Useful Links</h3>
-              <nav className="space-y-6 lg:space-y-3">
+              <h3 className="text-base lg:text-lg font-semibold text-white mb-4">
+                Liens rapides
+              </h3>
+              <nav className="flex flex-col gap-3">
                 <Link
-                  to="/contact"
-                  className="block !text-white  transition-colors text-sm hover:underline hover:underline-white"
+                  to="/research"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
                 >
-                  Contact Us
+                  Recherche
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/about"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  🏁 À propos de Esprit Auto Moto
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </Link>
                 <Link
                   to="/faq"
-                  className="block !text-white transition-colors text-sm"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
                 >
-                  FAQ
+                  Foire aux questions
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </Link>
-                <div className=" border-gray-700">
-
-                  <div className="space-y-6 lg:space-y-3">
-                    {/* <Link
-                      to="/about"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      About Us
-                    </Link> */}
-                    <Link
-                      to="/payment"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      Payment Terms
-                    </Link>
-                    <Link
-                      to="/privacy"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      Privacy Policy
-                    </Link>
-
-                    <Link
-                      to="/returns"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      Return Policy
-                    </Link>
-                    <Link
-                      to="/shipping"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      Shipping policy
-                    </Link>
-                    <Link
-                      to="/terms"
-                      className="block !text-white transition-colors text-sm"
-                    >
-                      Terms of service
-                    </Link>
-                  </div>
-                </div>
+                <Link
+                  to="/contact"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Contact
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/payment"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Conditions de Paiement
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/shipping"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Politiques de livraison
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/returns"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Politiques de remboursements
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/legal"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Mentions légales
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/terms"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Conditions générales de vente
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link
+                  to="/privacy"
+                  className="group relative inline-block text-sm !text-white transition-colors w-fit"
+                >
+                  Politiques de confidentialité
+                  <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </Link>
               </nav>
             </div>
 
             {/* Sign Up for Our Emails Section */}
             <div className="space-y-4">
-              <h3 className="text-base lg:text-lg font-semibold text-white mb-4">Sign Up for Our Emails</h3>
+              <h3 className="!text-base font-semibold text-white mb-4">
+                S'abonner à nos e-mails
+              </h3>
 
               <div className="space-y-3">
-                <div>
-                  <h4 className="text-white font-medium text-sm lg:text-base mb-2">Need Help or Have Questions?</h4>
-                  <p className="!text-white text-sm lg:text-base">
-                    Our team is here to assist you! Just send us an email at{' '}
+                <div className='overflow-hidden'>
+                  <h4 className="text-white font-medium text-sm mb-2">
+                    Besoin d’assistance ou avez-vous des questions ?
+                  </h4>
+                  <p className="!text-white text-sm">
+                    Notre équipe est là pour vous aider ! Pour nous contacter,
+                    envoyez simplement un e-mail à{' '}
                     <a
                       href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
-                      className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                      className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4 text-wrap"
                     >
                       {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                     </a>
                   </p>
                 </div>
 
-                <form onSubmit={handleFooterNewsletterSubmit} className="space-y-3">
+                <form
+                  onSubmit={handleFooterNewsletterSubmit}
+                  className="space-y-3"
+                >
                   <div>
                     <div className="relative">
                       <input
                         required
                         type="email"
-                        placeholder="Email"
-                        className="w-full px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
+                        placeholder="E-mail"
+                        className="w-full text-sm px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
                       />
                       <button
                         type="submit"
                         className="absolute right-2 top-1/2 transform -translate-y-1/2  text-white p-2 rounded-md transition-colors"
-                        aria-label="Subscribe"
+                        aria-label="S'abonner"
                       >
                         <svg
                           className="w-4 h-4"
@@ -203,12 +246,31 @@ export function Footer() {
                     {isFooterNewsletterSubmitted && (
                       <div className="w-full mt-3 text-center sm:text-left">
                         <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
-                          <svg aria-hidden="true" focusable="false" role="presentation" className="icon icon-success flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 13 13">
-                            <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" strokeWidth="0.7"></path>
-                            <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"></path>
-                            <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white"></path>
+                          <svg
+                            aria-hidden="true"
+                            focusable="false"
+                            role="presentation"
+                            className="icon icon-success flex-shrink-0 w-4 h-4 "
+                            viewBox="0 0 13 13"
+                          >
+                            <path
+                              d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z"
+                              fill="#428445"
+                              stroke="white"
+                              strokeWidth="0.7"
+                            ></path>
+                            <path
+                              d="M5.53271 8.66357L9.25213 4.68197"
+                              stroke="white"
+                            ></path>
+                            <path
+                              d="M4.10645 6.7688L6.13766 8.62553"
+                              stroke="white"
+                            ></path>
                           </svg>
-                          <span className="font-semibold text-sm sm:text-base text-white">Thanks for subscribing</span>
+                          <span className="font-semibold text-sm text-white">
+                            Merci de votre inscription
+                          </span>
                         </div>
                       </div>
                     )}
@@ -225,16 +287,36 @@ export function Footer() {
               <div className="flex items-center space-x-6">
                 <div className="flex items-center space-x-2">
                   <div className=" bg-white rounded flex items-center justify-center">
-                    <Image src='./Visa_Logo.svg' width={24} height={25} className='w-12 h-6' />
+                    <Image
+                      src="./Visa_Logo.svg"
+                      width={24}
+                      height={25}
+                      className="w-12 h-6"
+                    />
                   </div>
                   <div className=" bg-white rounded flex items-center justify-center">
-                    <Image src='./masterCard_Logo.svg' width={24} height={25} className='w-12 h-6' />
+                    <Image
+                      src="./masterCard_Logo.svg"
+                      width={24}
+                      height={25}
+                      className="w-12 h-6"
+                    />
                   </div>
                   <div className=" bg-white rounded flex items-center justify-center">
-                    <Image src='./apple_Logo.svg' width={24} height={25} className='w-12 h-6' />
+                    <Image
+                      src="./apple_Logo.svg"
+                      width={24}
+                      height={25}
+                      className="w-12 h-6"
+                    />
                   </div>
                   <div className=" bg-white rounded flex items-center justify-center">
-                    <Image src='./American-Express_Logo.svg' width={24} height={25} className='w-12 h-6' />
+                    <Image
+                      src="./American-Express_Logo.svg"
+                      width={24}
+                      height={25}
+                      className="w-12 h-6"
+                    />
                   </div>
                 </div>
                 <br />
@@ -243,7 +325,7 @@ export function Footer() {
             {/* Copyright */}
             <div className="text-center mt-4">
               <p className="text-white !text-sm">
-                © 2025, Deco Bay®
+                {import.meta.env.VITE_COMPANY_NAME}
               </p>
             </div>
           </div>

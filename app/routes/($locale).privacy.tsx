@@ -2,97 +2,306 @@ import React from 'react';
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-white min-h-screen py-8 sm:py-12 px-4 sm:px-5 [&_ul]:-indent-[1.3em]">
-      <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-10 tracking-wider">
-        <p className='!text-2xl sm:!text-3xl font-bold'>Privacy policy</p>
-        <p className="!text-2xl sm:!text-3xl lg:!text-3xl font-bold">PRIVACY POLICY</p>
+    <div className="bg-white min-h-screen py-8 sm:py-12 px-4 sm:px-5 ">
+      <div className="max-w-3xl mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-10 tracking-wider">
+        <p className="!text-2xl sm:!text-3xl font-bold">
+          Politiques de Confidentialité
+        </p>
         <div>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base '>Updated on 1-7-2025</p>
+          <h2 className="!text-sm">
+            ARTICLE 1 – RENSEIGNEMENTS PERSONNELS RECUEILLIS
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Lorsque vous effectuez un achat sur notre boutique, dans le cadre de
+            notre processus d’achat et de vente, nous recueillons les
+            renseignements personnels que vous nous fournissez, tels que votre
+            nom, votre adresse et votre adresse e-mail.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Lorsque vous naviguez sur notre boutique, nous recevons également
+            automatiquement l’adresse IP de votre ordinateur, ce qui nous permet
+            d’obtenir plus de détails sur le navigateur et le système
+            d’exploitation que vous utilisez.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Marketing par e-mail (le cas échéant) : Avec votre permission, nous
+            pourrions vous envoyer des e-mails au sujet de notre boutique, de
+            nouveaux produits et d’autres mises à jour.
+          </p>
         </div>
+
         <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Who We Are</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'> ("we," "us," or "our") operates the website {import.meta.env.VITE_DOMAIN_NAME}/ (the "Site"). We are a company that provides various services and products. This Privacy Policy describes how we collect, use, disclose, and safeguard your personal information.</p>
+          <h2 className="!text-sm">ARTICLE 2 – CONSENTEMENT</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Comment obtenez-vous mon consentement ? Lorsque vous nous fournissez
+            vos renseignements personnels pour conclure une transaction,
+            vérifier votre carte de crédit, passer une commande, planifier une
+            livraison ou retourner un achat, nous vous demandons directement
+            votre consentement explicite pour les collecter et les utiliser à
+            cette fin uniquement.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Si nous vous demandons de nous fournir vos renseignements personnels
+            pour une autre raison, à des fins de marketing par exemple, nous
+            vous demanderons directement votre consentement explicite, ou nous
+            vous donnerons la possibilité de refuser.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Comment puis-je retirer mon consentement ? Si après nous avoir donné
+            votre consentement, vous changez d’avis et ne consentez plus à ce
+            que nous puissions vous contacter ou recueillir vos renseignements,
+            vous pouvez nous en aviser en nous contactant à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
         </div>
+
         <div>
-          <h2 className="!text-lg sm:!text-xl lg:!text-2xl font-semibold">Information We Collect</h2>
-          <h3 className="!text-base sm:!text-xl font-semibold !pb-3">Personal Identification Information</h3>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base !pb-4'>We collect personal identification information from Users when they interact with our Site, such as when creating an account, placing an order, subscribing to our newsletter, or contacting customer service. This information may include:</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base lg:!text-base !pl-6 lg:!pl-8">
-            <li>Contact Information: Full name, email address, mailing address, and phone number.</li>
-            <li>Payment Information: Credit card or other payment details needed to process orders. Payment information is processed securely by third-party processors and is not stored on our servers.</li>
-            <li>Authentication Data: For buyers and sellers, we may collect information to confirm product authenticity, including photos and product descriptions.</li>
+          <h2 className="!text-sm">ARTICLE 3 – DIVULGATION</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous pouvons divulguer vos renseignements personnels si la loi nous
+            oblige à le faire ou si vous violez nos Conditions Générales de
+            Vente et d’Utilisation.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">ARTICLE 4 – SHOPIFY</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Notre boutique est hébergée sur Shopify Inc. Ils nous fournissent la
+            plateforme e-commerce en ligne qui nous permet de vous vendre nos
+            services et produits. Vos données sont stockées dans le système de
+            stockage de données et les bases de données de Shopify, et dans
+            l’application générale de Shopify. Vos données sont conservées sur
+            un serveur sécurisé protégé par un pare-feu.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Paiement : Si vous réalisez votre achat par le biais d’une
+            passerelle de paiement direct, Shopify stockera vos renseignements
+            de carte de crédit. Ces renseignements sont chiffrés conformément à
+            la norme PCI-DSS. Les renseignements relatifs à votre transaction
+            d’achat sont conservés aussi longtemps que nécessaire pour finaliser
+            votre commande, puis supprimés.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Toutes les passerelles de paiement direct respectent la norme
+            PCI-DSS, gérée par le conseil des normes de sécurité PCI, assurant
+            un traitement sécurisé des données.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Pour plus d’informations, veuillez consulter les{' '}
+            <a
+              href="https://www.shopify.com/legal/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Conditions d’Utilisation de Shopify
+            </a>{' '}
+            et la{' '}
+            <a
+              href="https://www.shopify.com/legal/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Politique de Confidentialité de Shopify
+            </a>
+            .
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">
+            ARTICLE 5 – SERVICES FOURNIS PAR DES TIERS
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Certains tiers fournisseurs de services, comme les passerelles de
+            paiement, possèdent leurs propres politiques de confidentialité.
+            Nous vous recommandons de lire leurs politiques pour comprendre
+            comment ils traitent vos renseignements personnels.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Vos renseignements pourraient être régis par les lois de la
+            juridiction dans laquelle ces fournisseurs se situent.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Une fois que vous quittez notre site ou êtes redirigé vers un tiers,
+            vous n’êtes plus régi par cette politique de confidentialité.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">ARTICLE 6 – SÉCURITÉ</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous prenons des précautions raisonnables et suivons les meilleures
+            pratiques pour protéger vos données contre la perte, le
+            détournement, la divulgation ou l’accès non autorisé.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Les informations de carte de crédit sont chiffrées via SSL et
+            AES-256. Bien qu’aucune méthode ne soit sûre à 100 %, nous
+            respectons la norme PCI-DSS et les standards de l’industrie.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7 font-normal">
+            Fichiers témoins (cookies) utilisés :
+          </p>
+          <ul className="!list-disc !list-inside space-y-1 pl-6 text-sm">
+            <li>
+              _session_id : identificateur unique de session pour stocker des
+              informations relatives à votre session.
+            </li>
+            <li>
+              _shopify_visit : utilisé pour enregistrer le nombre de visites
+              (durée 30 minutes).
+            </li>
+            <li>
+              _shopify_uniq : calcule le nombre de visites par client unique
+              (expire à minuit).
+            </li>
+            <li>
+              cart : identificateur unique pour votre panier (2 semaines).
+            </li>
+            <li>
+              _secure_session_id : identificateur unique de session sécurisée.
+            </li>
+            <li>
+              storefront_digest : utilisé pour contrôler l’accès si la boutique
+              a un mot de passe.
+            </li>
           </ul>
         </div>
+
         <div>
-          <h3 className="!text-lg sm:!text-xl font-semibold !pb-3">Non-Personal Identification Information</h3>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base !pb-4'>We may automatically collect non-personal identification information about Users whenever they interact with our Site. This may include:</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base lg:!text-base !pl-6 lg:!pl-8">
-            <li>Browser Details and Device Information: Type of browser, device type, operating system, and Internet service provider (ISP).</li>
-            <li>Log Data: IP address, browser type, visited pages, visit time and duration, and other usage statistics.</li>
+          <h2 className="!text-sm">ARTICLE 7 – ÂGE DE CONSENTEMENT</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            En utilisant ce site, vous déclarez avoir l’âge légal dans votre
+            pays de résidence, et consentir à ce que des mineurs sous votre
+            responsabilité puissent utiliser ce site.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">
+            ARTICLE 8 – MODIFICATIONS DE LA POLITIQUE
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous pouvons modifier cette politique à tout moment. Les changements
+            prendront effet immédiatement après leur publication. En cas
+            d’acquisition ou fusion, vos données pourraient être transférées aux
+            nouveaux propriétaires.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-base font-semibold">
+            Conditions Générales du Marketing Textuel
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            En fournissant votre numéro de téléphone, vous acceptez de recevoir
+            des notifications et offres par SMS de la part de notre plateforme
+            SMSBump Inc. Pour vous désabonner, répondez STOP à tout message ou
+            utilisez le lien fourni. Les tarifs peuvent s’appliquer.
+          </p>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous utilisons des cookies pour suivre les paniers abandonnés afin
+            d’envoyer des rappels marketing par SMS.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">ARTICLE 9 – DROITS DES UTILISATEURS</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Conformément au RGPD, vous avez les droits suivants :
+          </p>
+          <ul className="!list-disc !list-inside space-y-2 pl-6 text-sm">
+            <li>Accès à vos données personnelles.</li>
+            <li>Rectification des données inexactes ou incomplètes.</li>
+            <li>Suppression de vos données personnelles.</li>
+            <li>Opposition au traitement pour motifs légitimes.</li>
+            <li>
+              Portabilité de vos données dans un format structuré et lisible.
+            </li>
+          </ul>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Pour exercer ces droits, contactez-nous à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline">
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>{' '}
+            en joignant une copie de votre pièce d’identité.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">
+            ARTICLE 10 – DURÉE DE CONSERVATION DES DONNÉES
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous conservons vos données personnelles uniquement le temps
+            nécessaire pour les objectifs définis, y compris les obligations
+            légales ou comptables.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">ARTICLE 11 – SÉCURITÉ DES DONNÉES</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Nous utilisons des mesures techniques et organisationnelles pour
+            protéger vos données, notamment le chiffrement SSL et AES-256.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="!text-sm">ARTICLE 12 – UTILISATION DES COOKIES</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Notre site utilise des cookies pour améliorer l’expérience
+            utilisateur et analyser l’audience. Vous pouvez gérer les cookies
+            via les paramètres de votre navigateur. Les types utilisés incluent
+            :
+          </p>
+          <ul className="!list-disc !list-inside space-y-2 pl-6 text-sm">
+            <li>Cookies nécessaires</li>
+            <li>Cookies de performance</li>
+            <li>Cookies de fonctionnalité</li>
+            <li>Cookies publicitaires</li>
           </ul>
         </div>
+
         <div>
-          <h3 className="!text-lg sm:!text-xl font-semibold !pb-3">Cookies and Tracking Technologies</h3>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base'>Our Site may use "cookies" to improve User experience. Cookies are small files stored on your device by your web browser to help remember settings and preferences, and track site usage. Users can configure their browser settings to refuse cookies or alert them when cookies are sent.</p>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">How We Use Collected Information</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4 lg:!text-base'>We may use your personal information for the following purposes:</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8 lg:!text-base">
-            <li>To Provide and Maintain Our Services: To process orders, manage accounts, and provide customer support.</li>
-            <li>To Personalize User Experience: Aggregated data may help us understand how Users use our Site and improve its functionality.</li>
-            <li>To Improve Our Website: We may use feedback to enhance our products, services, and overall user experience.</li>
-            <li>To Process Payments: Only use submitted information to complete transactions.</li>
-            <li>To Send Periodic Communications: We may send order confirmations, updates, or respond to inquiries. With your consent, we may also send promotional information, and you can unsubscribe anytime.</li>
+          <h2 className="!text-sm">
+            ARTICLE 13 – PARTAGE DES DONNÉES AVEC DES TIERS
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Vos données peuvent être partagées avec :
+          </p>
+          <ul className="!list-disc !list-inside space-y-2 pl-6 text-sm">
+            <li>Prestataires de services (hébergement, paiement, etc.)</li>
+            <li>Autorités légales si nécessaire</li>
           </ul>
         </div>
+
         <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">How We Protect Your Data</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base'>We implement reasonable security measures to protect your personal information against unauthorized access, alteration, or disclosure. Sensitive and private data exchanged between the Site and Users is encrypted and protected via SSL (Secure Socket Layer) and other digital security measures. We also comply with industry standards for payment card security.</p>
+          <h2 className="!text-sm">
+            ARTICLE 14 – MISES À JOUR DE LA POLITIQUE DE CONFIDENTIALITÉ
+          </h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Cette politique peut être mise à jour périodiquement. Les
+            utilisateurs seront informés par email. Veuillez consulter
+            régulièrement cette page.
+          </p>
         </div>
+
         <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Data Sharing and Disclosure</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4 lg:!text-base'>We do not sell, trade, or rent Users' personal identification information. However, we may share information:</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8 lg:!text-base">
-            <li>With Service Providers: We may share information with third-party providers who assist us in our business operations (e.g., payment processing, shipping, or customer support).</li>
-            <li>For Legal Compliance: We may disclose information if required by law or to protect against legal liability.</li>
-            <li>During Business Transfers: In case of a merger, acquisition, or sale, personal data may be transferred.</li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Data Retention</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4 lg:!text-base'>We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy, such as keeping your account active or as required by law.</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8 lg:!text-base">
-            <li>Account Information: Retained as long as the account remains active.</li>
-            <li>Legal Compliance: Retained as needed to meet legal obligations or resolve disputes.</li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Your Rights and Choices</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4 lg:!text-base'>You have the following rights regarding your personal information:</p>
-          <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8 lg:!text-base">
-            <li>Access and Update: You have the right to access and update your personal information by logging into your account or contacting us.</li>
-            <li>Data Portability: Request a copy of your personal data in a structured format.</li>
-            <li>Deletion: Request deletion of your personal data, except data we are required to keep for legal, administrative, or security purposes.</li>
-            <li>Opt-Out of Marketing: You may opt out of marketing communications at any time by following unsubscribe links or contacting us directly.</li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">International Users</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base'>Please note that we may transfer, store, and process your personal data outside the country where you live. Your personal data is also processed by staff and external service providers (third parties) and partners in these countries. If we transfer your personal data out of Europe, we will rely on recognized transfer mechanisms, such as the European Commission's Standard Contractual Clauses, or equivalent agreements from the relevant competent authority in the UK (if applicable) unless the data transfer is to a country deemed to ensure an adequate level of protection.</p>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Changes to This Privacy Policy</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base lg:!text-base'>We may update this policy periodically. The updated date at the bottom of this document indicates the latest revision. We encourage Users to review this Privacy Policy occasionally to stay informed on how we protect and use their information. Continued use of the Site after updates will constitute acceptance of the updated policy.</p>
-        </div>
-        <div>
-          <h2 className="!text-xl sm:!text-2xl font-semibold">Contact Us</h2>
-          <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4 lg:!text-base'>If you have questions or concerns about this Privacy Policy, please contact us:</p>
-          <p className='flex flex-col gap-2 !text-sm sm:!text-base lg:!text-base'>
-            <span className="break-words">Email: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline underline-offset-4 break-all">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</a></span>
-            <span>Phone: <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a></span>
-            <span className="break-words">Address: {import.meta.env.VITE_COMPANY_ADDRESS}</span>
-            <span>Website: <a href={`${import.meta.env.VITE_DOMAIN_NAME}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_STORE_NAME}.com</a></span>
+          <h2 className="!text-base font-semibold">QUESTIONS ET COORDONNÉES</h2>
+          <p className="!text-sm leading-6 sm:leading-7">
+            Pour accéder, modifier, supprimer vos données ou poser une question,
+            contactez notre responsable confidentialité à{' '}
+            <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}>
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+            .
           </p>
         </div>
       </div>
