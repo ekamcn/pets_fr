@@ -11,7 +11,7 @@ export default function GeneralConditionsPage() {
         <p className="!text-sm leading-6 sm:leading-7">APERÇU</p>
 
         {/* Introduction */}
-        <div>
+        <div className="flex flex-col gap-4">
           <p className="!text-sm leading-6 sm:leading-7">
             Ce site web est exploité par {import.meta.env.VITE_DOMAIN_NAME}.
             Partout sur le site, nous employons les termes « nous », « notre »
@@ -67,7 +67,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 1 – CONDITIONS D’UTILISATION DE LA BOUTIQUE EN LIGNE */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 1 - Conditions d’utilisation de la boutique en ligne
           </h2>
@@ -94,7 +94,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 2 – CONDITIONS GÉNÉRALES */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 2 - Conditions générales
           </h2>
@@ -137,7 +137,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 3 – EXACTITUDE, EXHAUSTIVITÉ ET ACTUALITÉ DES INFORMATIONS */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 3 - Exactitude, exhaustivité et actualité des informations
           </h2>
@@ -163,7 +163,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 4 – MODIFICATIONS DU SERVICE ET DES PRIX */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             SECTION 4 – MODIFICATIONS DU SERVICE ET DES PRIX
           </h2>
@@ -186,7 +186,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 5 – PRODUITS OU SERVICES */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal">
             SECTION 5 – PRODUITS OU SERVICES (le cas échéant)
           </h2>
@@ -228,7 +228,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 6 – EXACTITUDE DE LA FACTURATION ET DES INFORMATIONS DE COMPTE */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 6 - Exactitude de la facturation et des informations de
             compte
@@ -264,7 +264,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 7 – OUTILS FACULTATIFS */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 7 - Outils facultatifs
           </h2>
@@ -291,7 +291,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 8 – LIENS DE TIERS */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 8 - Liens de tiers
           </h2>
@@ -320,7 +320,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 9 – COMMENTAIRES, RETOURS D'EXPÉRIENCE ET AUTRES SOUMISSIONS */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 9 - Commentaires, retours d&apos;expérience et autres
             soumissions
@@ -367,7 +367,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 10 – INFORMATIONS PERSONNELLES */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 10 - Informations personnelles
           </h2>
@@ -377,7 +377,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 11 – ERREURS, INEXACTITUDES ET OMISSIONS */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 11 - Erreurs, inexactitudes et omissions
           </h2>
@@ -407,7 +407,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 12 – UTILISATIONS INTERDITES */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 12 - Utilisations interdites
           </h2>
@@ -442,7 +442,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 13 – EXCLUSION DE GARANTIES ET LIMITATION DE RESPONSABILITÉ */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 13 - Exclusion de garanties et limitation de responsabilité
           </h2>
@@ -505,7 +505,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 14 – INDEMNISATION */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 14 - Indemnisation
           </h2>
@@ -526,7 +526,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 15 – DISSOCIABILITÉ */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 15 - Dissociabilité
           </h2>
@@ -542,7 +542,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 16 – RÉSILIATION */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 16 - Résiliation
           </h2>
@@ -571,7 +571,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 17 – INTÉGRALITÉ DE L’ACCORD */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 17 - Intégralité de l’accord
           </h2>
@@ -599,7 +599,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 18 – LOI APPLICABLE */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 18 - Loi applicable
           </h2>
@@ -611,7 +611,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 19 – MODIFICATIONS APPORTÉES AUX CONDITIONS D’UTILISATION */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 19 - Modifications apportées aux conditions d’utilisation
           </h2>
@@ -632,7 +632,7 @@ export default function GeneralConditionsPage() {
         </div>
 
         {/* SECTION 20 – COORDONNÉES */}
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base !font-normal uppercase">
             Section 20 - Coordonnées
           </h2>

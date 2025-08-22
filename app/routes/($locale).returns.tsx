@@ -136,8 +136,8 @@ export default function RefundPolicyPage() {
               {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
             </a>
             , puis l’envoyer par la poste à :{' '}
-            {import.meta.env.VITE_COMPANY_ADDRESS}
-          </p>
+            <strong>{import.meta.env.VITE_COMPANY_ADDRESS}</strong>
+            </p>
         </div>
 
         <div className="flex flex-col gap-4">

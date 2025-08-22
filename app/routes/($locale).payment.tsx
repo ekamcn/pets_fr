@@ -14,7 +14,7 @@ export default function PaymentTermsPage() {
           Conditions de Paiement
         </p>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="payment-methods">
             Modalités de Paiement
           </h2>
@@ -26,7 +26,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="accepted-payments">
             Modes de Paiement Acceptés
           </h2>
@@ -38,7 +38,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="payment-security">
             Sécurisation des Paiements
           </h2>
@@ -52,7 +52,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="invoicing">
             Facturation
           </h2>
@@ -63,7 +63,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="billing-accuracy">
             Exactitude des Informations de Facturation
           </h2>
@@ -75,7 +75,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="refunds">
             Remboursements
           </h2>
@@ -99,7 +99,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="complaints-disputes">
             Réclamations et Litiges
           </h2>
@@ -111,7 +111,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <h2 className="!text-base font-semibold" id="terms-changes">
             Modifications des Conditions de Paiement
           </h2>
@@ -122,11 +122,11 @@ export default function PaymentTermsPage() {
             notre site après la publication des modifications, vous acceptez
             celles-ci.
           </p>
-          <p>
+          <p className="leading-6 sm:leading-7 !text-sm">
             Pour toute question concernant nos conditions de paiement, veuillez
             nous contacter à : {customerSupportEmail}
           </p>
-          <p>
+          <p className="leading-6 sm:leading-7 !text-sm">
             Pour nous contacter, envoyez seulement un email à :{' '}
             {customerSupportEmail} ou par téléphone au: {customerServicePhone},
             notre équipe se fera un plaisir de vous répondre du lundi au
@@ -134,7 +134,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div>
+        <div className='flex flex-col gap-4'>
           <ul className="list-disc list-inside space-y-1 !text-sm pl-6">
             <li>Société : {companyName}</li>
             <li>SIREN : 30337622200053</li>

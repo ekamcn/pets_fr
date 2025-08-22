@@ -193,17 +193,15 @@ export function Footer() {
                 <div className='overflow-hidden'>
                   <h4 className="text-white font-medium text-sm mb-2">
                     Besoin d’assistance ou avez-vous des questions ?
-                  </h4>
-                  <p className="!text-white text-sm">
                     Notre équipe est là pour vous aider ! Pour nous contacter,
                     envoyez simplement un e-mail à{' '}
+                    </h4>
                     <a
-                      href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                      className="transition-colors !text-[var(--color-footer)] underline underline-offset-4 text-wrap"
+                   href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                      className="text-sm hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4 text-wrap"
                     >
                       {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                     </a>
-                  </p>
                 </div>
 
                 <form
