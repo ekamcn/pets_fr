@@ -16,7 +16,7 @@ export function ProductForm({
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
 }) {
   const navigate = useNavigate();
-  const {open} = useAside();
+  const {open} = useAside('header');
   return (
     <div className="product-form">
       {productOptions.map((option) => {
@@ -118,7 +118,7 @@ export function ProductForm({
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale ? 'Acheter maintenant' : 'Sold out'}
       </AddToCartButton>
     </div>
   );
