@@ -164,7 +164,7 @@ export default function TermsServicesPage() {
               Adresse : {import.meta.env.VITE_COMPANY_ADDRESS}
             </span>
             <span>
-              Site web : <a href={`${import.meta.env.VITE_COMPANY_NAME}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_STORE_NAME}.com</a>
+              Site web : <a href={`${import.meta.env.VITE_DOMAIN_NAME}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_DOMAIN_NAME}</a>
             </span>
             <span className="pt-4">
               Dernière mise à jour : 1-7-2025

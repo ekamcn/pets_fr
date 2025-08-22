@@ -159,7 +159,8 @@ export function Layout({children}: {children?: React.ReactNode}) {
     'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
   const color1 = import.meta.env.VITE_COLOR1?.replace(/"/g, '');
   const color2 = import.meta.env.VITE_COLOR2?.replace(/"/g, '');
- 
+  const colorFooter = import.meta.env.VITE_FOOTER_COLOR?.replace(/"/g, '');
+
   return (
     <html lang="en">
       <head>
@@ -215,6 +216,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
               --font-family: ${typography};
               --color-1: ${color1};
               --color-2: ${color2};
+              --color-footer: ${colorFooter};
             }
           `,
         }}

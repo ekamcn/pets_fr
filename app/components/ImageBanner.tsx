@@ -14,8 +14,8 @@ interface ImageBannerProps {
 // Main banner component
 export function ImageBanner({
     title = 'Auto Moto',
-    subtitle = 'Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée par des passionnés, pour des passionnés.',
-    description = 'Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, Esprit Auto Moto est là pour vous équiper avec style, efficacité et performance.',
+    subtitle = `Bienvenue chez ${import.meta.env.VITE_STORE_TITLE}, la boutique en ligne pensée par des passionnés, pour des passionnés.`,
+    description = `Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, ${import.meta.env.VITE_STORE_TITLE} est là pour vous équiper avec style, efficacité et performance.`,
     imageUrl = '',
     mobileImageUrl = '',
     buttonText = 'Shop Now',
@@ -76,15 +76,15 @@ export function ImageBanner({
 
             {/* Content Section - Below Image */}
             <div className="bg-[var(--color-2)] text-white py-2 sm:py-1 lg:py-6 xl:py-8">
-                <div className="px-4 sm:px-6 lg:px-8">
+                <div className="px-2 lg:px-8">
                     <div className="w-full text-center flex flex-col items-center justify-center">
                         <div className="max-w-screen mx-auto">
                             {/* Description */}
-                            <p className="text-sm sm:text-base lg:text-lg text-stone-200 mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
+                            <p className="text-sm sm:text-base lg:text-lg text-white mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
                                 <strong> {subtitle}</strong>
                                 <br />
                             </p>
-                            <p className="!mt-4 text-sm sm:text-base lg:text-lg text-stone-200 mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
+                            <p className="!mt-4 text-sm sm:text-base lg:text-lg text-white mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
                                 {description}
                             </p>
 
@@ -114,8 +114,8 @@ export function ImageBanner({
 // Alternative banner with more layout options
 export function ImageBannerVariant({
     title = 'Auto Moto',
-    subtitle = 'Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée par des passionnés, pour des passionnés.',
-    description = 'Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, Esprit Auto Moto est là pour vous équiper avec style, efficacité et performance.',
+    subtitle = `Bienvenue chez ${import.meta.env.VITE_STORE_TITLE}, la boutique en ligne pensée par des passionnés, pour des passionnés.`,
+    description = `Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, ${import.meta.env.VITE_STORE_TITLE} est là pour vous équiper avec style, efficacité et performance.`,
     imageUrl = '',
     buttonText = 'Shop Now',
     buttonUrl = '/collections/all',
@@ -126,10 +126,10 @@ export function ImageBannerVariant({
     layout?: 'bottom' | 'center' | 'left' | 'right';
     theme?: 'dark' | 'light';
 }) {
-    const textColor = theme === 'dark' ? 'text-white' : 'text-stone-900';
+    const textColor = theme === 'dark' ? 'text-white' : 'text-white';
     const buttonStyle =
         theme === 'dark'
-            ? 'bg-[--color-2] text-stone-900 hover:bg-stone-100'
+            ? 'bg-[--color-2] text-white hover:bg-stone-100'
             : 'bg-[--color-2] text-white hover:bg-stone-800';
 
     const layoutStyles = {

@@ -149,17 +149,20 @@ function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
   })();
  
   const [showSpinner, setShowSpinner] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const spinnerTimeoutRef = useRef<number | null>(null);
  
   function startSpinnerForOneSecond() {
     setShowSpinner(true);
+    setIsDisabled(true); // disable button after first click
     if (spinnerTimeoutRef.current) {
       window.clearTimeout(spinnerTimeoutRef.current);
     }
     spinnerTimeoutRef.current = window.setTimeout(() => {
       setShowSpinner(false);
+      setIsDisabled(false); // disable button after first click
       spinnerTimeoutRef.current = null;
-    }, 1200);
+    }, 2500);
   }
  
   useEffect(() => {
@@ -175,16 +178,17 @@ function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
   return (
     <div>
       <a href={url} target="_self">
-        <button
+      <button
           type="submit"
           onClick={() => {
             startSpinnerForOneSecond();
           }}
-          className="product-form__submit flex items-center justify-center gap-2 w-[100%] py-2 rounded-full text-lg font-bold transition-colors duration-200 bg-[var(--color-1)] text-white"
-        >
+          disabled={isDisabled}
+          className={`product-form__submit flex items-center justify-center gap-2 w-[100%] py-2 rounded-full text-lg font-bold transition-colors duration-200
+            ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-[var(--color-1)] text-white"}`}        >
           {showSpinner ? (
             <div className="w-full flex justify-center items-center">
-              <LuLoaderCircle className="w-6 h-6 my-0.5 text-gray-200 animate-spin" />
+              <LuLoaderCircle className="w-6 h-6 my-0.5 animate-spin" />
             </div>
           ) : (
             <span className="addbtntext">Continue to Checkout</span>

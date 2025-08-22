@@ -288,14 +288,14 @@ export default function CollectionFilters({
             value={sortBy}
             onChange={(e) => onChangeSortBy(e.target.value)}
           >
-            <option value="best-selling">Best selling</option>
-            {featured && <option value="manual">Featured</option>}
-            <option value="title-ascending">Alphabetically, A-Z</option>
-            <option value="title-descending">Alphabetically, Z-A</option>
-            <option value="price-ascending">Price, low to high</option>
-            <option value="price-descending">Price, high to low</option>
-            <option value="created-ascending">Date, old to new</option>
-            <option value="created-descending">Date, new to old</option>
+ <option value="best-selling">En vedette</option>
+            {featured && <option value="manual">Meilleures ventes</option>}
+            <option value="title-ascending">Alphabétique, de A à Z</option>
+            <option value="title-descending">Alphabétique, de Z à A</option>
+            <option value="price-ascending">Prix: faible à élevé</option>
+            <option value="price-descending">Prix: élevé à faible</option>
+            <option value="created-ascending">Date, de la plus ancienne à la plus récente</option>
+            <option value="created-descending">Date, de la plus récente à la plus ancienne</option>
           </select>
         </div>
         <p className="font-semibold text-gray-700 !text-sm">
@@ -410,14 +410,14 @@ export default function CollectionFilters({
               value={sortBy}
               onChange={(e) => onChangeSortBy(e.target.value)} // Fixed: Added onChange handler
             >
-              <option value="best-selling">Best selling</option>
-              {featured && <option value="manual">Featured</option>}
-              <option value="title-ascending">Alphabetically, A-Z</option>
-              <option value="title-descending">Alphabetically, Z-A</option>
-              <option value="price-ascending">Price, low to high</option>
-              <option value="price-descending">Price, high to low</option>
-              <option value="created-ascending">Date, old to new</option>
-              <option value="created-descending">Date, new to old</option>
+ <option value="best-selling">En vedette</option>
+            {featured && <option value="manual">Meilleures ventes</option>}
+            <option value="title-ascending">Alphabétique, de A à Z</option>
+            <option value="title-descending">Alphabétique, de Z à A</option>
+            <option value="price-ascending">Prix: faible à élevé</option>
+            <option value="price-descending">Prix: élevé à faible</option>
+            <option value="created-ascending">Date, de la plus ancienne à la plus récente</option>
+            <option value="created-descending">Date, de la plus récente à la plus ancienne</option>
             </select>
           </div>
           {/* Sticky/fixed bottom buttons */}

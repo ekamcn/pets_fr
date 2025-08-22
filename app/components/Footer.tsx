@@ -41,15 +41,10 @@ export function Footer() {
               <h3 className="text-lg font-bold mb-2.5">Qui sommes-nous ?</h3>
               <div className="flex flex-col gap-4">
                 <p className="text-sm leading-relaxed">
-                  Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée
-                  par des passionnés, pour des passionnés.
+                Chez {import.meta.env.VITE_STORE_TITLE} , chaque animal est plus qu’un simple compagnon : il est un membre de la famille.
                 </p>
                 <p className="!text-sm leading-relaxed">
-                  Que vous rouliez en voiture ou en deux-roues, que vous soyez
-                  amateur de tuning, adepte de sensations fortes ou simplement
-                  soucieux de bien entretenir votre véhicule, Esprit Auto Moto
-                  est là pour vous équiper avec style, efficacité et
-                  performance.
+                C’est pourquoi nous avons créé une boutique dédiée à leur confort, leur bonheur et leur bien-être au quotidien. Notre mission est de vous proposer des produits de qualité, utiles, doux et adorables, pour chouchouter votre fidèle compagnon comme il le mérite.
                 </p>
               </div>
             </div>
@@ -64,7 +59,7 @@ export function Footer() {
                   simplement un e-mail à{' '}
                   <a
                     href="/contact"
-                    className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                    className=" hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
                   >
                     nous contacter
                   </a>
@@ -75,7 +70,7 @@ export function Footer() {
                   <div className="font-semibold">
                     Horaires du service client :
                   </div>
-                  <div>Du lundi au vendredi : 9:00 AM - 5:00 AM (UTC+1)</div>
+                  <div>Du lundi au vendredi de 8h à 18h</div>
                 </div>
 
                 {/* Bullet points */}
@@ -94,8 +89,8 @@ export function Footer() {
                   <li className="break-words">
                     <strong>Mail :</strong>{' '}
                     <a
-                      href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
-                      className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4 break-all"
+                      href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                      className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4 break-all"
                     >
                       {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                     </a>
@@ -103,7 +98,7 @@ export function Footer() {
                   <li>
                     <strong>Tel :</strong>{' '}
                     <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} 
-                      className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a>
+                      className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a>
                   </li>
                 </ul>
               </div>
@@ -126,7 +121,7 @@ export function Footer() {
                   to="/about"
                   className="group relative inline-block text-sm !text-white transition-colors w-fit"
                 >
-                  🏁 À propos de Esprit Auto Moto
+                  🏁 À propos de {import.meta.env.VITE_STORE_TITLE}
                   <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </Link>
                 <Link
@@ -172,7 +167,7 @@ export function Footer() {
                   <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </Link>
                 <Link
-                  to="/terms"
+                  to="/general-conditions"
                   className="group relative inline-block text-sm !text-white transition-colors w-fit"
                 >
                   Conditions générales de vente
@@ -203,8 +198,8 @@ export function Footer() {
                     Notre équipe est là pour vous aider ! Pour nous contacter,
                     envoyez simplement un e-mail à{' '}
                     <a
-                      href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
-                      className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4 text-wrap"
+                      href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                      className="transition-colors !text-[var(--color-footer)] underline underline-offset-4 text-wrap"
                     >
                       {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                     </a>
@@ -221,7 +216,7 @@ export function Footer() {
                         required
                         type="email"
                         placeholder="E-mail"
-                        className="w-full text-sm px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
+                        className="w-full text-sm px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
                       />
                       <button
                         type="submit"
@@ -325,7 +320,7 @@ export function Footer() {
             {/* Copyright */}
             <div className="text-center mt-4">
               <p className="text-white !text-sm">
-                {import.meta.env.VITE_COMPANY_NAME}
+                © 2025, {import.meta.env.VITE_STORE_TITLE}®
               </p>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import FaqSection from '~/components/FaqSection';
 import Form from '~/components/Form';
-
+ 
 const sections = [
   {
     title: 'Livraison & Retours',
@@ -21,9 +21,9 @@ const sections = [
               contacter à l’adresse suivante :{' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
               . Mentionnez l’objet de l’e-mail : “Mon numéro de commande”.
             </p>
@@ -37,23 +37,23 @@ const sections = [
           <div className="flex flex-col gap-4">
             <p>
               Il vous est possible d’annuler votre commande jusqu’à 24 heures
-              après achat sur notre boutique {import.meta.env.VITE_COMPANY_NAME}.
+              après achat sur notre boutique {import.meta.env.VITE_DOMAIN_NAME}.
             </p>
             <p>
               Si vous êtes dans ce délai, contactez le service client à
               l’adresse suivante :{' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
-              . Mentionnez l’objet de l’e-mail : “Annulation de commande” et le
-              numéro de la commande à annuler.
             </p>
             <p>
-              Nos équipes se chargeront d’annuler votre commande et procéderont
-              ensuite à un remboursement intégral.
+              Mentionnez l’objet de l’e-mail : “Annulation de commande” et le
+              numéro de la commande à annuler. Nos équipes se chargeront
+              d’annuler votre commande et procéderont ensuite à un remboursement
+              intégral.
             </p>
             <p>
               Si votre colis a déjà été expédié, nous ne pouvons rien faire
@@ -70,9 +70,9 @@ const sections = [
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              Lorsque vous passez une commande sur notre boutique
-              {import.meta.env.VITE_COMPANY_NAME}, celle-ci est traitée par notre centre
-              d’exécution sous 1 jour ouvrable.
+              Lorsque vous passez une commande sur notre boutique{' '}
+              {import.meta.env.VITE_DOMAIN_NAME}, celle-ci est traitée par notre
+              centre d’exécution sous 1 jour ouvrable.
             </p>
             <p>
               La livraison prend en moyenne 2 à 4 jours. Dans des cas très
@@ -83,7 +83,7 @@ const sections = [
         ),
       },
       {
-        question: 'Où se trouve ma commande ?',
+        question: 'Ou se trouve ma commande ?',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
@@ -101,9 +101,9 @@ const sections = [
               l’adresse suivante :{' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
             </p>
             <p>
@@ -128,9 +128,9 @@ const sections = [
               client à l’adresse :{' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                     {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} 
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
             </p>
             <p>
@@ -147,17 +147,17 @@ const sections = [
           <div className="flex flex-col gap-4">
             <p>
               Il vous est possible de modifier votre commande (couleur, taille,
-              modèle) jusqu’à 24 heures après achat sur notre boutique
-              {import.meta.env.VITE_COMPANY_NAME}.
+              modèle) jusqu’à 24 heures après achat sur notre boutique{' '}
+              {import.meta.env.VITE_DOMAIN_NAME}.
             </p>
             <p>
               Si vous êtes dans ce délai, contactez le service client à
               l’adresse suivante :{' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
               . Mentionnez l’objet de l’e-mail : “Modification de ma commande”
               et le numéro de votre commande.
@@ -197,14 +197,14 @@ const sections = [
               ouvrables.
             </p>
             <p>
-              Ne vous inquiétez pas, votre commande a bien été expédiée et sera
+              Ne vous inquiétiez pas, votre commande a bien été expédiée et sera
               livrée à votre domicile.
             </p>
           </div>
         ),
       },
       {
-        question: 'Mes informations sont-elles sécurisées ?',
+        question: 'Mes informations sont-elles securisees ?',
         answer: (
           <div className="flex flex-col gap-4">
             <p>
@@ -230,17 +230,17 @@ const sections = [
         question: 'Possédez-vous un formulaire de contact ?',
         answer: (
           <p>
-            Oui tout à fait, vous pouvez nous contacter par formulaire en allant
+            Oui tout a fait, vous pouvez nous contacter par formulaire en allant
             en bas de cette page.
           </p>
         ),
       },
       {
-        question: 'Puis-je vous contacter ou répondre par SMS ?',
+        question: 'Puis-je vous contacter ou repondre par SMS ?',
         answer: (
           <p>
             Malheureusement, non. Si vous avez reçu un SMS de notre part, sachez
-            que celui-ci est automatisé et que nous ne recevrons jamais votre
+            que celui-ci est automatisé est que nous ne recevrons jamais votre
             réponse. Merci de nous contacter par e-mail.
           </p>
         ),
@@ -248,7 +248,7 @@ const sections = [
     ],
   },
 ];
-
+ 
 export default function FAQPage() {
   return (
     <div>
@@ -262,3 +262,5 @@ export default function FAQPage() {
     </div>
   );
 }
+ 
+ 

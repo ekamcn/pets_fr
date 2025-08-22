@@ -80,24 +80,58 @@ export function Header({
   return (
     <>
       {/* Top Marquee Bar */}
-      <header className="sticky top-0 z-2 w-full bg-white shadow-md">
-      <div className="w-full bg-[var(--color-1)] overflow-hidden whitespace-nowrap text-xs">
-        <div className="animate-marquee flex gap-136 px-6 py-2 !font-normal text-black !text-xs tracking-widest">
-          <span>{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</span>
-          <span>
-            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-          </span>
-          <span>Service client Français 🇫🇷</span>
-          <span>
-            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-          </span>
-          <span>Livraison en 2 à 4 jours</span>
-          <span>
-            {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE || 'Phone Not Set'}
-          </span>
+      <div className="w-full bg-[var(--color-1)] overflow-hidden whitespace-nowrap text-xs sticky top-0 z-2">
+        <div className="relative flex md:gap-16 lg:gap-0 gap-10">
+          {/* Marquee Content (duplicated for seamless loop) */}
+          <div className="marquee-content flex gap-14 md:gap-20 lg:min-w-full max-w-max justify-between md:justify-around">
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}            </p>
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              Service client Français 🇫🇷
+            </p>
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              Livraison en 2 à 4 jours
+            </p>
+          </div>
+          <div
+            className="marquee-content flex gap-14 md:gap-20 lg:min-w-full max-w-max justify-between md:justify-around"
+            aria-hidden="true"
+          >
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}            </p>
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              Service client Français 🇫🇷
+            </p>
+            <p className="px-2 md:px-4 !py-2 font-normal text-black tracking-widest !text-xs">
+              Livraison en 2 à 4 jours
+            </p>
+          </div>
+          <style>{`
+            .marquee-content {
+              animation: marquee-scroll 95s linear infinite;
+            }
+            .w-full:hover .marquee-content {
+              animation-play-state: paused;
+            }
+            @keyframes marquee-scroll {
+              0% {
+                transform: translateX(0%);
+              }
+              100% {
+                transform: translateX(-100%);
+              }
+            }
+            @media (max-width: 768px) {
+              .marquee-content {
+                animation-duration: 70s;
+              }
+            }
+          `}</style>
         </div>
       </div>
       {/* Main Header */}
+      <header className="sticky top-[32px] z-2 w-full bg-white shadow-md">
+ 
         <div className="px-4 md:px-8 lg:px-20 max-w-screen-2xl mx-auto flex items-center justify-between py-4 relative">
           {/* Left: Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden">
@@ -142,46 +176,23 @@ export function Header({
       <CollectionsAside />
       <InformationsAside />
       {/* Marquee Animation Style */}
-      <style>{`
-    .animate-marquee {
-      display: flex;
-      animation: marquee 180s linear infinite;
-    }
-      @media (max-width: 768px) {
-      .animate-marquee {
-        animation-duration: 70s;
-      }
-    }
-    /* Pause animation on hover */
-    .animate-marquee:hover {
-      animation-play-state: paused;
-    }
-
-    @keyframes marquee {
-      0% {
-        transform: translateX(10%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-  `}</style>
     </>
   );
 }
 
 // Transform menu object to the desired structure
 function transformMenuToHTML(menu: any, collections: any, currentTheme: string) {
-  // Get collections data from the query
+  const excludedHandles = ["derniere-chance", "tout-a-moins-de-20", "offre-flash"];
   const collectionsData =
     collections?.edges
       ?.filter((edge: any) => {
         const values = edge.node.metafield?.value
-          ?.split(",")                // split into array
-          .map((v: string) => v.trim()); // remove extra spaces
-
+          ?.split(",")
+          .map((v: string) => v.trim());
+ 
         return values?.includes(currentTheme);
       })
+      ?.filter((edge: any) => !excludedHandles.includes(edge.node.handle)) // exclude unwanted
       ?.map((edge: any) => ({
         id: edge.node.handle,
         href: `/collections/${edge.node.handle}`,
@@ -192,7 +203,7 @@ function transformMenuToHTML(menu: any, collections: any, currentTheme: string) 
     {
       id: 'about',
       href: `/about`,
-      title: '🏁 À propos de Esprit Auto Moto',
+      title: `🏁 À propos de ${import.meta.env.VITE_STORE_TITLE}`,
     },
     {
       id: 'faq',
@@ -314,7 +325,7 @@ export function HeaderMenu({
           body: JSON.stringify({
             query: ALL_COLLECTIONS_QUERY,
             variables: {
-              first: 50,
+              first: 250,
             },
           }),
         });
@@ -444,7 +455,7 @@ export function HeaderMenu({
                       </summary>
                       <ul
                         id={`HeaderMenu-MenuList-${item.id}`}
-                        className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup"
+                      className="header__submenu color-scheme-1 gradient gradient first-header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup !overflow-y-auto !max-h-[410px]"
                         tabIndex={-1}
                       >
                         {item.submenu?.map(
@@ -725,7 +736,7 @@ function InformationsAside() {
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full"
                   onClick={() => aside.close()}
                 >
-                  <p className="font-normal text-gray-900 !text-lg">🏁 À propos de Esprit Auto Moto</p>
+                  <p className="font-normal text-gray-900 !text-lg">🏁 À propos de {import.meta.env.VITE_STORE_TITLE}</p>
                 </NavLink>
                 <NavLink
                   to="/faq"
@@ -752,15 +763,17 @@ function CollectionsAside() {
   const [loading, setLoading] = useState(true);
 
   const currentTheme = import.meta.env.VITE_STORE_NAME;
+  const excludedHandles = ["derniere-chance", "tout-a-moins-de-20", "offre-flash"];
   const collectionsData =
     collections?.edges
       ?.filter((edge: any) => {
         const values = edge.node.metafield?.value
-          ?.split(",")                // split into array
-          .map((v: string) => v.trim()); // remove extra spaces
+          ?.split(",")
+          .map((v: string) => v.trim());
  
         return values?.includes(currentTheme);
       })
+      ?.filter((edge: any) => !excludedHandles.includes(edge.node.handle)) // exclude unwanted
       ?.map((edge: any) => ({
         id: edge.node.handle,
         href: `/collections/${edge.node.handle}`,

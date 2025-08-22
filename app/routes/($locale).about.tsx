@@ -5,16 +5,16 @@ export default function AboutPage() {
     <div className="bg-white min-h-screen py-8 !pl-5">
       <div className="max-w-3xl mx-auto flex flex-col gap-10 tracking-wider p-4">
         <h1 className="!text-2xl sm:!text-3xl font-bold text-[#2c3e50] !my-1">
-          🏁 À propos de Esprit Auto Moto
+          🏁 À propos de {import.meta.env.VITE_STORE_TITLE}
         </h1>
 
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold text-[#2c3e50] mt-4">
-            🏁 À propos de Esprit Auto Moto
+            🏁 À propos de {import.meta.env.VITE_STORE_TITLE}
           </h2>
 
           <p className="!text-sm leading-6 sm:leading-7 text-gray-700">
-            Bienvenue chez <strong>Esprit Auto Moto</strong>, la boutique en
+            Bienvenue chez <strong>{import.meta.env.VITE_STORE_TITLE}</strong>, la boutique en
             ligne pensée{' '}
             <strong>par des passionnés, pour des passionnés</strong>.
           </p>
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <p className="!text-sm leading-6 sm:leading-7 text-gray-700">
             Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur
             de tuning, adepte de sensations fortes ou simplement soucieux de
-            bien entretenir votre véhicule, <strong>Esprit Auto Moto</strong>{' '}
+            bien entretenir votre véhicule, <strong>{import.meta.env.VITE_STORE_TITLE}</strong>{' '}
             est là pour vous équiper avec{' '}
             <strong>style, efficacité et performance</strong>.
           </p>
@@ -36,7 +36,7 @@ export default function AboutPage() {
           </h2>
           <div className="flex flex-col gap-4 mt-2">
             <p className="!text-sm leading-6 sm:leading-7 text-gray-700">
-              Chez <strong>Esprit Auto Moto</strong>, nous savons que votre
+              Chez <strong>{import.meta.env.VITE_STORE_TITLE}</strong>, nous savons que votre
               véhicule n’est pas qu’un moyen de transport : c’est une{' '}
               <strong>véritable extension de vous-même</strong>, un symbole de
               liberté, de puissance et de passion.
@@ -109,7 +109,7 @@ export default function AboutPage() {
             🧑🔧 Une équipe qui vit moteur
           </h2>
           <p className="!text-sm leading-6 sm:leading-7 text-gray-700 mt-2">
-            <strong>Esprit Auto Moto</strong>, c’est une équipe de passionnés de
+            <strong>{import.meta.env.VITE_STORE_TITLE}</strong>, c’est une équipe de passionnés de
             mécanique, de route et de performance. Nous ne vendons pas
             simplement des accessoires : nous partageons un{' '}
             <strong>style de vie</strong>, une <strong>culture</strong>, une{' '}
@@ -134,7 +134,7 @@ export default function AboutPage() {
 
         <div>
           <h2 className="!text-base font-semibold text-[#2c3e50]">
-            Merci de faire partie de la communauté Esprit Auto Moto 🏍️
+            Merci de faire partie de la communauté {import.meta.env.VITE_STORE_TITLE} 🏍️
           </h2>
 
           <p className="!text-sm leading-6 sm:leading-7 text-gray-700 mt-2">
@@ -144,7 +144,7 @@ export default function AboutPage() {
           </p>
 
           <p className="!text-sm leading-6 sm:leading-7 text-gray-700 mt-2">
-            <strong>Esprit Auto Moto</strong>, c’est plus qu’une boutique :
+          <strong>{import.meta.env.VITE_STORE_TITLE}</strong>, c’est plus qu’une boutique :
             c’est une <strong>attitude, un mode de vie</strong>.
           </p>
 
@@ -166,7 +166,7 @@ export default function AboutPage() {
             <ul className="text-gray-700 flex flex-col gap-2 list-disc pl-4 !text-sm leading-6 sm:leading-7">
               <li>
                 <strong>Société : </strong>
-                CLICKOUTIL SAS
+                {import.meta.env.VITE_COMPANY_NAME}
               </li>
               <li>
                 <strong>SIREN : </strong>

@@ -27,10 +27,10 @@ const sections = [
             <p>
               Si vous ne trouvez pas la réponse à votre question, merci de nous envoyer un e-mail à{' '}
               <a
-                href="mailto:contact@refletjardin.com"
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                      href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                contact@refletjardin.com
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
             </p>
           </div>
@@ -135,8 +135,8 @@ export default function Homepage() {
         title="Cosy Critters3 "
         imageUrl={import.meta.env.VITE_BANNER}
         mobileImageUrl={import.meta.env.VITE_MOBILE_BANNER}
-        subtitle="Bienvenue chez Esprit Auto Moto, la boutique en ligne pensée par des passionnés, pour des passionnés."
-        description="Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, Esprit Auto Moto est là pour vous équiper avec style, efficacité et performance."
+        subtitle={`Chez ${import.meta.env.VITE_STORE_TITLE} , chaque animal est plus qu’un simple compagnon : il est un membre de la famille.`}
+        description="C’est pourquoi nous avons créé une boutique dédiée à leur confort, leur bonheur et leur bien-être au quotidien. Notre mission est de vous proposer des produits de qualité, utiles, doux et adorables, pour chouchouter votre fidèle compagnon comme il le mérite."
         buttonText="Shop Now"
         buttonUrl=""
       />

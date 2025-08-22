@@ -7,7 +7,7 @@ import {
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
-  Image
+  Image,
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
 // import { ProductImage } from '~/components/ProductImage';
@@ -45,9 +45,9 @@ const sections = [
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              Lorsque vous passez une commande sur votre boutique
-              EspritAutoMoto, celle-ci est traitée par notre centre
-              d&apos;exécution sous 1 jour ouvrable.
+              Lorsque vous passez une commande sur votre boutique{' '}
+              {import.meta.env.VITE_STORE_TITLE}, celle-ci est traitée par notre
+              centre d&apos;exécution sous 1 jour ouvrable.
             </p>
             <p>La livraison prend en moyenne 2 à 4 jours.</p>
           </div>
@@ -64,8 +64,14 @@ const sections = [
               retour ou un échange.
             </p>
             <p>
-              Consultez notre page sur la politique de retour pour plus
-              d&apos;informations.
+              Consultez notre page sur la{' '}
+              <a
+                href="/returns"
+                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+              >
+                politique
+              </a>{' '}
+              de retour pour plus d&apos;informations.
             </p>
           </div>
         ),
@@ -100,13 +106,19 @@ const sections = [
         answer: (
           <div className="flex flex-col gap-4">
             <p>
-              Vous pouvez nous contacter en accédant à notre page de contact en
-              cliquant ici ou par email à{' '}
+              Vous pouvez nous contacter en accédant à notre page de contact en{' '}
               <a
-                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                href="/contact"
                 className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
               >
-                      {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+                cliquant ici
+              </a>{' '}
+              ou par email à{' '}
+              <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
+              >
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
             </p>
           </div>
@@ -224,13 +236,13 @@ function getDeliveryDate(daysToAdd: number) {
 
   // Format based on locale
   if (locale === 'fr') {
-    // French format: DD/MM
-    const day = String(date.getDate()).padStart(2, '0');
-    const monthName = date.toLocaleDateString('en', {month: 'long'});
-    return `${day}/${monthName}`;
+    // French format: D month (e.g., 21 août)
+    const day = date.getDate();
+    const monthName = date.toLocaleDateString('fr-FR', {month: 'long'});
+    return `${day} ${monthName}`;
   } else {
     // US format: Full month name with day
-    const monthName = date.toLocaleDateString('en', {month: 'long'});
+    const monthName = date.toLocaleDateString('en-US', {month: 'long'});
     const day = String(date.getDate()).padStart(2, '0');
     return `${monthName} ${day}`;
   }
@@ -246,14 +258,21 @@ function FeatureItem({
   desc: string;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <img
-        src={icon}
-        alt={title}
-        className="w-8 h-8 object-contain"
+<div className="flex items-center gap-2">
+      <span
+        className="w-8 h-8 inline-block"
+        role="img"
+        aria-label={title}
         style={{
-          filter:
-            'brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(330deg) brightness(118%) contrast(119%)',
+          backgroundColor: 'var(--color-1)',
+          WebkitMaskImage: `url(${icon})`,
+          maskImage: `url(${icon})`,
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat',
+          WebkitMaskSize: 'contain',
+          maskSize: 'contain',
+          WebkitMaskPosition: 'center',
+          maskPosition: 'center',
         }}
       />
       <div>
@@ -319,11 +338,11 @@ export default function Product() {
           <h1 className="!text-2xl md:!text-3xl font-bold !mb-4">{title}</h1>
 
           <div className="!text-sm font-light italic">
-            Esprit AutoMoto🇫🇷 : L&apos;Entreprise Française qui vous fait faire
-            de VRAIES économies avec ses promotions imbattables !
+            <strong>{import.meta.env.VITE_STORE_TITLE}</strong> 🇫🇷 :
+            L&apos;Entreprise Française qui vous fait faire de VRAIES économies
+            avec ses promotions imbattables !
           </div>
           {/* Price, Date, Info */}
-
 
           <div className="flex sm:flex-row items-center sm:items-end gap-4 lg:!gap-2 pb-3">
             <span className="font-bold text-white bg-[var(--color-1)] px-3 py-3 rounded-lg">
@@ -333,17 +352,18 @@ export default function Product() {
               />
             </span>
             <span className="text-sm text-gray-700 pl-0 sm:pl-4 lg:pb-2.5 tracking-widest">
-            Offre du jour ce —
-              {new Date().toLocaleDateString('en-FR', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+              Offre du jour ce —
+              {new Date().toLocaleDateString(
+                locale === 'fr' ? 'fr-FR' : 'en-US',
+                {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                },
+              )}
             </span>
           </div>
-
-
 
           {/* Stock/Offer Status */}
 
@@ -363,7 +383,7 @@ export default function Product() {
               ></path>
             </svg>
             <span className="font-normal text-[15px] pl-2 lg:text-base">
-            Stock limité| Prêt à être expédié
+              Stock limité| Prêt à être expédié
             </span>
           </p>
 
@@ -391,7 +411,7 @@ export default function Product() {
               <path d="M13.9544 7.30685C14.1497 7.50211 14.1497 7.8187 13.9544 8.01396L12.1934 9.77505C11.9981 9.97031 11.6815 9.97031 11.4862 9.77505C11.291 9.57978 11.291 9.2632 11.4862 9.06794L13.2473 7.30685C13.4426 7.11159 13.7592 7.11159 13.9544 7.30685Z"></path>
             </svg>
             <span className="font-normal lg:text-base text-[15px] tracking-widest">
-            Livraison estimée entre le :&nbsp;
+              Livraison estimée entre le :&nbsp;
               <strong> {getDeliveryDateOld(2)} </strong> et le{' '}
               <strong> {getDeliveryDateOld(4)} </strong>
             </span>
@@ -479,13 +499,14 @@ export default function Product() {
                 Notre support client vous répond 5j/7 :
                 <br />
                 <a
-                  href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                  href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
                   {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                 </a>
                 <br />
-                <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} 
+                <a
+                  href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`}
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
                   {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}
@@ -516,7 +537,7 @@ export default function Product() {
           showNewsletter
           incline
           heading="Newsletter"
-          description='Soyez le premier informé de nos futures sorties de produit ou promotions !'
+          description="Soyez le premier informé de nos futures sorties de produit ou promotions !"
         />
       </div>
       <div className="pb-20">

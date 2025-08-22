@@ -1,12 +1,52 @@
 import {Link} from 'react-router';
 import {Image, Money} from '@shopify/hydrogen';
 import type {
-  ProductItemFragment,
-  CollectionItemFragment,
   RecommendedProductFragment,
 } from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
 import {FaClock} from 'react-icons/fa';
+
+const locale = import.meta.env.VITE_LANGUAGE;
+
+// Define a generic product interface that matches the structure used across the app
+interface ProductItemType {
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage?: {
+    id: string;
+    altText?: string;
+    url: string;
+    width?: number;
+    height?: number;
+  };
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+    maxVariantPrice?: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  __compareAtPrice?: {
+    amount: string;
+    currencyCode: string;
+  };
+}
+
+function formatCurrency(amount: string, currencyCode: string) {
+  const numAmount = parseFloat(amount);
+  
+  if (locale === 'fr') {
+    // French format: 50 €
+    return `${numAmount.toFixed(2)}\u00A0€`;
+  } else {
+    // American format: $50.00
+    return `$${numAmount.toFixed(2)}`;
+  }
+}
 
 export function ProductItem({
   product,
@@ -14,10 +54,7 @@ export function ProductItem({
   badgeText,
   badgeLogo,
 }: {
-  product:
-    | CollectionItemFragment
-    | ProductItemFragment
-    | RecommendedProductFragment;
+  product: ProductItemType | RecommendedProductFragment;
   loading?: 'eager' | 'lazy';
   badgeText?: string; // Optional badge text for flash deals or discounts
   badgeLogo?: boolean;
@@ -84,21 +121,21 @@ export function ProductItem({
       >
         {/* Compare At Price (strikethrough if discounted) - show first */}
         {hasDiscount && compareAtPrice && (
-          <div className="text-md text-[gray-500] line-through">
-            <Money data={compareAtPrice} />
+          <div className="text-md text-[gray-500] line-through whitespace-nowrap">
+            {formatCurrency(compareAtPrice.amount, compareAtPrice.currencyCode)}
           </div>
         )}
 
         {/* Current Price */}
-        <div className="text-lg font-bold text-[var(--color-1)]">
-          <Money data={minPrice} />
+        <div className="text-lg font-bold text-[var(--color-1)] whitespace-nowrap">
+          {formatCurrency(minPrice.amount, minPrice.currencyCode)}
           {minPrice.amount !== maxPrice.amount && compareAtPrice && (
             <>
               <span className="text-sm font-normal text-[var(--color-1)]">
                 {' '}
                 -{' '}
               </span>
-              <Money data={maxPrice} />
+              {formatCurrency(maxPrice.amount, maxPrice.currencyCode)}
             </>
           )}
         </div>
@@ -106,22 +143,39 @@ export function ProductItem({
         {/* Savings Badge - only if there's a discount */}
         {badgeText === 'Offre Flash' && (
           <div className="w-full !text-sm font-medium text-[#666666] px-2 pb-1 mt-2.5">
-            <p className="text-[#B7B7B7] !text-xs  !md:pt-2">
-              Offre spéciale du jour :
+            <p className="text-[#B7B7B7] !text-xs !md:pt-2 break-words sm:whitespace-nowrap">
+              Offre spéciale du jour:
             </p>
             <div className="flex flex-wrap justify-center gap-1 !text-xs text-center">
-              <span>
-                {new Date().toLocaleDateString('fr-FR', {weekday: 'long'})},
-              </span>
-              <span className="text-[var(--color-1)]">
-                {new Date().toLocaleDateString('fr-FR', {month: 'long'})}
-              </span>
-              <span>
-                {new Date().toLocaleDateString('fr-FR', {day: 'numeric'})},
-              </span>
-              <span>
-                {new Date().toLocaleDateString('fr-FR', {year: 'numeric'})}
-              </span>
+              {locale === 'fr' ? (
+                // French format: day - month - year
+                <>
+                  <span>
+                    {new Date().toLocaleDateString('fr-FR', {day: 'numeric'})}
+                  </span>
+                  <span>-</span>
+                  <span className="text-[var(--color-1)]">
+                    {new Date().toLocaleDateString('fr-FR', {month: 'long'})}
+                  </span>
+                  <span>-</span>
+                  <span>
+                    {new Date().toLocaleDateString('fr-FR', {year: 'numeric'})}
+                  </span>
+                </>
+              ) : (
+                // English format: month day, year
+                <>
+                  <span className="text-[var(--color-1)]">
+                    {new Date().toLocaleDateString('en-US', {month: 'long'})}
+                  </span>
+                  <span>
+                    {new Date().toLocaleDateString('en-US', {day: 'numeric'})},
+                  </span>
+                  <span>
+                    {new Date().toLocaleDateString('en-US', {year: 'numeric'})}
+                  </span>
+                </>
+              )}
             </div>
           </div>
         )}
