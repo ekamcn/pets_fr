@@ -151,26 +151,30 @@ export function ProductItem({
                 // French format: day - month - year
                 <>
                   <span>
+                    {new Date().toLocaleDateString('fr-FR', {weekday: 'long'})}
+                  ,</span>
+                  <span className="text-[var(--color-1)]">
                     {new Date().toLocaleDateString('fr-FR', {day: 'numeric'})}
-                  </span>
-                  <span>-</span>
+                  ,</span>
                   <span className="text-[var(--color-1)]">
                     {new Date().toLocaleDateString('fr-FR', {month: 'long'})}
-                  </span>
-                  <span>-</span>
+                 , </span>
                   <span>
                     {new Date().toLocaleDateString('fr-FR', {year: 'numeric'})}
                   </span>
-                </>
+                    </>
               ) : (
                 // English format: month day, year
                 <>
-                  <span className="text-[var(--color-1)]">
+                  <span>
+                    {new Date().toLocaleDateString('en-US', {weekday: 'long'})}
+                  ,</span>
+                   <span className="text-[var(--color-1)]">
                     {new Date().toLocaleDateString('en-US', {month: 'long'})}
-                  </span>
+                  ,</span>
                   <span>
                     {new Date().toLocaleDateString('en-US', {day: 'numeric'})},
-                  </span>
+                  ,</span>
                   <span>
                     {new Date().toLocaleDateString('en-US', {year: 'numeric'})}
                   </span>
