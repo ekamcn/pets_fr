@@ -196,9 +196,13 @@ export default function ShippingPolicyPage() {
               .
             </li>
             <li>
-              Expédition : Pour retourner un produit, envoyez-nous un email à
-              contact@espritautomoto.com, puis l’envoyer par la poste à : 330
-              route des Chevaliers Tireurs,73190 SAINT BALDOPH
+              Expédition : Pour retourner un produit, envoyez-nous un email à{" "}
+             <a
+                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+                className="underline underline-offset-4"
+              >
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+              </a>{" "}, puis l’envoyer par la poste à :{" "} {import.meta.env.VITE_COMPANY_ADDRESS}
             </li>
           </ul>
         </div>
