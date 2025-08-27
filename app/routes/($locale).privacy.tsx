@@ -311,7 +311,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="!list-disc !list-inside space-y-2 !text-sm !pl-6 lg:!pl-8">
             <li>
-              Accès : Vous avez le droit de demander l'accès aux données
+              Accès : Vous avez le droit de demander l&apos;accès aux données
               personnelles que nous détenons à votre sujet.
             </li>
             <li>
@@ -362,10 +362,10 @@ export default function PrivacyPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Nous mettons en œuvre des mesures techniques et organisationnelles
             appropriées pour protéger vos données personnelles contre la
-            destruction, la perte, l'altération, la divulgation non autorisée ou
-            l'accès non autorisé. Ces mesures incluent l'utilisation de
-            technologies de chiffrement telles que SSL et AES-256 pour les
-            informations sensibles.
+            destruction, la perte, l&apos;altération, la divulgation non
+            autorisée ou l&apos;accès non autorisé. Ces mesures incluent
+            l&apos;utilisation de technologies de chiffrement telles que SSL et
+            AES-256 pour les informations sensibles.
           </p>
         </div>
 

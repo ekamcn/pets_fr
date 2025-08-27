@@ -8,7 +8,7 @@ export default function ShippingPolicyPage() {
           Politiques de livraison
         </p>
         <p className="leading-6 sm:leading-7 !text-sm">
-          POLITIQUE D'EXPÉDITION
+          POLITIQUE D&apos;EXPÉDITION
         </p>
 
         <div className="flex flex-col gap-4">
@@ -19,9 +19,11 @@ export default function ShippingPolicyPage() {
           </p>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6 ">
             <li>
-              Par Colissimo (livraison à domicile, point de retrait, bureau de
-              poste, 2 à 4 jours ouvrés), en Livraison Express : Cette option
-              est gratuite pour toutes les commandes, quel que soit le montant.
+              Par {import.meta.env.VITE_DELIVERY_PROVIDER} (livraison à
+              domicile, point de retrait, bureau de poste,{' '}
+              {import.meta.env.VITE_STANDARD_DELIVERY_TIME} jours ouvrés), en
+              Livraison Express : Cette option est gratuite pour toutes les
+              commandes, quel que soit le montant.
             </li>
           </ul>
           <p className="!text-sm leading-6 sm:leading-7">
@@ -34,10 +36,7 @@ export default function ShippingPolicyPage() {
           <h2 className="!text-base font-semibold">2. Zones de Livraison</h2>
           <p>Nous livrons dans les zones géographiques suivantes :</p>
           <ul className="!list-disc l!ist-inside space-y-1 !text-sm !pl-6">
-            <li>France</li>
-            <li>Belgique</li>
-            <li>Luxembourg</li>
-            <li>Suisse</li>
+            <li>{import.meta.env.VITE_DELIVERY_AREAS}</li>
           </ul>
         </div>
 
@@ -48,17 +47,17 @@ export default function ShippingPolicyPage() {
           </p>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
             <li>France, Belgique, Luxembourg, Suisse :</li>
-            <li>Livraison standard: 2 à 4 jours ouvrés.</li>
+            <li>
+              Livraison standard: {import.meta.env.VITE_STANDARD_DELIVERY_TIME}{' '}
+              jours ouvrés.
+            </li>
           </ul>
         </div>
 
         <div>
           <h2 className="!text-base font-semibold">4. Frais de Livraison</h2>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
-            <li>
-              Gratuit: Les frais de livraison sont gratuits, peu importe le
-              montant de la commande.
-            </li>
+            <li>{import.meta.env.VITE_FREE_SHIPPING_POLICY}</li>
           </ul>
         </div>
 
@@ -68,9 +67,10 @@ export default function ShippingPolicyPage() {
           </h2>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
             <li>
-              La plupart des commandes sont traitées et expédiées dans les 48
-              heures. Dans les périodes de forte activité, la préparation de la
-              commande peut prendre 72h soit 3 jours ouvrés.
+              La plupart des commandes sont traitées et expédiées dans les{' '}
+              {import.meta.env.VITE_ORDER_PROCESSING_TIME} heures. Dans les
+              périodes de forte activité, la préparation de la commande peut
+              prendre 72h soit 3 jours ouvrés.
             </li>
           </ul>
         </div>
@@ -115,7 +115,8 @@ export default function ShippingPolicyPage() {
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold">8. Retours et Échanges</h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Notre politique de retour dure 30 jours. Si 30 jours se sont écoulés
+            Notre politique de retour dure {import.meta.env.VITE_RETURN_PERIOD}{' '}
+            jours. Si {import.meta.env.VITE_RETURN_PERIOD} jours se sont écoulés
             depuis votre achat, nous ne pouvons malheureusement pas vous offrir
             un remboursement ou un échange.
           </p>
@@ -196,13 +197,15 @@ export default function ShippingPolicyPage() {
               .
             </li>
             <li>
-              Expédition : Pour retourner un produit, envoyez-nous un email à{" "}
-             <a
+              Expédition : Pour retourner un produit, envoyez-nous un email à{' '}
+              <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
                 className="underline underline-offset-4"
               >
                 {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
-              </a>{" "}, puis l’envoyer par la poste à :{" "} {import.meta.env.VITE_COMPANY_ADDRESS}
+              </a>{' '}
+              , puis l’envoyer par la poste à :{' '}
+              {import.meta.env.VITE_COMPANY_ADDRESS}
             </li>
           </ul>
         </div>

@@ -14,19 +14,19 @@ export default function PaymentTermsPage() {
           Conditions de Paiement
         </p>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="payment-methods">
             Modalités de Paiement
           </h2>
           <p className="leading-6 sm:leading-7 !text-sm">
             Lorsque vous passez commande sur notre site, votre carte est débitée
-            en EUR immédiatement et non pas au moment de l'expédition. Votre
-            relevé de facturation apparaîtra sous la forme suivante :{' '}
+            en EUR immédiatement et non pas au moment de l&apos;expédition.
+            Votre relevé de facturation apparaîtra sous la forme suivante :{' '}
             {storeName}
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="accepted-payments">
             Modes de Paiement Acceptés
           </h2>
@@ -38,7 +38,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="payment-security">
             Sécurisation des Paiements
           </h2>
@@ -52,7 +52,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="invoicing">
             Facturation
           </h2>
@@ -63,7 +63,7 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="billing-accuracy">
             Exactitude des Informations de Facturation
           </h2>
@@ -75,13 +75,13 @@ export default function PaymentTermsPage() {
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="refunds">
             Remboursements
           </h2>
           <p className="leading-6 sm:leading-7 !text-sm">
             Si vous souhaitez obtenir un remboursement, veuillez nous contacter
-            à l'adresse suivante :{' '}
+            à l&apos;adresse suivante :{' '}
             <a
               href={`mailto:${customerSupportEmail}`}
               className="underline underline-offset-4"
@@ -89,29 +89,31 @@ export default function PaymentTermsPage() {
             >
               {customerSupportEmail}
             </a>
-            . Vous disposez d'un délai de 30 jours à compter de la réception de
-            votre commande pour exercer votre droit de rétractation.
+            . Vous disposez d&apos;un délai de 30 jours à compter de la
+            réception de votre commande pour exercer votre droit de
+            rétractation.
           </p>
           <p className="leading-6 sm:leading-7 !text-sm mt-2">
             Le remboursement sera effectué sur le moyen de paiement utilisé lors
-            de la commande et peut prendre entre 3 et 5 jours ouvrables pour
+            de la commande et peut prendre entre{' '}
+            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrables pour
             apparaître sur votre compte bancaire.
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="complaints-disputes">
             Réclamations et Litiges
           </h2>
           <p className="leading-6 sm:leading-7 !text-sm">
             En cas de réclamation ou de litige concernant une transaction,
-            veuillez nous contacter à l'adresse email mentionnée ci-dessus. Nous
-            nous efforcerons de résoudre toute réclamation dans les plus brefs
-            délais.
+            veuillez nous contacter à l&apos;adresse email mentionnée ci-dessus.
+            Nous nous efforcerons de résoudre toute réclamation dans les plus
+            brefs délais.
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold" id="terms-changes">
             Modifications des Conditions de Paiement
           </h2>
@@ -129,15 +131,15 @@ export default function PaymentTermsPage() {
           <p className="leading-6 sm:leading-7 !text-sm">
             Pour nous contacter, envoyez seulement un email à :{' '}
             {customerSupportEmail} ou par téléphone au: {customerServicePhone},
-            notre équipe se fera un plaisir de vous répondre du lundi au
-            vendredi de 8h à 18h (UTC+1).
+            notre équipe se fera un plaisir de vous répondre{' '}
+            {import.meta.env.VITE_SUPPORT_HOURS}.
           </p>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
           <ul className="list-disc list-inside space-y-1 !text-sm pl-6">
             <li>Société : {companyName}</li>
-            <li>SIREN : 30337622200053</li>
+            <li>SIREN : {import.meta.env.VITE_SIREN_NUMBER}</li>
             <li>Adresse : {companyAddress}</li>
             <li>
               Mail :{' '}

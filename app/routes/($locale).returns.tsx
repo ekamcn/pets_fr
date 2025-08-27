@@ -13,10 +13,12 @@ export default function RefundPolicyPage() {
             Durée de la Politique de Retours
           </h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Notre politique de retour dure 30 jours. Si 30 jours se sont écoulés
+            Notre politique de retour dure {import.meta.env.VITE_RETURN_PERIOD}{' '}
+            jours. Si {import.meta.env.VITE_RETURN_PERIOD} jours se sont écoulés
             depuis votre achat, nous ne pouvons malheureusement pas vous offrir
-            de remboursement ou d'échange, sauf dans les cas couverts par le
-            droit de rétractation de 14 jours, tel que décrit ci-dessous.
+            de remboursement ou d&apos;échange, sauf dans les cas couverts par
+            le droit de rétractation de {import.meta.env.VITE_RETURN_PERIOD}
+            jours, tel que décrit ci-dessous.
           </p>
         </div>
 
@@ -24,10 +26,11 @@ export default function RefundPolicyPage() {
           <h2 className="!text-base font-semibold">Conditions de Retour</h2>
           <p className="!text-sm leading-6 sm:leading-7">
             Pour être admissible à un retour, votre article doit être inutilisé
-            et dans le même état que vous l'avez reçu. Il doit également être,
-            de préférence, dans l'emballage d'origine. Si votre article est
-            défectueux ou endommagé à la réception du colis, veuillez suivre la
-            procédure décrite dans la partie concernant les échanges ci-dessous.
+            et dans le même état que vous l&apos;avez reçu. Il doit également
+            être, de préférence, dans l&apos;emballage d&apos;origine. Si votre
+            article est défectueux ou endommagé à la réception du colis,
+            veuillez suivre la procédure décrite dans la partie concernant les
+            échanges ci-dessous.
           </p>
         </div>
 
@@ -70,11 +73,12 @@ export default function RefundPolicyPage() {
           </ul>
 
           <p className="!text-sm leading-6 sm:leading-7">
-            Conformément à la législation européenne, vous disposez d'un droit
-            de rétractation de 30 jours à compter de la réception de votre
-            commande. Pendant cette période, vous pouvez retourner le produit
-            sans avoir à justifier de motifs ni à payer de pénalités. Pour
-            exercer ce droit, veuillez nous contacter par email à{' '}
+            Conformément à la législation européenne, vous disposez d&apos;un
+            droit de rétractation de {import.meta.env.VITE_RETURN_PERIOD} jours
+            à compter de la réception de votre commande. Pendant cette période,
+            vous pouvez retourner le produit sans avoir à justifier de motifs ni
+            à payer de pénalités. Pour exercer ce droit, veuillez nous contacter
+            par email à{' '}
             <a
               href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
               className="underline"
@@ -102,11 +106,12 @@ export default function RefundPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Une fois votre retour reçu et inspecté, nous vous enverrons un
             e-mail pour vous informer que nous avons reçu votre article
-            retourné. Nous vous informerons également de l'approbation ou du
-            rejet de votre remboursement. Si votre demande est approuvée, alors
-            votre remboursement sera traité, et un crédit sera automatiquement
-            appliqué à votre carte de crédit ou à votre méthode originale de
-            paiement, dans un délai de 5 jours ouvrés.
+            retourné. Nous vous informerons également de l&apos;approbation ou
+            du rejet de votre remboursement. Si votre demande est approuvée,
+            alors votre remboursement sera traité, et un crédit sera
+            automatiquement appliqué à votre carte de crédit ou à votre méthode
+            originale de paiement, dans un délai de{' '}
+            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrés.
           </p>
         </div>
 
@@ -137,7 +142,7 @@ export default function RefundPolicyPage() {
             </a>
             , puis l’envoyer par la poste à :{' '}
             <strong>{import.meta.env.VITE_COMPANY_ADDRESS}</strong>
-            </p>
+          </p>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -151,8 +156,8 @@ export default function RefundPolicyPage() {
             l’approbation ou au rejet de votre demande de remboursement. Si
             votre demande est approuvée, alors votre remboursement sera traité,
             et un crédit sera automatiquement appliqué à votre carte de crédit
-            ou à votre méthode originale de paiement, dans un délai d’un certain
-            nombre de jours.
+            ou à votre méthode originale de paiement, dans un délai de{' '}
+            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrés.
           </p>
         </div>
 
@@ -165,9 +170,9 @@ export default function RefundPolicyPage() {
             votre compte bancaire. Ensuite, contactez votre compagnie de carte
             de crédit, cela peut prendre un certain temps avant que votre
             remboursement soit officiellement publié. Ensuite, contactez votre
-            banque. Il y a souvent du temps de traitement avant qu'un
+            banque. Il y a souvent du temps de traitement avant qu&apos;un
             remboursement ne soit posté. Si vous avez fait tout cela et que vous
-            n'avez toujours pas reçu votre remboursement, veuillez nous
+            n&apos;avez toujours pas reçu votre remboursement, veuillez nous
             contacter à{' '}
             <a
               href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
@@ -192,8 +197,8 @@ export default function RefundPolicyPage() {
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold">Échange (le cas échéant)</h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Nous ne remplaçons les articles que s'ils sont défectueux et/ou
-            endommagés. Si vous devez l'échanger contre le même article,
+            Nous ne remplaçons les articles que s&apos;ils sont défectueux et/ou
+            endommagés. Si vous devez l&apos;échanger contre le même article,
             envoyez-nous un e-mail à{' '}
             <a
               href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
@@ -204,7 +209,8 @@ export default function RefundPolicyPage() {
             . Dans cet e-mail, nous vous invitons à nous joindre le numéro de
             commande (ou une copie de la facture) et un justificatif (une photo
             ou une vidéo des éléments défectueux et/ou endommagés) et envoyez
-            votre article à l’adresse indiquée sur l'emballage de votre colis
+            votre article à l’adresse indiquée sur l&apos;emballage de votre
+            colis
           </p>
 
           <div>
@@ -232,7 +238,7 @@ export default function RefundPolicyPage() {
         <div>
           <ul className="!list-disc !list-inside space-y-2 !text-sm !pl-6 lg:!pl-8">
             <li>Société : {import.meta.env.VITE_COMPANY_NAME}</li>
-            <li>SIREN : 30337622200053</li>
+            <li>SIREN : {import.meta.env.VITE_SIREN_NUMBER}</li>
             <li>Adresse : {import.meta.env.VITE_COMPANY_ADDRESS}</li>
             <li>
               Email :{' '}
