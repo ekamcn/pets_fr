@@ -80,7 +80,7 @@ export function Footer() {
                     {import.meta.env.VITE_COMPANY_NAME}
                   </li>
                   <li className="break-words">
-                    <strong>SIREN :</strong> 30337622200053
+                    <strong>SIREN :</strong> {import.meta.env.VITE_SIREN_NUMBER}
                   </li>
                   <li className="break-words">
                     <strong>Adresse :</strong>{' '}
