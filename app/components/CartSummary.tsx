@@ -2,8 +2,8 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import type {CartLayout} from '~/components/CartMain';
 import {Money, type OptimisticCart} from '@shopify/hydrogen';
 import {LuLoaderCircle} from 'react-icons/lu';
-import { useEffect, useRef, useState } from 'react';
- 
+import {useEffect, useRef, useState} from 'react';
+
 const pricingMatrix = {
   french: [
     {offerId: import.meta.env.VITE_CUSTOM_OFFER_ID_9_99 || '49768', price: 9.99, currency: 'EUR'},
@@ -34,7 +34,7 @@ const pricingMatrix = {
     {offerId: import.meta.env.VITE_CUSTOM_OFFER_ID_119_5 || '49815', price: 119.5, currency: 'USD'},
   ],
 };
- 
+
 function getOfferId(
   price: number | string,
   locale: 'english' | 'french' = 'english',
@@ -45,25 +45,100 @@ function getOfferId(
   );
   return found ? found.offerId : '';
 }
- 
+
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
   layout: CartLayout;
   logoPath?: string;
   affId?: string;
 };
- 
+
 export function CartSummary({cart, layout, affId}: CartSummaryProps) {
-  const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+  const className = layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   const language = import.meta.env.VITE_LANGUAGE || 'english';
- 
+
+  // State to manage subtotal loader visibility
+  const [showSubtotalLoader, setShowSubtotalLoader] = useState(false);
+  const subtotalTimeoutRef = useRef<number | null>(null);
+  const isUpdatingRef = useRef<boolean>(false);
+  const prevLinesRef = useRef<string>('');
+
+  // Compute a unique identifier for cart lines to detect changes
+  const lines = Array.isArray((cart?.lines as any)?.nodes)
+    ? (cart?.lines as any).nodes
+    : [];
+  const cartLinesIdentifier = JSON.stringify(
+    lines.map((line: any) => ({
+      id: line.merchandise?.id,
+      quantity: line.quantity,
+    })),
+  );
+  useEffect(() => {
+    console.log(cart.cost?.subtotalAmount,"cart?.cost?.subtotalAmount?.amount");
+    // If subtotal is not yet available (initial mount), keep loader visible
+    if (!cart?.cost?.subtotalAmount?.amount) {
+      isUpdatingRef.current = true;
+      setShowSubtotalLoader(true);
+      return;
+    }
+  
+    // Detect changes in cart lines
+    if (cartLinesIdentifier !== prevLinesRef.current) {
+      isUpdatingRef.current = true;
+      setShowSubtotalLoader(true);
+  
+      if (subtotalTimeoutRef.current) {
+        window.clearTimeout(subtotalTimeoutRef.current);
+      }
+  
+      subtotalTimeoutRef.current = window.setTimeout(() => {
+        if (!isUpdatingRef.current) {
+          setShowSubtotalLoader(false);
+        }
+      }, 1000);
+    }
+  
+    prevLinesRef.current = cartLinesIdentifier;
+  
+    return () => {
+      if (subtotalTimeoutRef.current) {
+        window.clearTimeout(subtotalTimeoutRef.current);
+      }
+    };
+  }, [cartLinesIdentifier, cart?.cost?.subtotalAmount?.amount]);
+  
+
+  // Extend loader duration if price is still updating
+  useEffect(() => {
+    if (isUpdatingRef.current) {
+      // Price is updating, extend loader duration
+      if (subtotalTimeoutRef.current) {
+        window.clearTimeout(subtotalTimeoutRef.current);
+      }
+
+      // Extend timeout to ensure loader stays until price stabilizes
+      subtotalTimeoutRef.current = window.setTimeout(() => {
+        isUpdatingRef.current = false;
+        setShowSubtotalLoader(false);
+      }, 500); // Additional 500ms to cover price update delay
+    }
+
+    // Cleanup on unmount or when price changes again
+    return () => {
+      if (subtotalTimeoutRef.current) {
+        window.clearTimeout(subtotalTimeoutRef.current);
+      }
+    };
+  }, [cart.cost?.subtotalAmount?.amount]);
+
   return (
     <div aria-labelledby="cart-summary" className={className}>
       <dl className="cart-subtotal flex items-center justify-between">
         <dt>Total</dt>
-        <dd>
-          {cart.cost?.subtotalAmount?.amount ? (
+        <dd className="flex items-center gap-2">
+          {showSubtotalLoader ? (
+            <LuLoaderCircle className="w-5 h-5 animate-spin" />
+          ) : cart.cost?.subtotalAmount?.amount ? (
             <Money data={cart.cost?.subtotalAmount} />
           ) : (
             '-'
@@ -79,57 +154,57 @@ export function CartSummary({cart, layout, affId}: CartSummaryProps) {
     </div>
   );
 }
- 
+
 type CartCheckoutActionsProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
   logoPath?: string;
   affId?: string;
   locale?: string;
 };
- 
-function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
+
+function CartCheckoutActions({cart, logoPath, affId, locale}: CartCheckoutActionsProps) {
   // Map short language codes to your pricingMatrix keys
   const langMap: Record<string, 'english' | 'french'> = {
     en: 'english',
     fr: 'french',
   };
- 
+
   // Get language from env and normalize it
   const rawLang = import.meta.env.VITE_LANGUAGE || 'en';
-  const locale = langMap[rawLang.toLowerCase()] || 'english';
- 
+  const normalizedLocale = langMap[rawLang.toLowerCase()] || 'english';
+
   // Get affiliate ID
-  const defaultAffId = 'AFF123';
+  const defaultAffId = affId || 'AFF123';
   const finalAffId = encodeURIComponent(defaultAffId);
- 
+
   // Get checkout domain and ID from env
   const checkoutBaseUrl = `${import.meta.env.VITE_CHECKOUT_DOMAIN}/${import.meta.env.VITE_CHECKOUT_ID}`;
- 
+
   const lines = Array.isArray((cart?.lines as any)?.nodes)
     ? (cart?.lines as any).nodes
     : [];
- 
+
   if (!lines.length) return null;
- 
+
   const s2Arr: string[] = [];
   const s3Arr: string[] = [];
   const s4Arr: string[] = [];
- 
+
   lines.forEach((line: any) => {
     const qty = line.quantity || 1;
     const image = line.merchandise?.image?.url || '';
     const title = line.merchandise?.product?.title || '';
     const price =
       line.cost?.amountPerQuantity?.amount || line.merchandise?.priceV2?.amount;
-    const offerId = getOfferId(price, locale);
- 
+    const offerId = getOfferId(price, normalizedLocale);
+
     for (let i = 0; i < qty; i++) {
       s2Arr.push(image);
       s3Arr.push(title);
       s4Arr.push(offerId);
     }
   });
- 
+
   const s2Param = encodeURIComponent(s2Arr.join(','));
   const s3Param = encodeURIComponent(s3Arr.join(','));
   const s4Param = encodeURIComponent(s4Arr.join(','));
@@ -142,29 +217,29 @@ function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
     import.meta.env.VITE_CUSTOMER_SERVICE_PHONE,
   );
   const m1param = encodeURIComponent(`${window.location.origin}/shipping`);
- 
+
   const gclid = (() => {
     const match = document.cookie.match(/(?:^|; )gclid=([^;]*)/);
     return match ? decodeURIComponent(match[1]) : '';
   })();
- 
+
   const [showSpinner, setShowSpinner] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const spinnerTimeoutRef = useRef<number | null>(null);
- 
+
   function startSpinnerForOneSecond() {
     setShowSpinner(true);
-    setIsDisabled(true); // disable button after first click
+    setIsDisabled(true);
     if (spinnerTimeoutRef.current) {
       window.clearTimeout(spinnerTimeoutRef.current);
     }
     spinnerTimeoutRef.current = window.setTimeout(() => {
       setShowSpinner(false);
-      setIsDisabled(false); // disable button after first click
+      setIsDisabled(false);
       spinnerTimeoutRef.current = null;
     }, 2500);
   }
- 
+
   useEffect(() => {
     return () => {
       if (spinnerTimeoutRef.current) {
@@ -172,20 +247,21 @@ function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
       }
     };
   }, []);
- 
-  const url = `${checkoutBaseUrl}?s1=${window.location.origin}/${import.meta.env.VITE_LOGO}&s2=${s2Param}&s3=${s3Param}&s4=${s4Param}&c1=custom1&c2=custom2&c3=custom3&c4=&c5=&c6=&affId=${finalAffId}}&l1=${l1Param}&l2=${l2Param}&l3=${l3Param}&l4=${l4Param}&m1=${m1param}&m2=&gclId=${gclid}`;
- 
+
+  const url = `${checkoutBaseUrl}?s1=${window.location.origin}/${import.meta.env.VITE_LOGO}&s2=${s2Param}&s3=${s3Param}&s4=${s4Param}&c1=custom1&c2=custom2&c3=custom3&c4=&c5=&c6=&affId=${finalAffId}&l1=${l1Param}&l2=${l2Param}&l3=${l3Param}&l4=${l4Param}&m1=${m1param}&m2=&gclId=${gclid}`;
+
   return (
     <div>
       <a href={url} target="_self">
-      <button
+        <button
           type="submit"
           onClick={() => {
             startSpinnerForOneSecond();
           }}
           disabled={isDisabled}
           className={`product-form__submit flex items-center justify-center gap-2 w-[100%] py-2 rounded-full text-lg font-bold transition-colors duration-200
-            ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-[var(--color-1)] text-white"}`}        >
+            ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-[var(--color-1)] text-white"}`}
+        >
           {showSpinner ? (
             <div className="w-full flex justify-center items-center">
               <LuLoaderCircle className="w-6 h-6 my-0.5 animate-spin" />
@@ -199,5 +275,3 @@ function CartCheckoutActions({cart}: CartCheckoutActionsProps) {
     </div>
   );
 }
- 
- 

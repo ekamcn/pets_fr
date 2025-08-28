@@ -130,9 +130,9 @@ export default function PaymentTermsPage() {
           </p>
           <p className="leading-6 sm:leading-7 !text-sm">
             Pour nous contacter, envoyez seulement un email à :{' '}
-            {customerSupportEmail} ou par téléphone au: {customerServicePhone},
-            notre équipe se fera un plaisir de vous répondre{' '}
-            {import.meta.env.VITE_SUPPORT_HOURS}.
+            {customerSupportEmail} ou par téléphone <br /> au:{' '}
+            {customerServicePhone}, notre équipe se fera un plaisir de vous
+            répondre {import.meta.env.VITE_SUPPORT_HOURS}.
           </p>
         </div>
 

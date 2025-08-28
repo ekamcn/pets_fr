@@ -14,9 +14,9 @@ interface ProductImageSliderProps {
 
 export function ProductImageSlider({ images }: ProductImageSliderProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-
   const [thumbsToShow, setThumbsToShow] = useState(5);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const thumbsRef = useRef<HTMLDivElement>(null); // Add ref for thumbnail container
 
   useEffect(() => {
     const container = sliderRef.current;
@@ -35,17 +35,29 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
     }
   }, [selectedIndex]);
 
-
   if (!images || images.length === 0) return null;
 
   const scrollToThumb = (idx: number) => {
-    const currentDiv = document.getElementById(`data-${idx}`);
-    currentDiv?.scrollIntoView?.({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const thumbsContainer = thumbsRef.current;
+    const currentThumb = document.getElementById(`thumb-${idx}`);
+    if (!thumbsContainer || !currentThumb) return;
+
+    // Calculate the scroll position to ensure the thumbnail is fully visible
+    const thumbWidth = currentThumb.offsetWidth;
+    const containerWidth = thumbsContainer.offsetWidth;
+    const scrollLeft =
+      currentThumb.offsetLeft - containerWidth / 2 + thumbWidth / 2;
+
+    thumbsContainer.scrollTo({
+      left: scrollLeft,
+      behavior: 'smooth',
+    });
   };
+
   const goLeft = () => {
     setSelectedIndex((prev) => {
       const newIndex = Math.max(prev - 1, 0);
-      scrollToThumb(newIndex); // scroll to new image
+      scrollToThumb(newIndex);
       return newIndex;
     });
   };
@@ -53,13 +65,13 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
   const goRight = () => {
     setSelectedIndex((prev) => {
       const newIndex = Math.min(prev + 1, images.length - 1);
-      scrollToThumb(newIndex); // scroll to new image
+      scrollToThumb(newIndex);
       return newIndex;
     });
   };
 
   const handleThumbClick = (idx: number) => {
-    setSelectedIndex(idx)
+    setSelectedIndex(idx);
     scrollToThumb(idx);
   };
 
@@ -85,10 +97,11 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
             {images.map((img, idx) => (
               <div
                 key={img.id || idx}
-                className={`flex-shrink-0 transition-all rounded-lg cursor-pointer ${idx === selectedIndex ? 'opacity-100' : 'opacity-60'
-                  }`}
+                className={`flex-shrink-0 transition-all rounded-lg cursor-pointer ${
+                  idx === selectedIndex ? 'opacity-100' : 'opacity-60'
+                }`}
                 onClick={() => {
-                  setSelectedIndex(idx)
+                  setSelectedIndex(idx);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -99,11 +112,6 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
                 tabIndex={0}
                 role="button"
                 aria-label={`Select image ${idx + 1}`}
-                ref={(el) => {
-                  if (idx === selectedIndex && el) {
-                    // el.scrollIntoView({behavior: 'smooth', inline: 'center'});
-                  }
-                }}
                 id={`data-${idx}`}
               >
                 <img
@@ -132,10 +140,11 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
       <div className="flex items-center space-x-2 lg:space-x-4 w-full px-2">
         <button
           onClick={goLeft}
-          className={`p-2 rounded-full cursor-pointer transition-all ${selectedIndex === 0
+          className={`p-2 rounded-full cursor-pointer transition-all ${
+            selectedIndex === 0
               ? 'bg-[var(--color-1)] cursor-not-allowed opacity-70'
               : 'bg-[var(--color-1)] hover:bg-[var(--color-1)]/80'
-            }`}
+          }`}
           aria-label="Previous image"
           disabled={selectedIndex === 0}
         >
@@ -155,7 +164,10 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
           </svg>
         </button>
 
-        <div className="w-full max-w-full overflow-x-auto touch-auto scrollbar-hide">
+        <div
+          className="w-full max-w-full overflow-x-auto touch-auto scrollbar-hide"
+          ref={thumbsRef}
+        >
           <div className="flex space-x-2 sm:space-x-3 lg:space-x-4">
             {visibleThumbs.map((img, idx) => {
               const actualIndex = images.indexOf(img);
@@ -163,12 +175,14 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
                 <button
                   key={img.id || actualIndex}
                   onClick={() => handleThumbClick(actualIndex)}
-                  className={`flex-shrink-0 border transition-all cursor-pointer ${actualIndex === selectedIndex
+                  className={`flex-shrink-0 border transition-all cursor-pointer ${
+                    actualIndex === selectedIndex
                       ? 'border-black'
                       : 'border-transparent'
-                    }`}
+                  }`}
                   aria-label={`Show image ${actualIndex + 1}`}
                   type="button"
+                  id={`thumb-${actualIndex}`}
                 >
                   <img
                     src={img.url}
@@ -183,10 +197,11 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
 
         <button
           onClick={goRight}
-          className={`p-2 rounded-full transition-all cursor-pointer ${selectedIndex === images.length - 1
+          className={`p-2 rounded-full transition-all cursor-pointer ${
+            selectedIndex === images.length - 1
               ? 'bg-[var(--color-1)] cursor-not-allowed opacity-70'
               : 'bg-[var(--color-1)] hover:bg-[var(--color-1)]/80'
-            }`}
+          }`}
           aria-label="Next image"
           disabled={selectedIndex === images.length - 1}
         >
@@ -209,5 +224,3 @@ export function ProductImageSlider({ images }: ProductImageSliderProps) {
     </div>
   );
 }
-
-

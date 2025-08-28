@@ -240,7 +240,7 @@ export default function GeneralConditionsPage() {
             par commande. Ces restrictions peuvent inclure les commandes passées
             par ou sur le même compte client, la même carte de crédit et/ou des
             commandes utilisant la même adresse de facturation et/ou
-            d&apos;expédition. Si nous modifions ou annuler une commande, il se
+            d&apos;expédition. Si nous modifions ou annulons une commande, il se
             peut que nous tentions de vous en aviser en vous contactant au moyen
             de l&apos;adresse e-mail et/ou de l&apos;adresse de facturation ou
             du numéro de téléphone fournis au moment de la commande. Nous nous

@@ -2,8 +2,8 @@ import {forwardRef, useEffect, useRef, useState} from 'react';
 import {type FetcherWithComponents} from 'react-router';
 import {CartForm, type OptimisticCartLineInput} from '@shopify/hydrogen';
 import {BsCircleFill} from 'react-icons/bs';
-import { LuLoaderCircle } from 'react-icons/lu';
- 
+import {LuLoaderCircle} from 'react-icons/lu';
+
 export const AddToCartButton = forwardRef<
   HTMLButtonElement,
   {
@@ -16,7 +16,7 @@ export const AddToCartButton = forwardRef<
 >(({analytics, children, disabled, lines, onClick}, ref) => {
   const [showSpinner, setShowSpinner] = useState(false);
   const spinnerTimeoutRef = useRef<number | null>(null);
- 
+
   function startSpinnerForOneSecond() {
     setShowSpinner(true);
     if (spinnerTimeoutRef.current) {
@@ -27,7 +27,7 @@ export const AddToCartButton = forwardRef<
       spinnerTimeoutRef.current = null;
     }, 400);
   }
- 
+
   useEffect(() => {
     return () => {
       if (spinnerTimeoutRef.current) {
@@ -35,6 +35,7 @@ export const AddToCartButton = forwardRef<
       }
     };
   }, []);
+
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher: FetcherWithComponents<any>) => (
@@ -49,7 +50,7 @@ export const AddToCartButton = forwardRef<
             <BsCircleFill className="text-green-800 w-3 h-3" />
           </div>
           <button
-            ref={ref} // Attach the ref to the button
+            ref={ref}
             type="submit"
             onClick={() => {
               if (onClick) onClick();
@@ -76,6 +77,3 @@ export const AddToCartButton = forwardRef<
     </CartForm>
   );
 });
- 
- 
- 

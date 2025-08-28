@@ -110,7 +110,7 @@ export default function PrivacyPolicyPage() {
               rel="noopener noreferrer"
               className="underline"
             >
-              ici
+             Conditions d’Utilisation de Shopify ici
             </a>{' '}
             ou la{' '}
             <a
@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
               rel="noopener noreferrer"
               className="underline"
             >
-              ici
+           Politique de Confidentialité ici
             </a>
             .
           </p>
@@ -197,26 +197,22 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="!list-disc !list-inside space-y-2 !text-sm !pl-6 lg:!pl-8">
             <li>
-              _session_id : identificateur unique de session pour stocker des
-              informations relatives à votre session.
+            _session_id : identificateur unique de session, permet à Shopify de stocker les informations relatives à votre session (référent, page de renvoi, etc.).
             </li>
             <li>
-              _shopify_visit : utilisé pour enregistrer le nombre de visites
-              (durée 30 minutes).
+            _shopify_visit : aucune donnée retenue, persiste pendant 30 minutes depuis la dernière visite. Utilisé par le système interne de suivi des statistiques du fournisseur de notre site web pour enregistrer le nombre de visites.
             </li>
             <li>
-              _shopify_uniq : calcule le nombre de visites par client unique
-              (expire à minuit).
+            _shopify_uniq : aucune donnée retenue, expire à minuit (selon l’emplacement du visiteur) le jour suivant. Calcule le nombre de visites d’une boutique par client unique.
             </li>
             <li>
-              cart : identificateur unique pour votre panier (2 semaines).
+            cart : identificateur unique, persiste pendant 2 semaines, stocke l’information relative à votre panier d’achat.
             </li>
             <li>
-              _secure_session_id : identificateur unique de session sécurisée.
+            _secure_session_id : identificateur unique de session.
             </li>
             <li>
-              storefront_digest : utilisé pour contrôler l’accès si la boutique
-              a un mot de passe.
+            storefront_digest : identificateur unique, indéfini si la boutique possède un mot de passe, il est utilisé pour savoir si le visiteur actuel a accès.
             </li>
           </ul>
         </div>
