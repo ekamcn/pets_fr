@@ -39,7 +39,7 @@ export default function ContactPage() {
               <strong>Société</strong> : {import.meta.env.VITE_COMPANY_NAME}
             </li>
             <li>
-              <strong>SIREN</strong> : 30337622200053
+              <strong>SIREN</strong> : {import.meta.env.VITE_SIREN_NUMBER}
             </li>
             <li>
             <strong>Adresse</strong> : {import.meta.env.VITE_COMPANY_ADDRESS}

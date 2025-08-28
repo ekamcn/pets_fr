@@ -170,7 +170,7 @@ export default function AboutPage() {
               </li>
               <li>
                 <strong>SIREN : </strong>
-                30337622200053
+                {import.meta.env.VITE_SIREN_NUMBER}
               </li>
               <li>
                 <strong>Adresse : </strong>

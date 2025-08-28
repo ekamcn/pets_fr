@@ -247,7 +247,7 @@ export default function ShippingPolicyPage() {
         <div className="flex flex-col gap-4">
           <ul className="list-disc list-inside text-sm space-y-1 pl-6">
             <li>Société : {import.meta.env.VITE_COMPANY_NAME}</li>
-            <li>SIREN : 30337622200053</li>
+            <li>SIREN : {import.meta.env.VITE_SIREN_NUMBER}</li>
             <li>Adresse : {import.meta.env.VITE_COMPANY_ADDRESS}</li>
             <li>
               Email:{' '}
