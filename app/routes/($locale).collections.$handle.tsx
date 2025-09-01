@@ -282,7 +282,7 @@ console.log(collection,"collection");
                 No products found in this collection.
               </h1>
               <a
-                href="/collections/all"
+                href="/"
                 className="px-6 py-2 bg-[var(--color-1)] text-[var(--color-2)] rounded-full hover:bg-[var(--color-1)] transition-colors"
               >
                 Continue shopping

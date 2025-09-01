@@ -118,7 +118,7 @@ export function ImageBannerVariant({
     description = `Que vous rouliez en voiture ou en deux-roues, que vous soyez amateur de tuning, adepte de sensations fortes ou simplement soucieux de bien entretenir votre véhicule, ${import.meta.env.VITE_STORE_TITLE} est là pour vous équiper avec style, efficacité et performance.`,
     imageUrl = '',
     buttonText = 'Shop Now',
-    buttonUrl = '/collections/all',
+    buttonUrl = '/',
     className = '',
     layout = 'bottom', // "bottom", "center", "left", "right"
     theme = 'dark', // "dark", "light"
