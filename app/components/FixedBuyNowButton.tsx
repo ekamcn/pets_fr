@@ -70,7 +70,7 @@ export function FixedBuyNowButton({
             <input
               name="analytics"
               type="hidden"
-              value={JSON.stringify(analytics)}
+              value={JSON.stringify(analytics ?? {})}
             />
             <div className="flex justify-center w-full">
               <button
