@@ -21,7 +21,7 @@ export default function LegalNoticePage() {
             <li>Raison Sociale : {import.meta.env.VITE_COMPANY_NAME}</li>
             <li>
               Forme juridique : Société à responsabilité limitée (SARL),
-              immatriculée au RCS de Chambery
+              immatriculée au RCS de {import.meta.env.VITE_COMPANY_CITY}
             </li>
             <li>
               Business registration : {import.meta.env.VITE_SIREN_NUMBER} RCS
