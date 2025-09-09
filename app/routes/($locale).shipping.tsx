@@ -19,9 +19,8 @@ export default function ShippingPolicyPage() {
           </p>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6 ">
             <li>
-              Par {import.meta.env.VITE_DELIVERY_PROVIDER} (livraison à
-              domicile, point de retrait, bureau de poste,{' '}
-              {import.meta.env.VITE_STANDARD_DELIVERY_TIME} jours ouvrés), en
+              Par Colissimo (livraison à
+              domicile, point de retrait, bureau de poste,, de 2 à 4 jours ouvrés), en
               Livraison Express : Cette option est gratuite pour toutes les
               commandes, quel que soit le montant.
             </li>
@@ -36,7 +35,10 @@ export default function ShippingPolicyPage() {
           <h2 className="!text-base font-semibold">2. Zones de Livraison</h2>
           <p>Nous livrons dans les zones géographiques suivantes :</p>
           <ul className="!list-disc l!ist-inside space-y-1 !text-sm !pl-6">
-            <li>{import.meta.env.VITE_DELIVERY_AREAS}</li>
+          <li>France, </li>
+          <li>Belgique,</li>
+          <li>Luxembourg,</li>
+          <li>Suisse</li>
           </ul>
         </div>
 
@@ -48,7 +50,7 @@ export default function ShippingPolicyPage() {
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
             <li>France, Belgique, Luxembourg, Suisse :</li>
             <li>
-              Livraison standard: {import.meta.env.VITE_STANDARD_DELIVERY_TIME}{' '}
+              Livraison standard: 2 à 4 
               jours ouvrés.
             </li>
           </ul>
@@ -57,7 +59,7 @@ export default function ShippingPolicyPage() {
         <div>
           <h2 className="!text-base font-semibold">4. Frais de Livraison</h2>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
-            <li>{import.meta.env.VITE_FREE_SHIPPING_POLICY}</li>
+            <li>Gratuit : Les frais de livraison sont gratuits, peu importe le montant de la commande.</li>
           </ul>
         </div>
 
@@ -68,7 +70,7 @@ export default function ShippingPolicyPage() {
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
             <li>
               La plupart des commandes sont traitées et expédiées dans les{' '}
-              {import.meta.env.VITE_ORDER_PROCESSING_TIME} heures. Dans les
+              48 heures. Dans les
               périodes de forte activité, la préparation de la commande peut
               prendre 72h soit 3 jours ouvrés.
             </li>

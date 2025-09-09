@@ -95,8 +95,8 @@ export default function PaymentTermsPage() {
           </p>
           <p className="leading-6 sm:leading-7 !text-sm mt-2">
             Le remboursement sera effectué sur le moyen de paiement utilisé lors
-            de la commande et peut prendre entre{' '}
-            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrables pour
+            de la commande et peut prendre entre 
+            3 et 5 jours ouvrables pour
             apparaître sur votre compte bancaire.
           </p>
         </div>
@@ -132,7 +132,7 @@ export default function PaymentTermsPage() {
             Pour nous contacter, envoyez seulement un email à :{' '}
             {customerSupportEmail} ou par téléphone <br /> au:{' '}
             {customerServicePhone}, notre équipe se fera un plaisir de vous
-            répondre {import.meta.env.VITE_SUPPORT_HOURS}.
+            répondre du lundi au vendredi de 8h à 18h (UTC+1).
           </p>
         </div>
 

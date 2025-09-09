@@ -92,7 +92,7 @@ export function Footer() {
                   <div className="font-semibold">
                     Horaires du service client :
                   </div>
-                  <div>{import.meta.env.VITE_BUSINESS_HOURS} </div>
+                  <div>du lundi au vendredi de 8h à 18h (UTC+1).</div>
                   </div>
 
                 {/* Bullet points */}

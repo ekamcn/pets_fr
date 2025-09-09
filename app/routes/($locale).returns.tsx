@@ -111,7 +111,7 @@ export default function RefundPolicyPage() {
             alors votre remboursement sera traité, et un crédit sera
             automatiquement appliqué à votre carte de crédit ou à votre méthode
             originale de paiement, dans un délai de{' '}
-            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrés.
+            5 jours ouvrés.
           </p>
         </div>
 
@@ -156,8 +156,8 @@ export default function RefundPolicyPage() {
             l’approbation ou au rejet de votre demande de remboursement. Si
             votre demande est approuvée, alors votre remboursement sera traité,
             et un crédit sera automatiquement appliqué à votre carte de crédit
-            ou à votre méthode originale de paiement, dans un délai de{' '}
-            {import.meta.env.VITE_REFUND_PROCESSING_TIME} jours ouvrés.
+            ou à votre méthode originale de paiement, dans un délai d’un certain
+             nombre de jours.
           </p>
         </div>
 
