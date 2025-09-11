@@ -1,45 +1,45 @@
 title,description,handle,match_any,type,operator,value
-Produits Publiés,produits pubés,published-products,FALSE,,,
-Vente Flash,Offre Flash,offre-flash,FALSE,VARIANT_PRICE,GREATER_THAN,39
-Dernière Chance,Derniere Chance,derniere-chance,FALSE,VARIANT_PRICE,GREATER_THAN,39
-Nos Poulaillers,Nos Poulailler,nos-poulailler,TRUE,title,contains,Poulailler
-Nos Poulaillers,Nos Poulailler,nos-poulailler-01,TRUE,product_type,equals,poulailler
-Nos Poulaillers,Nos Poulailler,nos-poulailler-2,TRUE,title,contains,parc à poules
-Animaux de la Ferme,Animaux de la Ferme,animaux-de-la-ferme,FALSE,vendor,equals,Animaux de la Ferme
-Tout à moins de 20€,Tout à moins de 20€,tout-a-moins-de-20,FALSE,VARIANT_PRICE,LESS_THAN,21
-CHATS Soins & Hygiène,CHATS Soins & Hygiène,chats-soins-hygiene,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Soins & Hygiène
-Pour Chats,Pour Chats,pour-chats-01,TRUE,vendor,equals,PARADIS ANIMAUX Arbres à Chats
-Pour Chats,Pour Chats,pour-chats-02,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Colliers & Harnais
-Pour Chats,Pour Chats,pour-chats-03,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Couchages
-Pour Chats,Pour Chats,pour-chats-04,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Gamelles & Abreuvoirs
-Pour Chats,Pour Chats,pour-chats-05,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Jouets
-Pour Chats,Pour Chats,pour-chats-06,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Soins & Hygiène
-Pour Chats,Pour Chats,pour-chats-07,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Transport
-Pour Chats,Pour Chats,pour-chats,TRUE,vendor,equals,PARADIS ANIMAUX CHATS Vêtements & Accessoires
-CHIENS Couchages,CHIENS Couchages,chiens-couchages,FALSE,vendor,equals,PARADIS ANIMAUX CHIENS Couchages
-Pour Chiens,Pour Chiens,pour-chiens-11,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Colliers & Harnais
-Pour Chiens,Pour Chiens,pour-chiens-12,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Couchages
-Pour Chiens,Pour Chiens,pour-chiens-13,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Gamelles & Abreuvoirs
-Pour Chiens,Pour Chiens,pour-chiens-14,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Jouets
-Pour Chiens,Pour Chiens,pour-chiens-15,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Soins & Hygiène
-Pour Chiens,Pour Chiens,pour-chiens-16,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Sécurité
-Pour Chiens,Pour Chiens,pour-chiens-17,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Vêtements & Accessoires
-Pour Chiens,Pour Chiens,pour-chiens-18,TRUE,vendor,equals,PARADIS ANIMAUX Chiots
-Pour Chiens,Pour Chiens,pour-chiens-19,TRUE,vendor,equals,PARADIS ANIMAUX Colliers & Harnais
-Pour Chiens,Pour Chiens,pour-chiens-10,TRUE,vendor,equals,PARADIS ANIMAUX Dressage & Apprentissage
-Pour Chiens,Pour Chiens,pour-chiens,TRUE,vendor,equals,PARADIS ANIMAUX Voyages
-CHATS Couchages,CHATS Couchages,chats-couchages,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Couchages
-CHIENS Colliers & Harnais,CHIENS Colliers & Harnais,chiens-colliers-harnais,TRUE,vendor,equals,PARADIS ANIMAUX CHIENS Colliers & Harnais
-Transport pour Chien,Transport pour chien,transport-pour-chien,FALSE,vendor,equals,PARADIS ANIMAUX Voyages
-CHATS Gamelles & Abreuvoirs,CHATS Gamelles & Abreuvoirs,chats-gamelles-abreuvoirs,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Gamelles & Abreuvoirs
-Arbres à Chats,Arbres à Chats,arbres-a-chats,FALSE,vendor,equals,PARADIS ANIMAUX Arbres à Chats
-CHIENS Gamelles & Abreuvoirs,CHIENS Gamelles & Abreuvoirs,chiens-gamelles-abreuvoirs,FALSE,vendor,equals,PARADIS ANIMAUX CHIENS Gamelles & Abreuvoirs
-CHATS Jouets,CHATS Jouets,chats-jouets,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Jouets
-CHATS Transport,CHATS Transport,chats-transport,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Transport
-Dressage & Apprentissage,Dressage & Apprentissage,dressage-apprentissage,FALSE,vendor,equals,PARADIS ANIMAUX Dressage & Apprentissage
-CHIENS Vêtements & Accessoires,CHIENS Vêtements & Accessoires,chiens-vetements-accessoires,FALSE,vendor,equals,PARADIS ANIMAUX CHIENS Vêtements & Accessoires
-CHATS Colliers & Harnais,CHATS Colliers & Harnais,chats-colliers-harnais,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Colliers & Harnais
-CHATS Vêtements & Accessoires,CHATS Vêtements & Accessoires,chats-vetements-accessoires,FALSE,vendor,equals,PARADIS ANIMAUX CHATS Vêtements & Accessoires
-CHIENS Soins & Hygiène,CHIENS Soins & Hygiène,chiens-soins-hygiene,FALSE,vendor,equals,PARADIS ANIMAUX CHIENS Soins & Hygiène
-CHIENS Jouets,CHIENS Jouets,chiens-jouets,FALSE,vendor,equals,PARADIS ANIMAUX CHIENS Jouets
-Pour Chiots,Pour Chiots,pour-chiots,FALSE,vendor,equals,PARADIS ANIMAUX Chiots
+"Produits Publiés","produits pubés","published-products","false","","",""
+"Vente Flash","Offre Flash","offre-flash","false","VARIANT_PRICE","GREATER_THAN","39"
+"Dernière Chance","Derniere Chance","derniere-chance","false","VARIANT_PRICE","GREATER_THAN","39"
+"Nos Poulaillers","Nos Poulailler","nos-poulailler","true","title","contains","Poulailler"
+"Nos Poulaillers","Nos Poulailler","nos-poulailler","true","product_type","equals","poulailler"
+"Nos Poulaillers","Nos Poulailler","nos-poulailler","true","title","contains","parc à poules"
+"Animaux de la Ferme","Animaux de la Ferme","animaux-de-la-ferme","false","vendor","equals","Animaux de la Ferme"
+"Tout à moins de 20€","Tout à moins de 20€","tout-a-moins-de-20","false","VARIANT_PRICE","LESS_THAN","21"
+"CHATS Soins & Hygiène","CHATS Soins & Hygiène","chats-soins-hygiene","false","vendor","equals","PARADIS ANIMAUX CHATS Soins & Hygiène"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX Arbres à Chats"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Colliers & Harnais"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Couchages"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Gamelles & Abreuvoirs"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Jouets"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Soins & Hygiène"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Transport"
+"Pour Chats","Pour Chats","pour-chats","true","vendor","equals","PARADIS ANIMAUX CHATS Vêtements & Accessoires"
+"CHIENS Couchages","CHIENS Couchages","chiens-couchages","false","vendor","equals","PARADIS ANIMAUX CHIENS Couchages"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Colliers & Harnais"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Couchages"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Gamelles & Abreuvoirs"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Jouets"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Soins & Hygiène"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Sécurité"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX CHIENS Vêtements & Accessoires"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX Chiots"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX Colliers & Harnais"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX Dressage & Apprentissage"
+"Pour Chiens","Pour Chiens","pour-chiens","true","vendor","equals","PARADIS ANIMAUX Voyages"
+"CHATS Couchages","CHATS Couchages","chats-couchages","false","vendor","equals","PARADIS ANIMAUX CHATS Couchages"
+"CHIENS Colliers & Harnais","CHIENS Colliers & Harnais","chiens-colliers-harnais","true","vendor","equals","PARADIS ANIMAUX CHIENS Colliers & Harnais"
+"Transport pour Chien","Transport pour chien","transport-pour-chien","false","vendor","equals","PARADIS ANIMAUX Voyages"
+"CHATS Gamelles & Abreuvoirs","CHATS Gamelles & Abreuvoirs","chats-gamelles-abreuvoirs","false","vendor","equals","PARADIS ANIMAUX CHATS Gamelles & Abreuvoirs"
+"Arbres à Chats","Arbres à Chats","arbres-a-chats","false","vendor","equals","PARADIS ANIMAUX Arbres à Chats"
+"CHIENS Gamelles & Abreuvoirs","CHIENS Gamelles & Abreuvoirs","chiens-gamelles-abreuvoirs","false","vendor","equals","PARADIS ANIMAUX CHIENS Gamelles & Abreuvoirs"
+"CHATS Jouets","CHATS Jouets","chats-jouets","false","vendor","equals","PARADIS ANIMAUX CHATS Jouets"
+"CHATS Transport","CHATS Transport","chats-transport","false","vendor","equals","PARADIS ANIMAUX CHATS Transport"
+"Dressage & Apprentissage","Dressage & Apprentissage","dressage-apprentissage","false","vendor","equals","PARADIS ANIMAUX Dressage & Apprentissage"
+"CHIENS Vêtements & Accessoires","CHIENS Vêtements & Accessoires","chiens-vetements-accessoires","false","vendor","equals","PARADIS ANIMAUX CHIENS Vêtements & Accessoires"
+"CHATS Colliers & Harnais","CHATS Colliers & Harnais","chats-colliers-harnais","false","vendor","equals","PARADIS ANIMAUX CHATS Colliers & Harnais"
+"CHATS Vêtements & Accessoires","CHATS Vêtements & Accessoires","chats-vetements-accessoires","false","vendor","equals","PARADIS ANIMAUX CHATS Vêtements & Accessoires"
+"CHIENS Soins & Hygiène","CHIENS Soins & Hygiène","chiens-soins-hygiene","false","vendor","equals","PARADIS ANIMAUX CHIENS Soins & Hygiène"
+"CHIENS Jouets","CHIENS Jouets","chiens-jouets","false","vendor","equals","PARADIS ANIMAUX CHIENS Jouets"
+"Pour Chiots","Pour Chiots","pour-chiots","false","vendor","equals","PARADIS ANIMAUX Chiots" 
