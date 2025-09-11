@@ -343,7 +343,11 @@ export default function TermsServicesPage() {
             <span>
               Site web :{' '}
               <a
-                href={`${import.meta.env.VITE_DOMAIN_NAME}`}
+                href={
+                  import.meta.env.VITE_DOMAIN_NAME.startsWith("http")
+                    ? import.meta.env.VITE_DOMAIN_NAME
+                    : `https://${import.meta.env.VITE_DOMAIN_NAME}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-4"
