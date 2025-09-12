@@ -188,7 +188,7 @@ export function Footer() {
                         required
                         type="email"
                         placeholder="E-mail"
-                        className="w-full text-sm px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
+                        className="w-full text-sm px-4 py-3 bg-[var(--color-2)] border !border-white text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all !rounded-full"
                       />
                       <button
                         type="submit"
