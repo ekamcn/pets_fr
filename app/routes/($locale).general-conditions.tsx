@@ -20,8 +20,7 @@ export default function GeneralConditionsPage() {
             auquel il donne accès, est offert par{' '}
             {import.meta.env.VITE_DOMAIN_NAME} à l’utilisateur que vous êtes, à
             condition que vous acceptiez la totalité des modalités, conditions,
-            politiques et avis stipulés ici. Ce site respecte et est régi par la
-            loi britannique.
+            politiques et avis stipulés ici. Ce site est conforme et régit par la législation française.
           </p>
           <p className="!text-sm leading-6 sm:leading-7">
             En visitant notre site et/ou en achetant quelque chose auprès de
@@ -258,8 +257,8 @@ export default function GeneralConditionsPage() {
             en cas de besoin.
           </p>
           <p className="!text-sm leading-6 sm:leading-7">
-            Pour plus d&apos;informations, veuillez consulter notre Politique de
-            retour.
+            Pour plus d&apos;informations, veuillez consulter notre <a href="/returns">Politique de
+            retour.</a>
           </p>
         </div>
 

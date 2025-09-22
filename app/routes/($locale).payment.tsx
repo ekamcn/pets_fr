@@ -22,7 +22,7 @@ export default function PaymentTermsPage() {
             Lorsque vous passez commande sur notre site, votre carte est débitée
             en EUR immédiatement et non pas au moment de l&apos;expédition.
             Votre relevé de facturation apparaîtra sous la forme suivante :{' '}
-            {storeName}
+          {companyName}
           </p>
         </div>
 

@@ -43,13 +43,6 @@ export default function LegalNoticePage() {
               Le responsable publication est une personne physique ou une
               personne morale.
             </p>
-            <li>
-              Webmaster : Julien – {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
-            </li>
-            <li>
-              Hébergeur : Shopify – 150 rue Elgin Suite 800 Ottawa, Ontario K2P
-              1L4 Canada.
-            </li>
           </ul>
         </div>
 

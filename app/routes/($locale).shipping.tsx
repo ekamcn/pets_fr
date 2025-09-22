@@ -12,22 +12,18 @@ export default function ShippingPolicyPage() {
         </p>
 
         <div className="flex flex-col gap-4">
-          <h2 className="!text-base font-semibold">1. Méthode de Livraison</h2>
+          <h2 className="!text-base font-semibold">1. Méthode de Livraison
+          </h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Nous proposons une seule option de livraison pour répondre à vos
-            besoins :
+          Nous proposons une option de livraison pour répondre à vos besoins :
           </p>
           <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6 ">
             <li>
-              Par Colissimo (livraison à
-              domicile, point de retrait, bureau de poste,, de 2 à 4 jours ouvrés), en
-              Livraison Express : Cette option est gratuite pour toutes les
-              commandes, quel que soit le montant.
+            Colissimo (livraison à domicile, en point de retrait ou en bureau de poste) : délai de 2 à 4 jours ouvrables. Cette option est gratuite pour toutes les commandes, quel que soit le montant.
             </li>
           </ul>
           <p className="!text-sm leading-6 sm:leading-7">
-            Certaines commandes peuvent être liées à plusieurs fournisseurs, les
-            articles sont alors envoyés séparément.
+          Certaines commandes peuvent provenir de plusieurs fournisseurs ; dans ce cas, les articles sont expédiés séparément.
           </p>
         </div>
 
@@ -117,8 +113,8 @@ export default function ShippingPolicyPage() {
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold">8. Retours et Échanges</h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Notre politique de retour dure {import.meta.env.VITE_RETURN_PERIOD}{' '}
-            jours. Si {import.meta.env.VITE_RETURN_PERIOD} jours se sont écoulés
+            Notre politique de retour dure 30 jours{' '}
+            jours. Si 30 jours jours se sont écoulés
             depuis votre achat, nous ne pouvons malheureusement pas vous offrir
             un remboursement ou un échange.
           </p>
@@ -199,15 +195,14 @@ export default function ShippingPolicyPage() {
               .
             </li>
             <li>
-              Expédition : Pour retourner un produit, envoyez-nous un email à{' '}
+            Expédition : Pour retourner un produit, envoyez-nous simplement un email à {' '}
               <a
                 href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
                 className="underline underline-offset-4"
               >
                 {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>{' '}
-              , puis l’envoyer par la poste à :{' '}
-              {import.meta.env.VITE_COMPANY_ADDRESS}
+              Nous vous fournirons toutes les instructions nécessaires pour le retour.
             </li>
           </ul>
         </div>

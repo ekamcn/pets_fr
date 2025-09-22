@@ -13,12 +13,11 @@ export default function RefundPolicyPage() {
             Durée de la Politique de Retours
           </h2>
           <p className="!text-sm leading-6 sm:leading-7">
-            Notre politique de retour dure {import.meta.env.VITE_RETURN_PERIOD}{' '}
-            jours. Si {import.meta.env.VITE_RETURN_PERIOD} jours se sont écoulés
+            Notre politique de retour dure 30 jours{' '}. Si 30 jours se sont écoulés
             depuis votre achat, nous ne pouvons malheureusement pas vous offrir
             de remboursement ou d&apos;échange, sauf dans les cas couverts par
-            le droit de rétractation de {import.meta.env.VITE_RETURN_PERIOD}
-            jours, tel que décrit ci-dessous.
+            le droit de rétractation de 30 {" "}
+            jours , tel que décrit ci-dessous.
           </p>
         </div>
 
@@ -74,7 +73,7 @@ export default function RefundPolicyPage() {
 
           <p className="!text-sm leading-6 sm:leading-7">
             Conformément à la législation européenne, vous disposez d&apos;un
-            droit de rétractation de {import.meta.env.VITE_RETURN_PERIOD} jours
+            droit de rétractation de 30 jours
             à compter de la réception de votre commande. Pendant cette période,
             vous pouvez retourner le produit sans avoir à justifier de motifs ni
             à payer de pénalités. Pour exercer ce droit, veuillez nous contacter

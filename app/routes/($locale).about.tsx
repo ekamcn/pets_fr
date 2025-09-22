@@ -4,9 +4,11 @@ export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen py-8 !pl-5">
       <div className="max-w-3xl mx-auto flex flex-col gap-10 tracking-wider p-4">
-        <h1 className="!text-2xl sm:!text-3xl font-bold text-[#2c3e50] !my-1">
+
+        {/* Todo:commented this code for now, it's not needed  */}
+        {/* <h1 className="!text-2xl sm:!text-3xl font-bold text-[#2c3e50] !my-1">
           🏁 À propos de {import.meta.env.VITE_STORE_TITLE}
-        </h1>
+        </h1> */}
 
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold text-[#2c3e50] mt-4">
