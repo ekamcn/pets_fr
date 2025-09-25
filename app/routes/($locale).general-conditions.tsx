@@ -13,7 +13,7 @@ export default function GeneralConditionsPage() {
         {/* Introduction */}
         <div className="flex flex-col gap-4">
           <p className="!text-sm leading-6 sm:leading-7">
-            Ce site web est exploité par {import.meta.env.VITE_DOMAIN_NAME}.
+            Ce site web est exploité par {import.meta.env.VITE_COMPANY_NAME}.
             Partout sur le site, nous employons les termes « nous », « notre »
             et « nos » en référence à {import.meta.env.VITE_DOMAIN_NAME}. Ce
             site web, y compris l’ensemble des informations, outils et services
