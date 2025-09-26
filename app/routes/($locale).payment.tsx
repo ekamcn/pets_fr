@@ -137,7 +137,7 @@ export default function PaymentTermsPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <ul className="list-disc list-inside space-y-1 !text-sm pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>Société : {companyName}</li>
             <li>SIREN : {import.meta.env.VITE_SIREN_NUMBER}</li>
             <li>Adresse : {companyAddress}</li>

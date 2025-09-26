@@ -47,7 +47,7 @@ export default function AboutPage() {
               C’est pourquoi nous vous proposons une sélection pointue de
               produits :
             </p>
-            <ul className="list-disc list-inside !text-sm leading-6 sm:leading-7 text-gray-700 space-y-1">
+            <ul className="!list-disc !list-inside !text-sm !leading-6 !sm:leading-7 !text-gray-700 !space-y-1">
               <li>
                 <strong>Accessoires pratiques & innovants</strong>
               </li>
@@ -74,7 +74,7 @@ export default function AboutPage() {
           <h2 className="!text-base font-semibold text-[#2c3e50] mt-6">
             🔧 Nos engagements
           </h2>
-          <ul className="list-disc list-inside !text-sm leading-6 sm:leading-7 text-gray-700 space-y-3 mt-2">
+          <ul className="!list-disc !list-inside !text-sm !leading-6 !sm:leading-7 !text-gray-700 !space-y-3 !mt-2">
             <li>
               <strong>Qualité & fiabilité</strong>
               <p className="pl-5">
@@ -123,7 +123,7 @@ export default function AboutPage() {
           <h2 className="!text-base font-semibold text-[#2c3e50] mt-6">
             🚚 Livraison rapide & service fiable
           </h2>
-          <ul className="list-disc list-inside !text-sm leading-6 sm:leading-7 text-gray-700 space-y-1 mt-2">
+          <ul className="!list-disc !list-inside !text-sm !leading-6 !sm:leading-7 !text-gray-700 !space-y-1 !mt-2">
             <li>Paiement sécurisé</li>
             <li>Livraison rapide avec suivi</li>
             <li>
@@ -165,7 +165,7 @@ export default function AboutPage() {
           </p>
 
           <div className="mt-4">
-            <ul className="text-gray-700 flex flex-col gap-2 list-disc pl-4 !text-sm leading-6 sm:leading-7">
+            <ul className="!text-gray-700 flex flex-col gap-2 !list-disc !pl-4 !text-sm !leading-6 !sm:leading-7">
               <li>
                 <strong>Société : </strong>
                 {import.meta.env.VITE_COMPANY_NAME}

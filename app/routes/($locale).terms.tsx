@@ -55,7 +55,7 @@ export default function TermsServicesPage() {
             Conditions générales, chaque fois que l’un de ces termes est
             mentionné, il est strictement défini comme suit :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 !text-sm pl-6 lg:pl-8">
+          <ul className="!list-disc !list-inside !space-y-2 !text-gray-700 !text-sm !pl-6 !lg:pl-8">
             <li>
               Cookie : Une petite quantité de données générée par un site web et
               enregistrée par votre navigateur web. Il est utilisé pour
@@ -110,7 +110,7 @@ export default function TermsServicesPage() {
           <p className="!text-sm leading-6 sm:leading-7 !pb-4">
             Vous acceptez de :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 !text-sm pl-6 lg:pl-8">
+          <ul className="!list-disc !list-inside !space-y-2 !text-gray-700 !text-sm !pl-6 !lg:pl-8">
             <li>
               Fournir des informations précises, actuelles et complètes lors de
               la création d’un compte ou de la passation d’une commande.
@@ -135,7 +135,7 @@ export default function TermsServicesPage() {
           <p className="!text-sm leading-6 sm:leading-7 !pb-4">
             Vous acceptez de ne pas, et de ne pas permettre à d’autres de :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 !text-sm pl-6 lg:pl-8">
+          <ul className="!list-disc !list-inside !space-y-2 !text-gray-700 !text-sm !pl-6 !lg:pl-8">
             <li>
               Concéder une licence, vendre, louer, céder, distribuer,
               transmettre, héberger, externaliser, divulguer ou exploiter
@@ -163,7 +163,7 @@ export default function TermsServicesPage() {
           <p className="!text-sm leading-6 sm:leading-7 !pb-4">
             Nous pouvons collecter des informations personnelles lorsque vous :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 !text-sm pl-6 lg:pl-8">
+          <ul className="!list-disc !list-inside !space-y-2 !text-gray-700 !text-sm !pl-6 !lg:pl-8">
             <li>Créez un compte</li>
             <li>Passez une commande</li>
             <li>Vous abonnez à notre newsletter</li>
@@ -175,7 +175,7 @@ export default function TermsServicesPage() {
           <h2 className="!text-base font-semibold">
             Types d’informations collectées
           </h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 !text-sm pl-6 lg:pl-8">
+          <ul className="!list-disc !list-inside !space-y-2 !text-gray-700 !text-sm !pl-6 !lg:pl-8">
             <li>
               Informations d’identification personnelle : Nom, adresse e-mail,
               adresse postale et numéro de téléphone.
@@ -344,7 +344,7 @@ export default function TermsServicesPage() {
               Site web :{' '}
               <a
                 href={
-                  import.meta.env.VITE_DOMAIN_NAME.startsWith("http")
+                  import.meta.env.VITE_DOMAIN_NAME.startsWith('http')
                     ? import.meta.env.VITE_DOMAIN_NAME
                     : `https://${import.meta.env.VITE_DOMAIN_NAME}`
                 }

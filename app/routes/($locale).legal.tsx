@@ -16,7 +16,7 @@ export default function LegalNoticePage() {
             des différents intervenants dans le cadre de sa réalisation et de
             son suivi :
           </p>
-          <ul className="list-disc list-inside text-sm space-y-1 mt-2">
+          <ul className="!list-disc !list-inside !text-sm !space-y-1 !mt-2">
             <li>Propriétaire : {import.meta.env.VITE_STORE_TITLE}</li>
             <li>Raison Sociale : {import.meta.env.VITE_COMPANY_NAME}</li>
             <li>
@@ -262,7 +262,7 @@ export default function LegalNoticePage() {
             configurer son ordinateur de la manière suivante, pour refuser
             l’installation des cookies :
           </p>
-          <ul className="list-disc list-inside text-sm space-y-1 mt-2">
+          <ul className="!list-disc !list-inside !text-sm !space-y-1 !mt-2">
             <li>
               Sous Internet Explorer : Outils &gt; Options Internet &gt;
               Confidentialité &gt; Paramètres.

@@ -106,7 +106,7 @@ export default function GeneralConditionsPage() {
             Vous comprenez que votre contenu (à l’exception des informations
             relatives à votre carte de crédit) peut être transféré sans
             chiffrement et que cela comprend :
-            <ul className="list-disc list-inside text-sm space-y-1 mt-2">
+            <ul className="!list-disc !list-inside !text-sm !space-y-1 !mt-2">
               <li>des transmissions sur plusieurs réseaux ;</li>
               <li>
                 des changements effectués dans le but de se conformer et de

@@ -17,7 +17,7 @@ export default function ShippingPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
           Nous proposons une option de livraison pour répondre à vos besoins :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6 ">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6 ">
             <li>
             Colissimo (livraison à domicile, en point de retrait ou en bureau de poste) : délai de 2 à 4 jours ouvrables. Cette option est gratuite pour toutes les commandes, quel que soit le montant.
             </li>
@@ -30,7 +30,7 @@ export default function ShippingPolicyPage() {
         <div className="flex flex-col gap-4">
           <h2 className="!text-base font-semibold">2. Zones de Livraison</h2>
           <p>Nous livrons dans les zones géographiques suivantes :</p>
-          <ul className="!list-disc l!ist-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
           <li>France, </li>
           <li>Belgique,</li>
           <li>Luxembourg,</li>
@@ -43,7 +43,7 @@ export default function ShippingPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Les délais de livraison estimés sont les suivants :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>France, Belgique, Luxembourg, Suisse :</li>
             <li>
               Livraison standard: 2 à 4 
@@ -54,7 +54,7 @@ export default function ShippingPolicyPage() {
 
         <div>
           <h2 className="!text-base font-semibold">4. Frais de Livraison</h2>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>Gratuit : Les frais de livraison sont gratuits, peu importe le montant de la commande.</li>
           </ul>
         </div>
@@ -63,7 +63,7 @@ export default function ShippingPolicyPage() {
           <h2 className="!text-base font-semibold">
             5. Traitement des Commandes
           </h2>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               La plupart des commandes sont traitées et expédiées dans les{' '}
               48 heures. Dans les
@@ -75,7 +75,7 @@ export default function ShippingPolicyPage() {
 
         <div>
           <h2 className="!text-base font-semibold">6. Suivi des Commandes</h2>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               Une fois votre commande expédiée, vous recevrez un numéro de suivi
               par email, vous permettant de suivre l’acheminement de votre
@@ -92,7 +92,7 @@ export default function ShippingPolicyPage() {
             Si vous rencontrez un problème de livraison (colis non reçu, retard,
             colis endommagé) :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               Contactez-nous par email à{' '}
               <a
@@ -143,7 +143,7 @@ export default function ShippingPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Remboursements en retard ou manquants (le cas échéant) :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               Si vous n’avez pas encore reçu votre remboursement, veuillez
               d’abord consulter votre compte bancaire à nouveau.
@@ -172,7 +172,7 @@ export default function ShippingPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Articles soldés (le cas échéant) :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               Seuls les articles à prix courant peuvent être remboursés.
               Malheureusement, les articles soldés ne sont pas remboursables.
@@ -181,7 +181,7 @@ export default function ShippingPolicyPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Échanges (le cas échéant) :
           </p>
-          <ul className="!list-disc list-inside space-y-1 !text-sm !pl-6">
+          <ul className="!list-disc !list-inside !space-y-1 !text-sm !pl-6">
             <li>
               Nous remplaçons un article seulement s’il est défectueux ou
               endommagé. Si dans ce cas vous souhaitez l’échanger contre le même
@@ -242,7 +242,7 @@ export default function ShippingPolicyPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <ul className="list-disc list-inside text-sm space-y-1 pl-6">
+          <ul className="!list-disc !list-inside !text-sm !space-y-1 !pl-6">
             <li>Société : {import.meta.env.VITE_COMPANY_NAME}</li>
             <li>SIREN : {import.meta.env.VITE_SIREN_NUMBER}</li>
             <li>Adresse : {import.meta.env.VITE_COMPANY_ADDRESS}</li>
