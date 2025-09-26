@@ -15,10 +15,10 @@ export default function GeneralConditionsPage() {
           <p className="!text-sm leading-6 sm:leading-7">
             Ce site web est exploité par {import.meta.env.VITE_COMPANY_NAME}.
             Partout sur le site, nous employons les termes « nous », « notre »
-            et « nos » en référence à {import.meta.env.VITE_DOMAIN_NAME}. Ce
+            et « nos » en référence à {import.meta.env.VITE_COMPANY_NAME}. Ce
             site web, y compris l’ensemble des informations, outils et services
             auquel il donne accès, est offert par{' '}
-            {import.meta.env.VITE_DOMAIN_NAME} à l’utilisateur que vous êtes, à
+            {import.meta.env.VITE_COMPANY_NAME} à l’utilisateur que vous êtes, à
             condition que vous acceptiez la totalité des modalités, conditions,
             politiques et avis stipulés ici. Ce site est conforme et régit par la législation française.
           </p>
@@ -257,7 +257,7 @@ export default function GeneralConditionsPage() {
             en cas de besoin.
           </p>
           <p className="!text-sm leading-6 sm:leading-7">
-            Pour plus d&apos;informations, veuillez consulter notre <a href="/returns">Politique de
+            Pour plus d&apos;informations, veuillez consulter notre <a className="underline underline-offset-4" href="/returns">Politique de
             retour.</a>
           </p>
         </div>
