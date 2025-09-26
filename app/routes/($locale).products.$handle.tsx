@@ -67,7 +67,7 @@ const sections = [
               Consultez notre page sur la{' '}
               <a
                 href="/returns"
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
               >
                 politique
               </a>{' '}
@@ -109,7 +109,7 @@ const sections = [
               Vous pouvez nous contacter en accédant à notre page de contact en{' '}
               <a
                 href="/contact"
-                className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                className="hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
               >
                 cliquant ici
               </a>{' '}

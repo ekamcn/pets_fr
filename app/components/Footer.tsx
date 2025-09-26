@@ -81,7 +81,7 @@ export function Footer() {
                   simplement un e-mail à{' '}
                   <a
                     href="/contact"
-                    className="hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                    className="hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
                   >
                     nous contacter
                   </a>
