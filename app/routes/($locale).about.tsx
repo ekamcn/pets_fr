@@ -182,7 +182,7 @@ export default function AboutPage() {
                 <strong>Email : </strong>
                 <a
                   href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
-                  className="hover:underline"
+                  className="!hover:underline !underline"
                 >
                    {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                 </a>
